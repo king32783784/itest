@@ -3,7 +3,8 @@ import re
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
-
+sys.path.append('..')
+from common import *
 
 class ResultSorting(object):
 
@@ -56,7 +57,15 @@ class ResultSorting(object):
         for i in re_list_total:
             re_list_final.append(round(i / times ,2))
         return re_list_final
+
+def createpattern():
+    pass
+
+def getitemargs():
+    pass 
+    
+
 # useage
-# a=ResultSorting()
-# d = a.datasearch_lm("V8test result is 总成绩: (.*?)\n", "finalresult/iSoft_Server_OS_5.0/Perf_browser/result/result.out", 3)
-# print d
+a=ResultSorting()
+d = a.datasearch_lm("execution time \(avg\/stddev\):(.*?)\/0.00", "../current-result/itest-20161213033232/performance/sysbenchcpu/result/result.out", 2)
+print d

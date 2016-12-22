@@ -167,6 +167,7 @@ class Window(QtGui.QMainWindow):
             self.window_log.appendPlainText("start")
             self.startbutton.setText(u"停止测试")
             self.startbutton.setIcon(QIcon("images/stop.ico"))
+            save_testitem_args() # 保存当前测试项目及参数
             self.startstatus = "D"
             self.progress_num = 0
             self.progressbar.setValue(self.progress_num)
@@ -332,6 +333,8 @@ class SetHelp(HelpDialog):
         self.stack.addWidget(sefl.label1)
 
 def main():
+    # 清除之前的temp文件
+    initenv()
     # 创建应用，并接收命令行参数
     application = QtGui.QApplication(sys.argv)
 

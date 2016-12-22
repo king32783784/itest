@@ -1,0 +1,9 @@
+*.html
+*.pyc
+current-report
+current-result
+DataRepository
+testtool
+tmp
+ReportRepository
+*.xlsx

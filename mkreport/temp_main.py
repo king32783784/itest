@@ -132,6 +132,8 @@ sheet_lmbench_data =[
     ],
 ]
 
+# 匹配规则
+
 patternmath = {'sysbenchcpu': [["execution time \(avg\/stddev\):(.*?)\/0.00", ],],
                'sysbenchmem': [["Operations performed: 2097152 \((.*?)ops\/sec\)",],
                             ["8192.00 MB transferred \((.*?)MB\/sec\)",]],
