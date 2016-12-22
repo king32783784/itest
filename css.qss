@@ -1,0 +1,8 @@
+QPushButton { color: #08091f }
+QGroupBox{
+    background-image: url(:/img/background.png);
+    broder-radius:30px;
+}
+QLineEdit { color: blue }
+QComboBox { color: red }
+QLabel { color: #08091f }
