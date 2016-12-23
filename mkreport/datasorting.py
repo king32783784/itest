@@ -5,6 +5,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 sys.path.append('..')
 from common import *
+from pattern import *
 
 class ResultSorting(object):
 
@@ -67,5 +68,5 @@ def getitemargs():
 
 # useage
 a=ResultSorting()
-d = a.datasearch_lm("execution time \(avg\/stddev\):(.*?)\/0.00", "../current-result/itest-20161213033232/performance/sysbenchcpu/result/result.out", 2)
+d = a.datasearch(pattern_sysbenchcpu, "result.out", 3)
 print d

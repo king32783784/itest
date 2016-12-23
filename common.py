@@ -195,12 +195,12 @@ def save_testitem_args():
                 todo_itemlist.append(item)
         todo_testlist[key] = todo_itemlist
     for key, value in todo_testlist.iteritems():
-        writeconfig(".tempseting.ini", "todo_test_type", key, "") # 写入测试类别
+        writeconfig("mkreport/.tempseting.ini", "todo_test_type", key, "") # 写入测试类别
         for todo_item in value:
-            writeconfig(".tempseting.ini", key, todo_item, "") # 写入测试项目
+            writeconfig("mkreport/.tempseting.ini", key, todo_item, "") # 写入测试项目
             item_argslist = get_item_args(todo_item)
             for arg_key, arg_value in item_argslist.iteritems():
-                writeconfig(".tempseting.ini", todo_item, arg_key, arg_value) # 写入测试项目对应参数
+                writeconfig("mkreport/.tempseting.ini", todo_item, arg_key, arg_value) # 写入测试项目对应参数
 
 # 清除选中的测试项目
 def itemchecked_clean():
@@ -216,7 +216,19 @@ def initenv():
     # 清除之前选中的测试项目
     itemchecked_clean()
 
+def get_item_temp_args(item):
+    item_args = {}
+    config = QSettings(".tempseting.ini", QSettings.IniFormat)
+    config.beginGroup(item)
+    item_argslist = config.allKeys()
+    config = QSettings(".tempseting.ini", QSettings.IniFormat)
+    for item_arg in item_argslist:
+        item_args[str(item_arg)] = str(config.value(QString("%s/"% item) + item_arg).toString()[0:])
+    return item_args
 
+
+#a = get_item_temp_args("sysbenchmem")
+#print a
 # test-case
 
 # a = getitemlist("perfcpu")
