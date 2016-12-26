@@ -429,7 +429,7 @@ class HelpPerfmem(HelpDialog):
         self.stack.addWidget(self.label1)
 
 # test
-app = QApplication(sys.argv)
-form = PerfmemSet()
-form.show()
-app.exec_()
+# app = QApplication(sys.argv)
+# form = PerfmemSet()
+# form.show()
+# app.exec_()

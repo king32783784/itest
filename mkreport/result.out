@@ -1,0 +1,609 @@
+2016-11-28 08:36:49,544 - Perf_system - INFO - {u'tarbal': u'unixbench-5.1.3.tar.gz', u'c': u'1,4', u'tag': u"'system'", u'reboot': u'no', u'runtimes': u'3'}
+2016-11-28 08:36:49,544 - Perf_system - INFO - /home/Lpbs-i/tmp/Perf_system/unixbench 1
+2016-11-28 08:45:53,528 - Perf_system - INFO - make all
+2016-11-28 08:45:53,529 - Perf_system - INFO - make[1]: Entering directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 08:45:53,529 - Perf_system - INFO - Checking distribution of files
+2016-11-28 08:45:53,529 - Perf_system - INFO - ./pgms  exists
+2016-11-28 08:45:53,529 - Perf_system - INFO - ./src  exists
+2016-11-28 08:45:53,529 - Perf_system - INFO - ./testdir  exists
+2016-11-28 08:45:53,529 - Perf_system - INFO - ./tmp  exists
+2016-11-28 08:45:53,529 - Perf_system - INFO - ./results  exists
+2016-11-28 08:45:53,529 - Perf_system - INFO - make[1]: Leaving directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 08:45:53,529 - Perf_system - INFO - 
+2016-11-28 08:45:53,529 - Perf_system - INFO -    #    #  #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 08:45:53,529 - Perf_system - INFO -    #    #  ##   #  #   #  #           #    #  #       ##   #  #    #  #    #
+2016-11-28 08:45:53,529 - Perf_system - INFO -    #    #  # #  #  #    ##            #####   #####   # #  #  #       ######
+2016-11-28 08:45:53,529 - Perf_system - INFO -    #    #  #  # #  #    ##            #    #  #       #  # #  #       #    #
+2016-11-28 08:45:53,530 - Perf_system - INFO -    #    #  #   ##  #   #  #           #    #  #       #   ##  #    #  #    #
+2016-11-28 08:45:53,530 - Perf_system - INFO -     ####   #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 08:45:53,530 - Perf_system - INFO - 
+2016-11-28 08:45:53,530 - Perf_system - INFO -    Version 5.1.2                      Based on the Byte Magazine Unix Benchmark
+2016-11-28 08:45:53,530 - Perf_system - INFO - 
+2016-11-28 08:45:53,530 - Perf_system - INFO -    Multi-CPU version                  Version 5 revisions by Ian Smith,
+2016-11-28 08:45:53,530 - Perf_system - INFO -                                       Sunnyvale, CA, USA
+2016-11-28 08:45:53,530 - Perf_system - INFO -    December 22, 2007                  johantheghost at yahoo period com
+2016-11-28 08:45:53,530 - Perf_system - INFO - 
+2016-11-28 08:45:53,530 - Perf_system - INFO - 
+2016-11-28 08:45:53,530 - Perf_system - INFO - 1 x Dhrystone 2 using register variables  1 2 3
+2016-11-28 08:45:53,530 - Perf_system - INFO - 
+2016-11-28 08:45:53,530 - Perf_system - INFO - 1 x Double-Precision Whetstone  1 2 3
+2016-11-28 08:45:53,531 - Perf_system - INFO - 
+2016-11-28 08:45:53,531 - Perf_system - INFO - 1 x Execl Throughput  1
+2016-11-28 08:45:53,531 - Perf_system - INFO - 
+2016-11-28 08:45:53,531 - Perf_system - INFO - 1 x File Copy 1024 bufsize 2000 maxblocks  1
+2016-11-28 08:45:53,531 - Perf_system - INFO - 
+2016-11-28 08:45:53,531 - Perf_system - INFO - 1 x File Copy 256 bufsize 500 maxblocks  1
+2016-11-28 08:45:53,531 - Perf_system - INFO - 
+2016-11-28 08:45:53,531 - Perf_system - INFO - 1 x File Copy 4096 bufsize 8000 maxblocks  1
+2016-11-28 08:45:53,531 - Perf_system - INFO - 
+2016-11-28 08:45:53,531 - Perf_system - INFO - 1 x Pipe Throughput  1 2 3
+2016-11-28 08:45:53,531 - Perf_system - INFO - 
+2016-11-28 08:45:53,531 - Perf_system - INFO - 1 x Pipe-based Context Switching  1 2 3
+2016-11-28 08:45:53,531 - Perf_system - INFO - 
+2016-11-28 08:45:53,531 - Perf_system - INFO - 1 x Process Creation  1
+2016-11-28 08:45:53,531 - Perf_system - INFO - 
+2016-11-28 08:45:53,532 - Perf_system - INFO - 1 x System Call Overhead  1 2 3
+2016-11-28 08:45:53,532 - Perf_system - INFO - 
+2016-11-28 08:45:53,532 - Perf_system - INFO - 1 x Shell Scripts (1 concurrent)  1
+2016-11-28 08:45:53,532 - Perf_system - INFO - 
+2016-11-28 08:45:53,532 - Perf_system - INFO - 1 x Shell Scripts (8 concurrent)  1
+2016-11-28 08:45:53,532 - Perf_system - INFO - 
+2016-11-28 08:45:53,532 - Perf_system - INFO - ========================================================================
+2016-11-28 08:45:53,532 - Perf_system - INFO -    BYTE UNIX Benchmarks (Version 5.1.2)
+2016-11-28 08:45:53,532 - Perf_system - INFO - 
+2016-11-28 08:45:53,532 - Perf_system - INFO -    System: localhost.localdomain: GNU/Linux
+2016-11-28 08:45:53,532 - Perf_system - INFO -    OS: GNU/Linux -- 4.5.5-300.fc24.x86_64 -- #1 SMP Thu May 19 13:05:32 UTC 2016
+2016-11-28 08:45:53,532 - Perf_system - INFO -    Machine: x86_64 (x86_64)
+2016-11-28 08:45:53,532 - Perf_system - INFO -    Language: en_US.utf8 (charmap="UTF-8", collate="UTF-8")
+2016-11-28 08:45:53,532 - Perf_system - INFO -    CPU 0: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 08:45:53,533 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 08:45:53,533 - Perf_system - INFO -    CPU 1: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 08:45:53,533 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 08:45:53,533 - Perf_system - INFO -    CPU 2: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 08:45:53,533 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 08:45:53,533 - Perf_system - INFO -    CPU 3: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 08:45:53,533 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 08:45:53,533 - Perf_system - INFO -    08:36:50 up 23 min,  3 users,  load average: 34.21, 15.69, 6.16; runlevel 5
+2016-11-28 08:45:53,533 - Perf_system - INFO - 
+2016-11-28 08:45:53,533 - Perf_system - INFO - ------------------------------------------------------------------------
+2016-11-28 08:45:53,533 - Perf_system - INFO - Benchmark Run: 一 11月 28 2016 08:36:50 - 08:45:53
+2016-11-28 08:45:53,533 - Perf_system - INFO - 4 CPUs in system; running 1 parallel copy of tests
+2016-11-28 08:45:53,533 - Perf_system - INFO - 
+2016-11-28 08:45:53,533 - Perf_system - INFO - Dhrystone 2 using register variables       37056570.4 lps   (10.0 s, 2 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - Double-Precision Whetstone                     2620.8 MWIPS (10.0 s, 2 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - Execl Throughput                               4231.3 lps   (29.9 s, 1 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks       1284518.0 KBps  (30.0 s, 1 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks          350341.0 KBps  (30.0 s, 1 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks       2901278.0 KBps  (30.0 s, 1 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - Pipe Throughput                             2367976.4 lps   (10.0 s, 2 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - Pipe-based Context Switching                 269892.4 lps   (10.0 s, 2 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - Process Creation                              14364.6 lps   (30.0 s, 1 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - Shell Scripts (1 concurrent)                   9465.1 lpm   (60.0 s, 1 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - Shell Scripts (8 concurrent)                   2990.1 lpm   (60.0 s, 1 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - System Call Overhead                        4447448.7 lps   (10.0 s, 2 samples)
+2016-11-28 08:45:53,534 - Perf_system - INFO - 
+2016-11-28 08:45:53,534 - Perf_system - INFO - System Benchmarks Index Values               BASELINE       RESULT    INDEX
+2016-11-28 08:45:53,534 - Perf_system - INFO - Dhrystone 2 using register variables         116700.0   37056570.4   3175.4
+2016-11-28 08:45:53,535 - Perf_system - INFO - Double-Precision Whetstone                       55.0       2620.8    476.5
+2016-11-28 08:45:53,535 - Perf_system - INFO - Execl Throughput                                 43.0       4231.3    984.0
+2016-11-28 08:45:53,535 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks          3960.0    1284518.0   3243.7
+2016-11-28 08:45:53,535 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks            1655.0     350341.0   2116.9
+2016-11-28 08:45:53,535 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks          5800.0    2901278.0   5002.2
+2016-11-28 08:45:53,535 - Perf_system - INFO - Pipe Throughput                               12440.0    2367976.4   1903.5
+2016-11-28 08:45:53,535 - Perf_system - INFO - Pipe-based Context Switching                   4000.0     269892.4    674.7
+2016-11-28 08:45:53,535 - Perf_system - INFO - Process Creation                                126.0      14364.6   1140.0
+2016-11-28 08:45:53,535 - Perf_system - INFO - Shell Scripts (1 concurrent)                     42.4       9465.1   2232.3
+2016-11-28 08:45:53,535 - Perf_system - INFO - Shell Scripts (8 concurrent)                      6.0       2990.1   4983.6
+2016-11-28 08:45:53,535 - Perf_system - INFO - System Call Overhead                          15000.0    4447448.7   2965.0
+2016-11-28 08:45:53,535 - Perf_system - INFO -                                                                    ========
+2016-11-28 08:45:53,535 - Perf_system - INFO - System Benchmarks Index Score                                        1917.5
+2016-11-28 08:45:53,535 - Perf_system - INFO - 
+2016-11-28 08:45:53,536 - Perf_system - INFO - *********************************************************************
+2016-11-28 08:45:53,536 - Perf_system - INFO - Threads_1: 1917.5
+2016-11-28 08:45:53,536 - Perf_system - INFO - *********************************************************************
+2016-11-28 08:54:56,440 - Perf_system - INFO - make all
+2016-11-28 08:54:56,441 - Perf_system - INFO - make[1]: Entering directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 08:54:56,441 - Perf_system - INFO - Checking distribution of files
+2016-11-28 08:54:56,441 - Perf_system - INFO - ./pgms  exists
+2016-11-28 08:54:56,441 - Perf_system - INFO - ./src  exists
+2016-11-28 08:54:56,441 - Perf_system - INFO - ./testdir  exists
+2016-11-28 08:54:56,441 - Perf_system - INFO - ./tmp  exists
+2016-11-28 08:54:56,441 - Perf_system - INFO - ./results  exists
+2016-11-28 08:54:56,441 - Perf_system - INFO - make[1]: Leaving directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 08:54:56,441 - Perf_system - INFO - 
+2016-11-28 08:54:56,441 - Perf_system - INFO -    #    #  #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 08:54:56,441 - Perf_system - INFO -    #    #  ##   #  #   #  #           #    #  #       ##   #  #    #  #    #
+2016-11-28 08:54:56,442 - Perf_system - INFO -    #    #  # #  #  #    ##            #####   #####   # #  #  #       ######
+2016-11-28 08:54:56,442 - Perf_system - INFO -    #    #  #  # #  #    ##            #    #  #       #  # #  #       #    #
+2016-11-28 08:54:56,442 - Perf_system - INFO -    #    #  #   ##  #   #  #           #    #  #       #   ##  #    #  #    #
+2016-11-28 08:54:56,442 - Perf_system - INFO -     ####   #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 08:54:56,442 - Perf_system - INFO - 
+2016-11-28 08:54:56,442 - Perf_system - INFO -    Version 5.1.2                      Based on the Byte Magazine Unix Benchmark
+2016-11-28 08:54:56,442 - Perf_system - INFO - 
+2016-11-28 08:54:56,442 - Perf_system - INFO -    Multi-CPU version                  Version 5 revisions by Ian Smith,
+2016-11-28 08:54:56,442 - Perf_system - INFO -                                       Sunnyvale, CA, USA
+2016-11-28 08:54:56,442 - Perf_system - INFO -    December 22, 2007                  johantheghost at yahoo period com
+2016-11-28 08:54:56,442 - Perf_system - INFO - 
+2016-11-28 08:54:56,442 - Perf_system - INFO - 
+2016-11-28 08:54:56,442 - Perf_system - INFO - 1 x Dhrystone 2 using register variables  1 2 3
+2016-11-28 08:54:56,442 - Perf_system - INFO - 
+2016-11-28 08:54:56,442 - Perf_system - INFO - 1 x Double-Precision Whetstone  1 2 3
+2016-11-28 08:54:56,443 - Perf_system - INFO - 
+2016-11-28 08:54:56,443 - Perf_system - INFO - 1 x Execl Throughput  1
+2016-11-28 08:54:56,443 - Perf_system - INFO - 
+2016-11-28 08:54:56,443 - Perf_system - INFO - 1 x File Copy 1024 bufsize 2000 maxblocks  1
+2016-11-28 08:54:56,443 - Perf_system - INFO - 
+2016-11-28 08:54:56,443 - Perf_system - INFO - 1 x File Copy 256 bufsize 500 maxblocks  1
+2016-11-28 08:54:56,443 - Perf_system - INFO - 
+2016-11-28 08:54:56,443 - Perf_system - INFO - 1 x File Copy 4096 bufsize 8000 maxblocks  1
+2016-11-28 08:54:56,443 - Perf_system - INFO - 
+2016-11-28 08:54:56,443 - Perf_system - INFO - 1 x Pipe Throughput  1 2 3
+2016-11-28 08:54:56,443 - Perf_system - INFO - 
+2016-11-28 08:54:56,443 - Perf_system - INFO - 1 x Pipe-based Context Switching  1 2 3
+2016-11-28 08:54:56,443 - Perf_system - INFO - 
+2016-11-28 08:54:56,443 - Perf_system - INFO - 1 x Process Creation  1
+2016-11-28 08:54:56,444 - Perf_system - INFO - 
+2016-11-28 08:54:56,444 - Perf_system - INFO - 1 x System Call Overhead  1 2 3
+2016-11-28 08:54:56,444 - Perf_system - INFO - 
+2016-11-28 08:54:56,444 - Perf_system - INFO - 1 x Shell Scripts (1 concurrent)  1
+2016-11-28 08:54:56,444 - Perf_system - INFO - 
+2016-11-28 08:54:56,444 - Perf_system - INFO - 1 x Shell Scripts (8 concurrent)  1
+2016-11-28 08:54:56,444 - Perf_system - INFO - 
+2016-11-28 08:54:56,444 - Perf_system - INFO - ========================================================================
+2016-11-28 08:54:56,444 - Perf_system - INFO -    BYTE UNIX Benchmarks (Version 5.1.2)
+2016-11-28 08:54:56,444 - Perf_system - INFO - 
+2016-11-28 08:54:56,444 - Perf_system - INFO -    System: localhost.localdomain: GNU/Linux
+2016-11-28 08:54:56,444 - Perf_system - INFO -    OS: GNU/Linux -- 4.5.5-300.fc24.x86_64 -- #1 SMP Thu May 19 13:05:32 UTC 2016
+2016-11-28 08:54:56,444 - Perf_system - INFO -    Machine: x86_64 (x86_64)
+2016-11-28 08:54:56,444 - Perf_system - INFO -    Language: en_US.utf8 (charmap="UTF-8", collate="UTF-8")
+2016-11-28 08:54:56,445 - Perf_system - INFO -    CPU 0: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 08:54:56,445 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 08:54:56,445 - Perf_system - INFO -    CPU 1: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 08:54:56,445 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 08:54:56,445 - Perf_system - INFO -    CPU 2: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 08:54:56,445 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 08:54:56,445 - Perf_system - INFO -    CPU 3: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 08:54:56,445 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 08:54:56,445 - Perf_system - INFO -    08:45:53 up 32 min,  3 users,  load average: 3.55, 4.13, 4.11; runlevel 5
+2016-11-28 08:54:56,445 - Perf_system - INFO - 
+2016-11-28 08:54:56,445 - Perf_system - INFO - ------------------------------------------------------------------------
+2016-11-28 08:54:56,445 - Perf_system - INFO - Benchmark Run: 一 11月 28 2016 08:45:53 - 08:54:56
+2016-11-28 08:54:56,445 - Perf_system - INFO - 4 CPUs in system; running 1 parallel copy of tests
+2016-11-28 08:54:56,445 - Perf_system - INFO - 
+2016-11-28 08:54:56,446 - Perf_system - INFO - Dhrystone 2 using register variables       37167184.7 lps   (10.0 s, 2 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - Double-Precision Whetstone                     2643.0 MWIPS (9.8 s, 2 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - Execl Throughput                               4259.7 lps   (29.7 s, 1 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks       1291063.0 KBps  (30.0 s, 1 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks          354725.0 KBps  (30.0 s, 1 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks       2842994.0 KBps  (30.0 s, 1 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - Pipe Throughput                             2358739.5 lps   (10.0 s, 2 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - Pipe-based Context Switching                 268954.1 lps   (10.0 s, 2 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - Process Creation                              14151.5 lps   (30.0 s, 1 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - Shell Scripts (1 concurrent)                   9465.7 lpm   (60.0 s, 1 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - Shell Scripts (8 concurrent)                   2984.4 lpm   (60.0 s, 1 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - System Call Overhead                        4203063.4 lps   (10.0 s, 2 samples)
+2016-11-28 08:54:56,446 - Perf_system - INFO - 
+2016-11-28 08:54:56,446 - Perf_system - INFO - System Benchmarks Index Values               BASELINE       RESULT    INDEX
+2016-11-28 08:54:56,447 - Perf_system - INFO - Dhrystone 2 using register variables         116700.0   37167184.7   3184.8
+2016-11-28 08:54:56,447 - Perf_system - INFO - Double-Precision Whetstone                       55.0       2643.0    480.5
+2016-11-28 08:54:56,447 - Perf_system - INFO - Execl Throughput                                 43.0       4259.7    990.6
+2016-11-28 08:54:56,447 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks          3960.0    1291063.0   3260.3
+2016-11-28 08:54:56,447 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks            1655.0     354725.0   2143.4
+2016-11-28 08:54:56,447 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks          5800.0    2842994.0   4901.7
+2016-11-28 08:54:56,447 - Perf_system - INFO - Pipe Throughput                               12440.0    2358739.5   1896.1
+2016-11-28 08:54:56,447 - Perf_system - INFO - Pipe-based Context Switching                   4000.0     268954.1    672.4
+2016-11-28 08:54:56,447 - Perf_system - INFO - Process Creation                                126.0      14151.5   1123.1
+2016-11-28 08:54:56,447 - Perf_system - INFO - Shell Scripts (1 concurrent)                     42.4       9465.7   2232.5
+2016-11-28 08:54:56,447 - Perf_system - INFO - Shell Scripts (8 concurrent)                      6.0       2984.4   4974.0
+2016-11-28 08:54:56,447 - Perf_system - INFO - System Call Overhead                          15000.0    4203063.4   2802.0
+2016-11-28 08:54:56,447 - Perf_system - INFO -                                                                    ========
+2016-11-28 08:54:56,447 - Perf_system - INFO - System Benchmarks Index Score                                        1907.0
+2016-11-28 08:54:56,447 - Perf_system - INFO - 
+2016-11-28 08:54:56,448 - Perf_system - INFO - *********************************************************************
+2016-11-28 08:54:56,448 - Perf_system - INFO - Threads_1: 1907.0
+2016-11-28 08:54:56,448 - Perf_system - INFO - *********************************************************************
+2016-11-28 09:03:59,448 - Perf_system - INFO - make all
+2016-11-28 09:03:59,448 - Perf_system - INFO - make[1]: Entering directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 09:03:59,448 - Perf_system - INFO - Checking distribution of files
+2016-11-28 09:03:59,448 - Perf_system - INFO - ./pgms  exists
+2016-11-28 09:03:59,448 - Perf_system - INFO - ./src  exists
+2016-11-28 09:03:59,449 - Perf_system - INFO - ./testdir  exists
+2016-11-28 09:03:59,449 - Perf_system - INFO - ./tmp  exists
+2016-11-28 09:03:59,449 - Perf_system - INFO - ./results  exists
+2016-11-28 09:03:59,449 - Perf_system - INFO - make[1]: Leaving directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 09:03:59,449 - Perf_system - INFO - 
+2016-11-28 09:03:59,449 - Perf_system - INFO -    #    #  #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 09:03:59,449 - Perf_system - INFO -    #    #  ##   #  #   #  #           #    #  #       ##   #  #    #  #    #
+2016-11-28 09:03:59,449 - Perf_system - INFO -    #    #  # #  #  #    ##            #####   #####   # #  #  #       ######
+2016-11-28 09:03:59,449 - Perf_system - INFO -    #    #  #  # #  #    ##            #    #  #       #  # #  #       #    #
+2016-11-28 09:03:59,449 - Perf_system - INFO -    #    #  #   ##  #   #  #           #    #  #       #   ##  #    #  #    #
+2016-11-28 09:03:59,449 - Perf_system - INFO -     ####   #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 09:03:59,449 - Perf_system - INFO - 
+2016-11-28 09:03:59,449 - Perf_system - INFO -    Version 5.1.2                      Based on the Byte Magazine Unix Benchmark
+2016-11-28 09:03:59,450 - Perf_system - INFO - 
+2016-11-28 09:03:59,450 - Perf_system - INFO -    Multi-CPU version                  Version 5 revisions by Ian Smith,
+2016-11-28 09:03:59,450 - Perf_system - INFO -                                       Sunnyvale, CA, USA
+2016-11-28 09:03:59,450 - Perf_system - INFO -    December 22, 2007                  johantheghost at yahoo period com
+2016-11-28 09:03:59,450 - Perf_system - INFO - 
+2016-11-28 09:03:59,450 - Perf_system - INFO - 
+2016-11-28 09:03:59,450 - Perf_system - INFO - 1 x Dhrystone 2 using register variables  1 2 3
+2016-11-28 09:03:59,450 - Perf_system - INFO - 
+2016-11-28 09:03:59,450 - Perf_system - INFO - 1 x Double-Precision Whetstone  1 2 3
+2016-11-28 09:03:59,450 - Perf_system - INFO - 
+2016-11-28 09:03:59,450 - Perf_system - INFO - 1 x Execl Throughput  1
+2016-11-28 09:03:59,450 - Perf_system - INFO - 
+2016-11-28 09:03:59,450 - Perf_system - INFO - 1 x File Copy 1024 bufsize 2000 maxblocks  1
+2016-11-28 09:03:59,450 - Perf_system - INFO - 
+2016-11-28 09:03:59,451 - Perf_system - INFO - 1 x File Copy 256 bufsize 500 maxblocks  1
+2016-11-28 09:03:59,451 - Perf_system - INFO - 
+2016-11-28 09:03:59,451 - Perf_system - INFO - 1 x File Copy 4096 bufsize 8000 maxblocks  1
+2016-11-28 09:03:59,451 - Perf_system - INFO - 
+2016-11-28 09:03:59,451 - Perf_system - INFO - 1 x Pipe Throughput  1 2 3
+2016-11-28 09:03:59,451 - Perf_system - INFO - 
+2016-11-28 09:03:59,451 - Perf_system - INFO - 1 x Pipe-based Context Switching  1 2 3
+2016-11-28 09:03:59,451 - Perf_system - INFO - 
+2016-11-28 09:03:59,451 - Perf_system - INFO - 1 x Process Creation  1
+2016-11-28 09:03:59,451 - Perf_system - INFO - 
+2016-11-28 09:03:59,451 - Perf_system - INFO - 1 x System Call Overhead  1 2 3
+2016-11-28 09:03:59,451 - Perf_system - INFO - 
+2016-11-28 09:03:59,451 - Perf_system - INFO - 1 x Shell Scripts (1 concurrent)  1
+2016-11-28 09:03:59,451 - Perf_system - INFO - 
+2016-11-28 09:03:59,452 - Perf_system - INFO - 1 x Shell Scripts (8 concurrent)  1
+2016-11-28 09:03:59,452 - Perf_system - INFO - 
+2016-11-28 09:03:59,452 - Perf_system - INFO - ========================================================================
+2016-11-28 09:03:59,452 - Perf_system - INFO -    BYTE UNIX Benchmarks (Version 5.1.2)
+2016-11-28 09:03:59,452 - Perf_system - INFO - 
+2016-11-28 09:03:59,452 - Perf_system - INFO -    System: localhost.localdomain: GNU/Linux
+2016-11-28 09:03:59,452 - Perf_system - INFO -    OS: GNU/Linux -- 4.5.5-300.fc24.x86_64 -- #1 SMP Thu May 19 13:05:32 UTC 2016
+2016-11-28 09:03:59,452 - Perf_system - INFO -    Machine: x86_64 (x86_64)
+2016-11-28 09:03:59,452 - Perf_system - INFO -    Language: en_US.utf8 (charmap="UTF-8", collate="UTF-8")
+2016-11-28 09:03:59,452 - Perf_system - INFO -    CPU 0: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:03:59,452 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:03:59,452 - Perf_system - INFO -    CPU 1: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:03:59,452 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:03:59,452 - Perf_system - INFO -    CPU 2: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:03:59,453 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:03:59,453 - Perf_system - INFO -    CPU 3: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:03:59,453 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:03:59,453 - Perf_system - INFO -    08:54:56 up 41 min,  3 users,  load average: 5.32, 2.59, 3.05; runlevel 5
+2016-11-28 09:03:59,453 - Perf_system - INFO - 
+2016-11-28 09:03:59,453 - Perf_system - INFO - ------------------------------------------------------------------------
+2016-11-28 09:03:59,453 - Perf_system - INFO - Benchmark Run: 一 11月 28 2016 08:54:56 - 09:03:59
+2016-11-28 09:03:59,453 - Perf_system - INFO - 4 CPUs in system; running 1 parallel copy of tests
+2016-11-28 09:03:59,453 - Perf_system - INFO - 
+2016-11-28 09:03:59,453 - Perf_system - INFO - Dhrystone 2 using register variables       37122191.7 lps   (10.0 s, 2 samples)
+2016-11-28 09:03:59,453 - Perf_system - INFO - Double-Precision Whetstone                     2639.9 MWIPS (10.0 s, 2 samples)
+2016-11-28 09:03:59,453 - Perf_system - INFO - Execl Throughput                               4231.8 lps   (29.7 s, 1 samples)
+2016-11-28 09:03:59,453 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks       1272846.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:03:59,453 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks          354756.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:03:59,454 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks       2867323.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:03:59,454 - Perf_system - INFO - Pipe Throughput                             2359059.4 lps   (10.0 s, 2 samples)
+2016-11-28 09:03:59,454 - Perf_system - INFO - Pipe-based Context Switching                 271351.5 lps   (10.0 s, 2 samples)
+2016-11-28 09:03:59,454 - Perf_system - INFO - Process Creation                              14141.4 lps   (30.0 s, 1 samples)
+2016-11-28 09:03:59,454 - Perf_system - INFO - Shell Scripts (1 concurrent)                   9461.9 lpm   (60.0 s, 1 samples)
+2016-11-28 09:03:59,454 - Perf_system - INFO - Shell Scripts (8 concurrent)                   2992.8 lpm   (60.0 s, 1 samples)
+2016-11-28 09:03:59,454 - Perf_system - INFO - System Call Overhead                        4397165.7 lps   (10.0 s, 2 samples)
+2016-11-28 09:03:59,454 - Perf_system - INFO - 
+2016-11-28 09:03:59,454 - Perf_system - INFO - System Benchmarks Index Values               BASELINE       RESULT    INDEX
+2016-11-28 09:03:59,454 - Perf_system - INFO - Dhrystone 2 using register variables         116700.0   37122191.7   3181.0
+2016-11-28 09:03:59,454 - Perf_system - INFO - Double-Precision Whetstone                       55.0       2639.9    480.0
+2016-11-28 09:03:59,454 - Perf_system - INFO - Execl Throughput                                 43.0       4231.8    984.1
+2016-11-28 09:03:59,454 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks          3960.0    1272846.0   3214.3
+2016-11-28 09:03:59,455 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks            1655.0     354756.0   2143.5
+2016-11-28 09:03:59,455 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks          5800.0    2867323.0   4943.7
+2016-11-28 09:03:59,455 - Perf_system - INFO - Pipe Throughput                               12440.0    2359059.4   1896.4
+2016-11-28 09:03:59,455 - Perf_system - INFO - Pipe-based Context Switching                   4000.0     271351.5    678.4
+2016-11-28 09:03:59,455 - Perf_system - INFO - Process Creation                                126.0      14141.4   1122.3
+2016-11-28 09:03:59,455 - Perf_system - INFO - Shell Scripts (1 concurrent)                     42.4       9461.9   2231.6
+2016-11-28 09:03:59,455 - Perf_system - INFO - Shell Scripts (8 concurrent)                      6.0       2992.8   4988.0
+2016-11-28 09:03:59,455 - Perf_system - INFO - System Call Overhead                          15000.0    4397165.7   2931.4
+2016-11-28 09:03:59,455 - Perf_system - INFO -                                                                    ========
+2016-11-28 09:03:59,455 - Perf_system - INFO - System Benchmarks Index Score                                        1913.6
+2016-11-28 09:03:59,455 - Perf_system - INFO - 
+2016-11-28 09:03:59,455 - Perf_system - INFO - *********************************************************************
+2016-11-28 09:03:59,455 - Perf_system - INFO - Threads_1: 1913.6
+2016-11-28 09:03:59,455 - Perf_system - INFO - *********************************************************************
+2016-11-28 09:03:59,456 - Perf_system - INFO - /home/Lpbs-i/tmp/Perf_system/unixbench 4
+2016-11-28 09:12:55,561 - Perf_system - INFO - make all
+2016-11-28 09:12:55,561 - Perf_system - INFO - make[1]: Entering directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 09:12:55,561 - Perf_system - INFO - Checking distribution of files
+2016-11-28 09:12:55,561 - Perf_system - INFO - ./pgms  exists
+2016-11-28 09:12:55,561 - Perf_system - INFO - ./src  exists
+2016-11-28 09:12:55,561 - Perf_system - INFO - ./testdir  exists
+2016-11-28 09:12:55,561 - Perf_system - INFO - ./tmp  exists
+2016-11-28 09:12:55,561 - Perf_system - INFO - ./results  exists
+2016-11-28 09:12:55,561 - Perf_system - INFO - make[1]: Leaving directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 09:12:55,562 - Perf_system - INFO - 
+2016-11-28 09:12:55,562 - Perf_system - INFO -    #    #  #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 09:12:55,562 - Perf_system - INFO -    #    #  ##   #  #   #  #           #    #  #       ##   #  #    #  #    #
+2016-11-28 09:12:55,562 - Perf_system - INFO -    #    #  # #  #  #    ##            #####   #####   # #  #  #       ######
+2016-11-28 09:12:55,562 - Perf_system - INFO -    #    #  #  # #  #    ##            #    #  #       #  # #  #       #    #
+2016-11-28 09:12:55,562 - Perf_system - INFO -    #    #  #   ##  #   #  #           #    #  #       #   ##  #    #  #    #
+2016-11-28 09:12:55,562 - Perf_system - INFO -     ####   #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 09:12:55,562 - Perf_system - INFO - 
+2016-11-28 09:12:55,562 - Perf_system - INFO -    Version 5.1.2                      Based on the Byte Magazine Unix Benchmark
+2016-11-28 09:12:55,562 - Perf_system - INFO - 
+2016-11-28 09:12:55,562 - Perf_system - INFO -    Multi-CPU version                  Version 5 revisions by Ian Smith,
+2016-11-28 09:12:55,562 - Perf_system - INFO -                                       Sunnyvale, CA, USA
+2016-11-28 09:12:55,562 - Perf_system - INFO -    December 22, 2007                  johantheghost at yahoo period com
+2016-11-28 09:12:55,562 - Perf_system - INFO - 
+2016-11-28 09:12:55,563 - Perf_system - INFO - 
+2016-11-28 09:12:55,563 - Perf_system - INFO - 4 x Dhrystone 2 using register variables  1 2 3
+2016-11-28 09:12:55,563 - Perf_system - INFO - 
+2016-11-28 09:12:55,563 - Perf_system - INFO - 4 x Double-Precision Whetstone  1 2 3
+2016-11-28 09:12:55,563 - Perf_system - INFO - 
+2016-11-28 09:12:55,563 - Perf_system - INFO - 4 x Execl Throughput  1
+2016-11-28 09:12:55,563 - Perf_system - INFO - 
+2016-11-28 09:12:55,563 - Perf_system - INFO - 4 x File Copy 1024 bufsize 2000 maxblocks  1
+2016-11-28 09:12:55,563 - Perf_system - INFO - 
+2016-11-28 09:12:55,563 - Perf_system - INFO - 4 x File Copy 256 bufsize 500 maxblocks  1
+2016-11-28 09:12:55,563 - Perf_system - INFO - 
+2016-11-28 09:12:55,563 - Perf_system - INFO - 4 x File Copy 4096 bufsize 8000 maxblocks  1
+2016-11-28 09:12:55,563 - Perf_system - INFO - 
+2016-11-28 09:12:55,563 - Perf_system - INFO - 4 x Pipe Throughput  1 2 3
+2016-11-28 09:12:55,564 - Perf_system - INFO - 
+2016-11-28 09:12:55,564 - Perf_system - INFO - 4 x Pipe-based Context Switching  1 2 3
+2016-11-28 09:12:55,564 - Perf_system - INFO - 
+2016-11-28 09:12:55,564 - Perf_system - INFO - 4 x Process Creation  1
+2016-11-28 09:12:55,564 - Perf_system - INFO - 
+2016-11-28 09:12:55,564 - Perf_system - INFO - 4 x System Call Overhead  1 2 3
+2016-11-28 09:12:55,564 - Perf_system - INFO - 
+2016-11-28 09:12:55,564 - Perf_system - INFO - 4 x Shell Scripts (1 concurrent)  1
+2016-11-28 09:12:55,564 - Perf_system - INFO - 
+2016-11-28 09:12:55,564 - Perf_system - INFO - 4 x Shell Scripts (8 concurrent)  1
+2016-11-28 09:12:55,564 - Perf_system - INFO - 
+2016-11-28 09:12:55,564 - Perf_system - INFO - ========================================================================
+2016-11-28 09:12:55,564 - Perf_system - INFO -    BYTE UNIX Benchmarks (Version 5.1.2)
+2016-11-28 09:12:55,564 - Perf_system - INFO - 
+2016-11-28 09:12:55,565 - Perf_system - INFO -    System: localhost.localdomain: GNU/Linux
+2016-11-28 09:12:55,565 - Perf_system - INFO -    OS: GNU/Linux -- 4.5.5-300.fc24.x86_64 -- #1 SMP Thu May 19 13:05:32 UTC 2016
+2016-11-28 09:12:55,565 - Perf_system - INFO -    Machine: x86_64 (x86_64)
+2016-11-28 09:12:55,565 - Perf_system - INFO -    Language: en_US.utf8 (charmap="UTF-8", collate="UTF-8")
+2016-11-28 09:12:55,565 - Perf_system - INFO -    CPU 0: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:12:55,565 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:12:55,565 - Perf_system - INFO -    CPU 1: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:12:55,565 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:12:55,565 - Perf_system - INFO -    CPU 2: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:12:55,565 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:12:55,565 - Perf_system - INFO -    CPU 3: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:12:55,565 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:12:55,565 - Perf_system - INFO -    09:03:59 up 50 min,  3 users,  load average: 4.75, 2.13, 2.39; runlevel 5
+2016-11-28 09:12:55,565 - Perf_system - INFO - 
+2016-11-28 09:12:55,566 - Perf_system - INFO - ------------------------------------------------------------------------
+2016-11-28 09:12:55,566 - Perf_system - INFO - Benchmark Run: 一 11月 28 2016 09:03:59 - 09:12:55
+2016-11-28 09:12:55,566 - Perf_system - INFO - 4 CPUs in system; running 4 parallel copies of tests
+2016-11-28 09:12:55,566 - Perf_system - INFO - 
+2016-11-28 09:12:55,566 - Perf_system - INFO - Dhrystone 2 using register variables      139833860.2 lps   (10.0 s, 2 samples)
+2016-11-28 09:12:55,566 - Perf_system - INFO - Double-Precision Whetstone                     9945.9 MWIPS (9.9 s, 2 samples)
+2016-11-28 09:12:55,566 - Perf_system - INFO - Execl Throughput                              20987.5 lps   (29.9 s, 1 samples)
+2016-11-28 09:12:55,566 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks       1349639.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:12:55,566 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks          361480.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:12:55,566 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks       3827449.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:12:55,566 - Perf_system - INFO - Pipe Throughput                             8848654.7 lps   (10.0 s, 2 samples)
+2016-11-28 09:12:55,566 - Perf_system - INFO - Pipe-based Context Switching                1430214.7 lps   (10.0 s, 2 samples)
+2016-11-28 09:12:55,566 - Perf_system - INFO - Process Creation                              53670.5 lps   (30.0 s, 1 samples)
+2016-11-28 09:12:55,566 - Perf_system - INFO - Shell Scripts (1 concurrent)                  26806.0 lpm   (60.0 s, 1 samples)
+2016-11-28 09:12:55,567 - Perf_system - INFO - Shell Scripts (8 concurrent)                   3498.7 lpm   (60.0 s, 1 samples)
+2016-11-28 09:12:55,567 - Perf_system - INFO - System Call Overhead                       11820457.5 lps   (10.0 s, 2 samples)
+2016-11-28 09:12:55,567 - Perf_system - INFO - 
+2016-11-28 09:12:55,567 - Perf_system - INFO - System Benchmarks Index Values               BASELINE       RESULT    INDEX
+2016-11-28 09:12:55,567 - Perf_system - INFO - Dhrystone 2 using register variables         116700.0  139833860.2  11982.3
+2016-11-28 09:12:55,567 - Perf_system - INFO - Double-Precision Whetstone                       55.0       9945.9   1808.3
+2016-11-28 09:12:55,567 - Perf_system - INFO - Execl Throughput                                 43.0      20987.5   4880.8
+2016-11-28 09:12:55,567 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks          3960.0    1349639.0   3408.2
+2016-11-28 09:12:55,567 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks            1655.0     361480.0   2184.2
+2016-11-28 09:12:55,567 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks          5800.0    3827449.0   6599.0
+2016-11-28 09:12:55,567 - Perf_system - INFO - Pipe Throughput                               12440.0    8848654.7   7113.1
+2016-11-28 09:12:55,567 - Perf_system - INFO - Pipe-based Context Switching                   4000.0    1430214.7   3575.5
+2016-11-28 09:12:55,567 - Perf_system - INFO - Process Creation                                126.0      53670.5   4259.6
+2016-11-28 09:12:55,567 - Perf_system - INFO - Shell Scripts (1 concurrent)                     42.4      26806.0   6322.2
+2016-11-28 09:12:55,567 - Perf_system - INFO - Shell Scripts (8 concurrent)                      6.0       3498.7   5831.1
+2016-11-28 09:12:55,568 - Perf_system - INFO - System Call Overhead                          15000.0   11820457.5   7880.3
+2016-11-28 09:12:55,568 - Perf_system - INFO -                                                                    ========
+2016-11-28 09:12:55,568 - Perf_system - INFO - System Benchmarks Index Score                                        4835.7
+2016-11-28 09:12:55,568 - Perf_system - INFO - 
+2016-11-28 09:12:55,568 - Perf_system - INFO - *********************************************************************
+2016-11-28 09:12:55,568 - Perf_system - INFO - Threads_4: 4835.7
+2016-11-28 09:12:55,568 - Perf_system - INFO - *********************************************************************
+2016-11-28 09:21:51,884 - Perf_system - INFO - make all
+2016-11-28 09:21:51,884 - Perf_system - INFO - make[1]: Entering directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 09:21:51,884 - Perf_system - INFO - Checking distribution of files
+2016-11-28 09:21:51,884 - Perf_system - INFO - ./pgms  exists
+2016-11-28 09:21:51,885 - Perf_system - INFO - ./src  exists
+2016-11-28 09:21:51,885 - Perf_system - INFO - ./testdir  exists
+2016-11-28 09:21:51,885 - Perf_system - INFO - ./tmp  exists
+2016-11-28 09:21:51,885 - Perf_system - INFO - ./results  exists
+2016-11-28 09:21:51,885 - Perf_system - INFO - make[1]: Leaving directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 09:21:51,885 - Perf_system - INFO - 
+2016-11-28 09:21:51,885 - Perf_system - INFO -    #    #  #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 09:21:51,885 - Perf_system - INFO -    #    #  ##   #  #   #  #           #    #  #       ##   #  #    #  #    #
+2016-11-28 09:21:51,885 - Perf_system - INFO -    #    #  # #  #  #    ##            #####   #####   # #  #  #       ######
+2016-11-28 09:21:51,885 - Perf_system - INFO -    #    #  #  # #  #    ##            #    #  #       #  # #  #       #    #
+2016-11-28 09:21:51,885 - Perf_system - INFO -    #    #  #   ##  #   #  #           #    #  #       #   ##  #    #  #    #
+2016-11-28 09:21:51,885 - Perf_system - INFO -     ####   #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 09:21:51,885 - Perf_system - INFO - 
+2016-11-28 09:21:51,885 - Perf_system - INFO -    Version 5.1.2                      Based on the Byte Magazine Unix Benchmark
+2016-11-28 09:21:51,886 - Perf_system - INFO - 
+2016-11-28 09:21:51,886 - Perf_system - INFO -    Multi-CPU version                  Version 5 revisions by Ian Smith,
+2016-11-28 09:21:51,886 - Perf_system - INFO -                                       Sunnyvale, CA, USA
+2016-11-28 09:21:51,886 - Perf_system - INFO -    December 22, 2007                  johantheghost at yahoo period com
+2016-11-28 09:21:51,886 - Perf_system - INFO - 
+2016-11-28 09:21:51,886 - Perf_system - INFO - 
+2016-11-28 09:21:51,886 - Perf_system - INFO - 4 x Dhrystone 2 using register variables  1 2 3
+2016-11-28 09:21:51,886 - Perf_system - INFO - 
+2016-11-28 09:21:51,886 - Perf_system - INFO - 4 x Double-Precision Whetstone  1 2 3
+2016-11-28 09:21:51,886 - Perf_system - INFO - 
+2016-11-28 09:21:51,886 - Perf_system - INFO - 4 x Execl Throughput  1
+2016-11-28 09:21:51,886 - Perf_system - INFO - 
+2016-11-28 09:21:51,886 - Perf_system - INFO - 4 x File Copy 1024 bufsize 2000 maxblocks  1
+2016-11-28 09:21:51,886 - Perf_system - INFO - 
+2016-11-28 09:21:51,887 - Perf_system - INFO - 4 x File Copy 256 bufsize 500 maxblocks  1
+2016-11-28 09:21:51,887 - Perf_system - INFO - 
+2016-11-28 09:21:51,887 - Perf_system - INFO - 4 x File Copy 4096 bufsize 8000 maxblocks  1
+2016-11-28 09:21:51,887 - Perf_system - INFO - 
+2016-11-28 09:21:51,887 - Perf_system - INFO - 4 x Pipe Throughput  1 2 3
+2016-11-28 09:21:51,887 - Perf_system - INFO - 
+2016-11-28 09:21:51,887 - Perf_system - INFO - 4 x Pipe-based Context Switching  1 2 3
+2016-11-28 09:21:51,887 - Perf_system - INFO - 
+2016-11-28 09:21:51,887 - Perf_system - INFO - 4 x Process Creation  1
+2016-11-28 09:21:51,887 - Perf_system - INFO - 
+2016-11-28 09:21:51,887 - Perf_system - INFO - 4 x System Call Overhead  1 2 3
+2016-11-28 09:21:51,887 - Perf_system - INFO - 
+2016-11-28 09:21:51,887 - Perf_system - INFO - 4 x Shell Scripts (1 concurrent)  1
+2016-11-28 09:21:51,887 - Perf_system - INFO - 
+2016-11-28 09:21:51,888 - Perf_system - INFO - 4 x Shell Scripts (8 concurrent)  1
+2016-11-28 09:21:51,888 - Perf_system - INFO - 
+2016-11-28 09:21:51,888 - Perf_system - INFO - ========================================================================
+2016-11-28 09:21:51,888 - Perf_system - INFO -    BYTE UNIX Benchmarks (Version 5.1.2)
+2016-11-28 09:21:51,888 - Perf_system - INFO - 
+2016-11-28 09:21:51,888 - Perf_system - INFO -    System: localhost.localdomain: GNU/Linux
+2016-11-28 09:21:51,888 - Perf_system - INFO -    OS: GNU/Linux -- 4.5.5-300.fc24.x86_64 -- #1 SMP Thu May 19 13:05:32 UTC 2016
+2016-11-28 09:21:51,888 - Perf_system - INFO -    Machine: x86_64 (x86_64)
+2016-11-28 09:21:51,888 - Perf_system - INFO -    Language: en_US.utf8 (charmap="UTF-8", collate="UTF-8")
+2016-11-28 09:21:51,888 - Perf_system - INFO -    CPU 0: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:21:51,888 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:21:51,888 - Perf_system - INFO -    CPU 1: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:21:51,888 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:21:51,888 - Perf_system - INFO -    CPU 2: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:21:51,889 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:21:51,889 - Perf_system - INFO -    CPU 3: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:21:51,889 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:21:51,889 - Perf_system - INFO -    09:12:55 up 59 min,  3 users,  load average: 17.01, 7.46, 4.26; runlevel 5
+2016-11-28 09:21:51,889 - Perf_system - INFO - 
+2016-11-28 09:21:51,889 - Perf_system - INFO - ------------------------------------------------------------------------
+2016-11-28 09:21:51,889 - Perf_system - INFO - Benchmark Run: 一 11月 28 2016 09:12:55 - 09:21:51
+2016-11-28 09:21:51,889 - Perf_system - INFO - 4 CPUs in system; running 4 parallel copies of tests
+2016-11-28 09:21:51,889 - Perf_system - INFO - 
+2016-11-28 09:21:51,889 - Perf_system - INFO - Dhrystone 2 using register variables      134510813.4 lps   (10.0 s, 2 samples)
+2016-11-28 09:21:51,889 - Perf_system - INFO - Double-Precision Whetstone                     9945.2 MWIPS (9.9 s, 2 samples)
+2016-11-28 09:21:51,889 - Perf_system - INFO - Execl Throughput                              21002.4 lps   (29.8 s, 1 samples)
+2016-11-28 09:21:51,889 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks       1411068.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:21:51,889 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks          386383.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:21:51,889 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks       3697010.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:21:51,890 - Perf_system - INFO - Pipe Throughput                             8883310.7 lps   (10.0 s, 2 samples)
+2016-11-28 09:21:51,890 - Perf_system - INFO - Pipe-based Context Switching                1435112.1 lps   (10.0 s, 2 samples)
+2016-11-28 09:21:51,890 - Perf_system - INFO - Process Creation                              53872.6 lps   (30.0 s, 1 samples)
+2016-11-28 09:21:51,890 - Perf_system - INFO - Shell Scripts (1 concurrent)                  26865.9 lpm   (60.0 s, 1 samples)
+2016-11-28 09:21:51,890 - Perf_system - INFO - Shell Scripts (8 concurrent)                   3499.9 lpm   (60.0 s, 1 samples)
+2016-11-28 09:21:51,890 - Perf_system - INFO - System Call Overhead                       11498266.8 lps   (10.0 s, 2 samples)
+2016-11-28 09:21:51,890 - Perf_system - INFO - 
+2016-11-28 09:21:51,890 - Perf_system - INFO - System Benchmarks Index Values               BASELINE       RESULT    INDEX
+2016-11-28 09:21:51,890 - Perf_system - INFO - Dhrystone 2 using register variables         116700.0  134510813.4  11526.2
+2016-11-28 09:21:51,890 - Perf_system - INFO - Double-Precision Whetstone                       55.0       9945.2   1808.2
+2016-11-28 09:21:51,890 - Perf_system - INFO - Execl Throughput                                 43.0      21002.4   4884.3
+2016-11-28 09:21:51,890 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks          3960.0    1411068.0   3563.3
+2016-11-28 09:21:51,890 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks            1655.0     386383.0   2334.6
+2016-11-28 09:21:51,891 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks          5800.0    3697010.0   6374.2
+2016-11-28 09:21:51,891 - Perf_system - INFO - Pipe Throughput                               12440.0    8883310.7   7140.9
+2016-11-28 09:21:51,891 - Perf_system - INFO - Pipe-based Context Switching                   4000.0    1435112.1   3587.8
+2016-11-28 09:21:51,891 - Perf_system - INFO - Process Creation                                126.0      53872.6   4275.6
+2016-11-28 09:21:51,891 - Perf_system - INFO - Shell Scripts (1 concurrent)                     42.4      26865.9   6336.3
+2016-11-28 09:21:51,891 - Perf_system - INFO - Shell Scripts (8 concurrent)                      6.0       3499.9   5833.2
+2016-11-28 09:21:51,891 - Perf_system - INFO - System Call Overhead                          15000.0   11498266.8   7665.5
+2016-11-28 09:21:51,891 - Perf_system - INFO -                                                                    ========
+2016-11-28 09:21:51,891 - Perf_system - INFO - System Benchmarks Index Score                                        4845.5
+2016-11-28 09:21:51,891 - Perf_system - INFO - 
+2016-11-28 09:21:51,891 - Perf_system - INFO - *********************************************************************
+2016-11-28 09:21:51,891 - Perf_system - INFO - Threads_4: 4845.5
+2016-11-28 09:21:51,891 - Perf_system - INFO - *********************************************************************
+2016-11-28 09:30:47,959 - Perf_system - INFO - make all
+2016-11-28 09:30:47,959 - Perf_system - INFO - make[1]: Entering directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 09:30:47,959 - Perf_system - INFO - Checking distribution of files
+2016-11-28 09:30:47,959 - Perf_system - INFO - ./pgms  exists
+2016-11-28 09:30:47,959 - Perf_system - INFO - ./src  exists
+2016-11-28 09:30:47,959 - Perf_system - INFO - ./testdir  exists
+2016-11-28 09:30:47,960 - Perf_system - INFO - ./tmp  exists
+2016-11-28 09:30:47,960 - Perf_system - INFO - ./results  exists
+2016-11-28 09:30:47,960 - Perf_system - INFO - make[1]: Leaving directory '/home/Lpbs-i/tmp/Perf_system'
+2016-11-28 09:30:47,960 - Perf_system - INFO - 
+2016-11-28 09:30:47,960 - Perf_system - INFO -    #    #  #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 09:30:47,960 - Perf_system - INFO -    #    #  ##   #  #   #  #           #    #  #       ##   #  #    #  #    #
+2016-11-28 09:30:47,960 - Perf_system - INFO -    #    #  # #  #  #    ##            #####   #####   # #  #  #       ######
+2016-11-28 09:30:47,960 - Perf_system - INFO -    #    #  #  # #  #    ##            #    #  #       #  # #  #       #    #
+2016-11-28 09:30:47,960 - Perf_system - INFO -    #    #  #   ##  #   #  #           #    #  #       #   ##  #    #  #    #
+2016-11-28 09:30:47,960 - Perf_system - INFO -     ####   #    #  #  #    #          #####   ######  #    #   ####   #    #
+2016-11-28 09:30:47,960 - Perf_system - INFO - 
+2016-11-28 09:30:47,960 - Perf_system - INFO -    Version 5.1.2                      Based on the Byte Magazine Unix Benchmark
+2016-11-28 09:30:47,960 - Perf_system - INFO - 
+2016-11-28 09:30:47,960 - Perf_system - INFO -    Multi-CPU version                  Version 5 revisions by Ian Smith,
+2016-11-28 09:30:47,961 - Perf_system - INFO -                                       Sunnyvale, CA, USA
+2016-11-28 09:30:47,961 - Perf_system - INFO -    December 22, 2007                  johantheghost at yahoo period com
+2016-11-28 09:30:47,961 - Perf_system - INFO - 
+2016-11-28 09:30:47,961 - Perf_system - INFO - 
+2016-11-28 09:30:47,961 - Perf_system - INFO - 4 x Dhrystone 2 using register variables  1 2 3
+2016-11-28 09:30:47,961 - Perf_system - INFO - 
+2016-11-28 09:30:47,961 - Perf_system - INFO - 4 x Double-Precision Whetstone  1 2 3
+2016-11-28 09:30:47,961 - Perf_system - INFO - 
+2016-11-28 09:30:47,961 - Perf_system - INFO - 4 x Execl Throughput  1
+2016-11-28 09:30:47,961 - Perf_system - INFO - 
+2016-11-28 09:30:47,961 - Perf_system - INFO - 4 x File Copy 1024 bufsize 2000 maxblocks  1
+2016-11-28 09:30:47,961 - Perf_system - INFO - 
+2016-11-28 09:30:47,961 - Perf_system - INFO - 4 x File Copy 256 bufsize 500 maxblocks  1
+2016-11-28 09:30:47,961 - Perf_system - INFO - 
+2016-11-28 09:30:47,962 - Perf_system - INFO - 4 x File Copy 4096 bufsize 8000 maxblocks  1
+2016-11-28 09:30:47,962 - Perf_system - INFO - 
+2016-11-28 09:30:47,962 - Perf_system - INFO - 4 x Pipe Throughput  1 2 3
+2016-11-28 09:30:47,962 - Perf_system - INFO - 
+2016-11-28 09:30:47,962 - Perf_system - INFO - 4 x Pipe-based Context Switching  1 2 3
+2016-11-28 09:30:47,962 - Perf_system - INFO - 
+2016-11-28 09:30:47,962 - Perf_system - INFO - 4 x Process Creation  1
+2016-11-28 09:30:47,962 - Perf_system - INFO - 
+2016-11-28 09:30:47,962 - Perf_system - INFO - 4 x System Call Overhead  1 2 3
+2016-11-28 09:30:47,962 - Perf_system - INFO - 
+2016-11-28 09:30:47,962 - Perf_system - INFO - 4 x Shell Scripts (1 concurrent)  1
+2016-11-28 09:30:47,962 - Perf_system - INFO - 
+2016-11-28 09:30:47,962 - Perf_system - INFO - 4 x Shell Scripts (8 concurrent)  1
+2016-11-28 09:30:47,962 - Perf_system - INFO - 
+2016-11-28 09:30:47,963 - Perf_system - INFO - ========================================================================
+2016-11-28 09:30:47,963 - Perf_system - INFO -    BYTE UNIX Benchmarks (Version 5.1.2)
+2016-11-28 09:30:47,963 - Perf_system - INFO - 
+2016-11-28 09:30:47,963 - Perf_system - INFO -    System: localhost.localdomain: GNU/Linux
+2016-11-28 09:30:47,963 - Perf_system - INFO -    OS: GNU/Linux -- 4.5.5-300.fc24.x86_64 -- #1 SMP Thu May 19 13:05:32 UTC 2016
+2016-11-28 09:30:47,963 - Perf_system - INFO -    Machine: x86_64 (x86_64)
+2016-11-28 09:30:47,963 - Perf_system - INFO -    Language: en_US.utf8 (charmap="UTF-8", collate="UTF-8")
+2016-11-28 09:30:47,963 - Perf_system - INFO -    CPU 0: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:30:47,963 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:30:47,963 - Perf_system - INFO -    CPU 1: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:30:47,963 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:30:47,963 - Perf_system - INFO -    CPU 2: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:30:47,963 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:30:47,963 - Perf_system - INFO -    CPU 3: Intel(R) Core(TM) i5-2400 CPU @ 3.10GHz (6185.9 bogomips)
+2016-11-28 09:30:47,963 - Perf_system - INFO -           Hyper-Threading, x86-64, MMX, Physical Address Ext, SYSENTER/SYSEXIT, SYSCALL/SYSRET, Intel virtualization
+2016-11-28 09:30:47,964 - Perf_system - INFO -    09:21:51 up  1:08,  3 users,  load average: 16.27, 7.69, 5.06; runlevel 5
+2016-11-28 09:30:47,964 - Perf_system - INFO - 
+2016-11-28 09:30:47,964 - Perf_system - INFO - ------------------------------------------------------------------------
+2016-11-28 09:30:47,964 - Perf_system - INFO - Benchmark Run: 一 11月 28 2016 09:21:51 - 09:30:47
+2016-11-28 09:30:47,964 - Perf_system - INFO - 4 CPUs in system; running 4 parallel copies of tests
+2016-11-28 09:30:47,964 - Perf_system - INFO - 
+2016-11-28 09:30:47,964 - Perf_system - INFO - Dhrystone 2 using register variables      139884592.6 lps   (10.0 s, 2 samples)
+2016-11-28 09:30:47,964 - Perf_system - INFO - Double-Precision Whetstone                     9951.0 MWIPS (9.9 s, 2 samples)
+2016-11-28 09:30:47,964 - Perf_system - INFO - Execl Throughput                              20984.7 lps   (29.5 s, 1 samples)
+2016-11-28 09:30:47,964 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks       1388644.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:30:47,964 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks          372990.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:30:47,964 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks       3817731.0 KBps  (30.0 s, 1 samples)
+2016-11-28 09:30:47,964 - Perf_system - INFO - Pipe Throughput                             8842414.1 lps   (10.0 s, 2 samples)
+2016-11-28 09:30:47,964 - Perf_system - INFO - Pipe-based Context Switching                1433598.1 lps   (10.0 s, 2 samples)
+2016-11-28 09:30:47,965 - Perf_system - INFO - Process Creation                              53293.1 lps   (30.0 s, 1 samples)
+2016-11-28 09:30:47,965 - Perf_system - INFO - Shell Scripts (1 concurrent)                  26836.3 lpm   (60.0 s, 1 samples)
+2016-11-28 09:30:47,965 - Perf_system - INFO - Shell Scripts (8 concurrent)                   3501.8 lpm   (60.0 s, 1 samples)
+2016-11-28 09:30:47,965 - Perf_system - INFO - System Call Overhead                       11756777.1 lps   (10.0 s, 2 samples)
+2016-11-28 09:30:47,965 - Perf_system - INFO - 
+2016-11-28 09:30:47,965 - Perf_system - INFO - System Benchmarks Index Values               BASELINE       RESULT    INDEX
+2016-11-28 09:30:47,965 - Perf_system - INFO - Dhrystone 2 using register variables         116700.0  139884592.6  11986.7
+2016-11-28 09:30:47,965 - Perf_system - INFO - Double-Precision Whetstone                       55.0       9951.0   1809.3
+2016-11-28 09:30:47,965 - Perf_system - INFO - Execl Throughput                                 43.0      20984.7   4880.2
+2016-11-28 09:30:47,965 - Perf_system - INFO - File Copy 1024 bufsize 2000 maxblocks          3960.0    1388644.0   3506.7
+2016-11-28 09:30:47,965 - Perf_system - INFO - File Copy 256 bufsize 500 maxblocks            1655.0     372990.0   2253.7
+2016-11-28 09:30:47,965 - Perf_system - INFO - File Copy 4096 bufsize 8000 maxblocks          5800.0    3817731.0   6582.3
+2016-11-28 09:30:47,965 - Perf_system - INFO - Pipe Throughput                               12440.0    8842414.1   7108.0
+2016-11-28 09:30:47,965 - Perf_system - INFO - Pipe-based Context Switching                   4000.0    1433598.1   3584.0
+2016-11-28 09:30:47,966 - Perf_system - INFO - Process Creation                                126.0      53293.1   4229.6
+2016-11-28 09:30:47,966 - Perf_system - INFO - Shell Scripts (1 concurrent)                     42.4      26836.3   6329.3
+2016-11-28 09:30:47,966 - Perf_system - INFO - Shell Scripts (8 concurrent)                      6.0       3501.8   5836.3
+2016-11-28 09:30:47,966 - Perf_system - INFO - System Call Overhead                          15000.0   11756777.1   7837.9
+2016-11-28 09:30:47,966 - Perf_system - INFO -                                                                    ========
+2016-11-28 09:30:47,966 - Perf_system - INFO - System Benchmarks Index Score                                        4855.6
+2016-11-28 09:30:47,966 - Perf_system - INFO - 
+2016-11-28 09:30:47,966 - Perf_system - INFO - *********************************************************************
+2016-11-28 09:30:47,966 - Perf_system - INFO - Threads_4: 4855.6
+2016-11-28 09:30:47,966 - Perf_system - INFO - *********************************************************************

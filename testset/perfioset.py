@@ -229,7 +229,7 @@ class IozoneSet(QDialog):
         list_argi.append(self.tr("0,1"))
         list_argi.append(self.tr("0,1,2"))
         argi,ok = QInputDialog.getItem(self,self.tr(u"参数i"),
-                                      self.tr(u"请输入参数i的值：例如0,1,2"),
+                                      self.tr(u"请输入参数i的值:仅支持0,1,2"),
                                       list_argi)
         if ok:
             self.label_argi_0.setText(argi)
