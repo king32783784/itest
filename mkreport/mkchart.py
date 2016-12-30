@@ -118,9 +118,6 @@ def mkchart(chartargs):
     pngname = chartargs['pngname']
     graphing(names, subjects, scores, title, custom_font)
     plt.savefig(pngname)
-# for chartargs in (sysbenchcpu, lmdouble):
-#    mkchart(chartargs)
-
 
 def mkcontrol(chartargs):
     p = multiprocessing.Process(target=mkchart, args=(chartargs,))

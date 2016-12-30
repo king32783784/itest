@@ -60,7 +60,7 @@ class MkHtml(object):
         self._mkchart(mdfile, charttmpdict)
 
     def _mkresult(self):
-        mdfile = os.path.join('current-report', 'Lpb_i.md')
+        mdfile = os.path.join('current-report', 'src.md')
         step = len(self.oslist)
         finaldata = []
         datatemp = []
@@ -100,10 +100,13 @@ def mkhtml(htmldata, itemlist, oslist):
     shutil.copy("style.css", "current-report")
     try:
         retcode = call("pandoc --toc -c ./style.css -o current-report/test.html \
-                       current-report/Lpb_i.md", shell=True)
+                       current-report/src.md", shell=True)
         if retcode < 0:
             print >> sys.stderr, "Child was terminated by signal", -retcode
         else:
             print >>sys.stderr, "Child returned", retcode
     except OSError as e:
         print >>sys.stderr, "Execution failed:", e
+
+
+mkhtml({'Perf_stream': [], 'sysbenchcpu': [[9.94, 24.92, 42.09]], 'Perf_thread': [], 'Perf_system': [], 'Perf_kernel': [], 'Perf_io': [], 'Perf_browser': [], 'Perf_graphics': [], 'Perf_mem': []}, ['sysbenchcpu'], ['Fedora_24'])
