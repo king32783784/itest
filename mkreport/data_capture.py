@@ -93,8 +93,8 @@ class Data_stream(DataCapture):
         DataCapture.__init__(self, result_file)
 
     def getresultdata(self):
-        item_args = get_item_temp_args("sysbenchmem")
-        testtime = int(item_args["argts"])
+        item_args = get_item_temp_args("stream")
+        testtime = int(item_args["args"])
         stream_threads = item_args["argt"].split(",")
         datalist_stream = []
         for thread in stream_threads:
@@ -172,7 +172,6 @@ class Data_unixbench(DataCapture):
 
     def getresultdata(self):
         item_args = get_item_temp_args("unixbench")
-        print item_args      
         testtime = int(item_args["args"])
         unixbench_thread = item_args["argt"].split(",")
         datadict_unixbench = {}

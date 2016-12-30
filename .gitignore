@@ -7,3 +7,6 @@ testtool
 tmp
 ReportRepository
 *.xlsx
+*.swap
+*.out
+*.md

@@ -202,6 +202,17 @@ def save_testitem_args():
             for arg_key, arg_value in item_argslist.iteritems():
                 writeconfig("mkreport/.tempseting.ini", todo_item, arg_key, arg_value) # 写入测试项目对应参数
 
+# 获取已完成测试的项目
+
+def get_aftertest_itemlist(testtype):
+    config = QSettings(".tempseting.ini", QSettings.IniFormat)
+    config.beginGroup(testtype)
+    tmptestlist = config.allKeys()
+    config.endGroup()
+    tmptestlist = map(str, tmptestlist)
+    return tmptestlist
+    
+
 # 清除选中的测试项目
 def itemchecked_clean():
     config = QSettings(".testsetting.ini", QSettings.IniFormat)
