@@ -211,6 +211,14 @@ def get_aftertest_itemlist(testtype):
     config.endGroup()
     tmptestlist = map(str, tmptestlist)
     return tmptestlist
+
+def get_aftertest_typelist():
+    config = QSettings(".tempseting.ini", QSettings.IniFormat)
+    config.beginGroup("todo_test_type")
+    typelist = config.allKeys()
+    config.endGroup()
+    typelist = map(str, typelist)
+    return typelist
     
 
 # 清除选中的测试项目

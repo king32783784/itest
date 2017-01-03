@@ -3,6 +3,8 @@ import re
 import sys
 sys.path.append('..')
 from common import *
+from data_operation import *
+
 
 class DataCapture(object):
     def __init__(self, result_file):
@@ -61,6 +63,8 @@ class DataCapture(object):
                 datalist_average.append(round(data / testtime, 2))
             return datalist_average
 
+
+# sysbenchcpu 数据处理
 class Data_sysbenchcpu(DataCapture):
     def __init__(self, result_file):
         DataCapture.__init__(self, result_file)
@@ -68,10 +72,18 @@ class Data_sysbenchcpu(DataCapture):
     def getresultdata(self):
         pattern_sysbenchcpu = "execution time \(avg\/stddev\):(.*?)\/0.00"
         item_args = get_item_temp_args("sysbenchcpu")
+        cpu_items = item_args["argp"].split(',')
         testtime = int(item_args["args"])
-        data_sysbenchcpu = self.data_search(pattern_sysbenchcpu, testtime)
+        num_sysbenchcpu = self.data_search(pattern_sysbenchcpu, testtime)
+        data_sysbenchcpu = {}
+        for i, value in enumerate(cpu_items):
+            data_sysbenchcpu[value] = num_sysbenchcpu[i]
+        data_sysbenchcpu["threads"] = item_args["argt"]
+        data_sysbenchcpu["cpu_args"] = cpu_items
         return data_sysbenchcpu
 
+
+# sysbenchmem数据处理
 class Data_sysbenchmem(DataCapture):
     def __init__(self, result_file):
         DataCapture.__init__(self, result_file)
@@ -85,9 +97,14 @@ class Data_sysbenchmem(DataCapture):
         pattern_sysbenchmem_rate =  "%s.00 MB transferred \((.*?)MB\/sec\)" % sysbenchmem_rate
         data_sysbenchmem_ops = self.data_search(pattern_sysbenchmem_ops, testtime)
         data_sysbenchmem_rate = self.data_search(pattern_sysbenchmem_rate, testtime)
-        data_sysbenchmem = [data_sysbenchmem_ops, data_sysbenchmem_rate]
+        data_sysbenchmem = {}
+        data_sysbenchmem["threads"] = item_args["argt"]
+        data_sysbenchmem["ops"] = data_sysbenchmem_ops
+        data_sysbenchmem["rate"] = data_sysbenchmem_rate
         return data_sysbenchmem
 
+
+# stream数据处理
 class Data_stream(DataCapture):
     def __init__(self, result_file):
         DataCapture.__init__(self, result_file)
@@ -96,13 +113,18 @@ class Data_stream(DataCapture):
         item_args = get_item_temp_args("stream")
         testtime = int(item_args["args"])
         stream_threads = item_args["argt"].split(",")
-        datalist_stream = []
+        datalist_stream = {}
         for thread in stream_threads:
             pattern_stream = "\\(%s\\)threads_result: (.*?)\n" % thread
             data_stream = self.datalist_search(pattern_stream, testtime)
-            datalist_stream.append(data_stream)
+            datalist_stream[thread]= data_stream
+        stream_args = ["Copy", "Scare", "Add", "Triad"]
+        datalist_stream["stream_args"] = stream_args
+        datalist_stream["threads"] = stream_threads
         return datalist_stream
 
+
+# lmbench数据处理
 class Data_lmbench(DataCapture):
     def __init__(self, result_file):
         DataCapture.__init__(self, result_file)
@@ -112,12 +134,16 @@ class Data_lmbench(DataCapture):
         testtime = int(item_args["args"])
         pattern_lmbench = ["Processor_r  (.*?)\\n", "Context_r (.*?)\\n", "Local_r   (.*?)\\n",
                            "File_VM_r  (.*?)\\n", "Bandwidth (.*?)\\n"]
-        datalist_lmbench = []
-        for pattern in pattern_lmbench:
+        lmbench_item = ["Processor", "Context", "Local_latencies", "File", "Local_bandwidths"]
+        datalist_lmbench = {}
+        for i, pattern in enumerate(pattern_lmbench):
             data_part = self.datalist_search(pattern, testtime)
-            datalist_lmbench.append(data_part)
+            datalist_lmbench[lmbench_item[i]] = data_part
+        datalist_lmbench["lmbenchitem"] = lmbench_item
         return datalist_lmbench
 
+
+# pingpong数据处理
 class Data_pingpong(DataCapture):
     def __init__(self, result_file):
         DataCapture.__init__(self, result_file)
@@ -137,9 +163,14 @@ class Data_pingpong(DataCapture):
             pingpong_pattern = "%s games completed in(.*?)msec" % game
             data_game = self.data_search(pingpong_pattern, testtime)
             datalist_games.append(data_game[0])
-        datalist_pingpong = [datalist_thread, datalist_games]
+        datalist_pingpong = {}
+        datalist_pingpong["tables"]=pingpong_games
+        datalist_pingpong["thread"] = datalist_thread
+        datalist_pingpong["games"] = datalist_games
         return datalist_pingpong
 
+
+# iozone数据处理
 class Data_iozone(DataCapture):
     def __init__(self, result_file):
         DataCapture.__init__(self, result_file)
@@ -163,9 +194,11 @@ class Data_iozone(DataCapture):
                data_iozone = self.data_search(pattern, testtime)
                datalist_iozone.append(data_iozone[0])
            datadict_iozone[mode] = datalist_iozone
+        datadict_iozone["modelist"] = iozone_modelist
         return datadict_iozone
                
 
+# unixbench数据处理
 class Data_unixbench(DataCapture):
     def __init__(self, result_file):
         DataCapture.__init__(self, result_file)
@@ -179,30 +212,67 @@ class Data_unixbench(DataCapture):
             unixbench_pattern = "Threads_%s: (.*?)\n" % thread
             data_unixbench = self.data_search(unixbench_pattern, testtime)
             datadict_unixbench[thread] = data_unixbench[0]
+        datadict_unixbench["threads"] = unixbench_thread
         return datadict_unixbench      
-           
+
+
+# 数据处理列表
+Data_classlist = {'sysbenchcpu': Data_sysbenchcpu, 'sysbenchmem': Data_sysbenchmem,
+                  'lmbench': Data_lmbench, 'pingpong': Data_pingpong,
+                  'stream': Data_stream, 'iozone': Data_iozone,
+                  'unixbench': Data_unixbench}
+result_filepath = "../current-result/"
+
+# 保存当前测试结果
+def save_current_data():
+    create_result_database() # 创建结果保存数据库
+    append_database_list('OS', "local") # 添加临时系统local
+    typelist = get_aftertest_typelist() # 获取测试type列表
+    testlist = get_aftertest_itemlist(typelist[0]) # 获取type对应的测试列表
+    src_file = result_filepath + typelist[0]
+    data_os_result = {}
+    for testitem in testlist:
+        src_file = os.path.join(src_file, testitem)
+        src_file = os.path.join(src_file, "result/result.out")
+        datacapture = Data_classlist[testitem]
+        object_data = datacapture(src_file)
+        item_data = object_data.getresultdata()
+        data_os_result[testitem] = item_data
+        src_file = result_filepath + typelist[0]
+    data_os_result["testlist"] = testlist
+    write_database("local", data_os_result)
+    print data_os_result
+
 
 # test
-#a = DataCapture("result.out")
-#a.data_search("execution time \(avg\/stddev\):(.*?)\/0.00")
-# a = Data_sysbenchmem("result.out")
+save_current_data()
+
+# a = Data_sysbenchcpu("../current-result/performance/sysbenchcpu/result/result.out")
 # data = a.getresultdata()
 # print data
-#a = get_item_temp_args("sysbenchmem")
-#print a
+
+# a = Data_sysbenchmem("../current-result/performance/sysbenchmem/result/result.out")
+# data = a.getresultdata()
+# print data
+
 # test stream
-#a = Data_stream("result.out")
-#data = a.getresultdata()
-#print data
-#a = Data_lmbench("result.out")
-#data = a.getresultdata()
-#print data
-#a = Data_pingpong("result.out")
-#data = a.getresultdata()
-#print data
-#a = Data_iozone("result.out")
-#data = a.getresultdata()
-#print data
-#a = Data_unixbench("result.out")
-#data = a.getresultdata()
-#print data
+# a = Data_stream("../current-result/performance/stream/result/result.out")
+# data = a.getresultdata()
+# print data
+
+# a = Data_lmbench("../current-result/performance/lmbench/result/result.out")
+# data = a.getresultdata()
+# print data
+
+# a = Data_pingpong("../current-result/performance/pingpong/result/result.out")
+# data = a.getresultdata()
+# print data
+
+
+# a = Data_iozone("../current-result/performance/iozone/result/result.out")
+# data = a.getresultdata()
+# print data
+
+# a = Data_unixbench("../current-result/performance/unixbench/result/result.out")
+# data = a.getresultdata()
+# print data
