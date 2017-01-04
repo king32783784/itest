@@ -195,6 +195,9 @@ class Data_iozone(DataCapture):
                datalist_iozone.append(data_iozone[0])
            datadict_iozone[mode] = datalist_iozone
         datadict_iozone["modelist"] = iozone_modelist
+        datadict_iozone["rblock"] = item_args["argr"]
+        datadict_iozone["filesize"] = item_args["args"]
+        datadict_iozone["threads"] = item_args["argt"]
         return datadict_iozone
                
 
@@ -226,7 +229,7 @@ result_filepath = "../current-result/"
 # 保存当前测试结果
 def save_current_data():
     create_result_database() # 创建结果保存数据库
-    append_database_list('OS', "local") # 添加临时系统local
+    append_database_list('OS', "local4") # 添加临时系统local
     typelist = get_aftertest_typelist() # 获取测试type列表
     testlist = get_aftertest_itemlist(typelist[0]) # 获取type对应的测试列表
     src_file = result_filepath + typelist[0]
@@ -240,7 +243,7 @@ def save_current_data():
         data_os_result[testitem] = item_data
         src_file = result_filepath + typelist[0]
     data_os_result["testlist"] = testlist
-    write_database("local", data_os_result)
+    write_database("local4", data_os_result)
     print data_os_result
 
 

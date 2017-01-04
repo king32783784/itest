@@ -85,7 +85,7 @@ def graphing(names, subjects, scores, title, custom_font):
     for i in range(0, len(names)):
         rects = plt.bar(index + i * bar_width, scores[i], bar_width,
                 color=colours[i], label=names[i])
-        autolabel(rects)
+ #       autolabel(rects) # 柱状图添加数字显示
     # X轴标题
     plt.xticks(index + bar_width, subjects, fontproperties=custom_font)
     # Y轴范围
