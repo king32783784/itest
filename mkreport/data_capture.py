@@ -229,7 +229,7 @@ result_filepath = "../current-result/"
 # 保存当前测试结果
 def save_current_data():
     create_result_database() # 创建结果保存数据库
-    append_database_list('OS', "local4") # 添加临时系统local
+    append_database_list('OS', "test3") # 添加临时系统local
     typelist = get_aftertest_typelist() # 获取测试type列表
     testlist = get_aftertest_itemlist(typelist[0]) # 获取type对应的测试列表
     src_file = result_filepath + typelist[0]
@@ -243,12 +243,12 @@ def save_current_data():
         data_os_result[testitem] = item_data
         src_file = result_filepath + typelist[0]
     data_os_result["testlist"] = testlist
-    write_database("local4", data_os_result)
-    print data_os_result
+    write_database("test3", data_os_result)
 
 
 # test
-save_current_data()
+# 保存数据
+# save_current_data()
 
 # a = Data_sysbenchcpu("../current-result/performance/sysbenchcpu/result/result.out")
 # data = a.getresultdata()

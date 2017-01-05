@@ -1,2 +1,1 @@
-sys.path.append('..')
 

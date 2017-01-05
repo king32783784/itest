@@ -82,8 +82,32 @@ class Create_md_Sysbenchcpu(Create_Md):
                     break
         else:
             self.resulttype = "SIGNLE"
+
+    def key_compare(self, key):
+        compare_flag = ""
+        init_key = self.result_data[self.oslist[0]]["sysbenchcpu"][key]
+        for osname in self.oslist[1:]:
+            if self.result_data[osname]["sysbenchcpu"][key] == init_key:
+                compare_flag = "T"
+            else:
+                compare_flag = "F"
+                break
+        return compare_flag
+
+    def check_key_args(self):
+        self.oslist = self.result_data["oslist"]
+        key_list = ["threads", "cpu_args"]
+        self.resulttype = "MULT"
+        if len(self.oslist) > 1:
+            for key in key_list:
+                compare_flag = self.key_compare(key)
+                if compare_flag == "F":
+                    self.resulttype = "SIGNLE"
+                    break
+        else:
+            self.resulttype = "SIGNLE"
     
-    def mkmd_data(self, osname):
+    def mkmd_data_single(self, osname):
         data_sysbenchcpu_list = []
         data_sysbenchcpu = {}
         for arg in self.result_data[osname]["sysbenchcpu"]["cpu_args"]:
@@ -91,7 +115,17 @@ class Create_md_Sysbenchcpu(Create_Md):
         data_sysbenchcpu[osname] = data_sysbenchcpu_list
         return data_sysbenchcpu
 
-    def mkmd_mkchart(self, osname, data_sysbenchcpu):
+    def mkmd_data_mult(self):
+        data_sysbenchcpu = {}
+        for osname in self.oslist:
+            data_sysbenchcpu_list = []
+            for arg in self.result_data[osname]["sysbenchcpu"]["cpu_args"]:
+                data_sysbenchcpu_list.append(self.result_data[osname]["sysbenchcpu"][arg])
+            data_sysbenchcpu[osname] = data_sysbenchcpu_list
+        print data_sysbenchcpu
+        return data_sysbenchcpu
+
+    def mkmd_mkchart_single(self, osname, data_sysbenchcpu):
         osnames = []
         osnames.append(osname)
         self.md_chart_sysbenchcpu["osnames"] = osnames
@@ -104,19 +138,43 @@ class Create_md_Sysbenchcpu(Create_Md):
         mkcontrol(self.md_chart_sysbenchcpu)
         return pngname
 
+    def mkmd_mkchart_mult(self, data_sysbenchcpu):
+        scores = []
+        for osname in self.oslist:
+            score = map(float, data_sysbenchcpu[osname])
+            scores.append(score)
+        self.md_chart_sysbenchcpu["osnames"] = self.oslist
+        self.md_chart_sysbenchcpu["subjects"] = self.result_data[self.oslist\
+                                                [0]]["sysbenchcpu"]["cpu_args"]
+        self.md_chart_sysbenchcpu["scores"] = scores
+        pngname = "sysbenchcpu.png"
+        pngpath = 'current-report/svgfile/%s' % pngname
+        self.md_chart_sysbenchcpu["pngname"] = pngpath
+        mkcontrol(self.md_chart_sysbenchcpu)
+        return pngname
+
     def mkmd_single(self):
         self.mk_md_title(self.md_title_sysbenchcpu)
         for osname in self.oslist:
             subtitle = "###CPU Execution time(second) - %sthread\n" % self.result_data[osname]["sysbenchcpu"]["threads"]
             self.mk_md_title(subtitle)
             self.mk_md_item(self.result_data[osname]["sysbenchcpu"]["cpu_args"])
-            data_sysbenchcpu = self.mkmd_data(osname)
+            data_sysbenchcpu = self.mkmd_data_single(osname)
             self.mk_md_data(data_sysbenchcpu)
-            pngname = self.mkmd_mkchart(osname, data_sysbenchcpu)
+            pngname = self.mkmd_mkchart_single(osname, data_sysbenchcpu)
             self.mk_md_chart(pngname)
     
     def mkmd_mult(self):
-        pass
+        self.mk_md_title(self.md_title_sysbenchcpu)
+        subtitle = "###CPU Execution time(second) - %sthread\n" % \
+            self.result_data[self.oslist[0]]["sysbenchcpu"]["threads"]
+        self.mk_md_title(subtitle)
+        self.mk_md_item(self.result_data[self.oslist[0]]["sysbenchcpu"]\
+                        ["cpu_args"])
+        data_sysbenchcpu = self.mkmd_data_mult()
+        self.mk_md_data(data_sysbenchcpu)
+        pngname = self.mkmd_mkchart_mult(data_sysbenchcpu)
+        self.mk_md_chart(pngname)
             
     def create_md(self):
         self.check_key_args()
@@ -169,12 +227,20 @@ class Create_md_Sysbenchmem(Create_Md):
         else:
             self.resulttype = "SIGNLE"
 
-    def mkmd_data(self, osname, item):
+    def mkmd_data_single(self, osname, item):
         data_sysbenchmem = {}
         data_sysbenchmem[osname] = self.result_data[osname]["sysbenchmem"][item]
         return data_sysbenchmem
 
-    def mkmd_mkchart(self, osname, data_sysbenchmem, subjects, subitem):
+    def mkmd_data_mult(self, item):
+        data_sysbenchmem = {}
+        for osname in self.oslist:
+            data_sysbenchmem[osname] = self.result_data[osname]["sysbenchmem"]\
+                                       [item]
+        return data_sysbenchmem
+ 
+    def mkmd_mkchart_single(self, osname, data_sysbenchmem,
+                            subjects, subitem):
         osnames = []
         osnames.append(osname)
         self.md_chart_sysbenchmem[subitem]["osnames"] = osnames
@@ -182,6 +248,21 @@ class Create_md_Sysbenchmem(Create_Md):
         scores = map(float,data_sysbenchmem[osname])
         self.md_chart_sysbenchmem[subitem]["scores"] = [scores]
         pngname = "sysbenchmem"+ '_'+ subitem + ".png"
+        pngpath = 'current-report/svgfile/%s' % pngname
+        self.md_chart_sysbenchmem[subitem]["pngname"] = pngpath
+        mkcontrol(self.md_chart_sysbenchmem[subitem])
+        return pngname
+
+    def mkmd_mkchart_mult(self, data_sysbenchmem, subjects, subitem):
+        scores = []
+        for osname in self.oslist:
+            score = data_sysbenchmem[osname]
+            score = map(float, score)
+            scores.append(score)
+        self.md_chart_sysbenchmem[subitem]["osnames"] = self.oslist
+        self.md_chart_sysbenchmem[subitem]["subjects"] = subjects
+        self.md_chart_sysbenchmem[subitem]["scores"] = scores
+        pngname = "sysbenchmem" + "_" + subitem + ".png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_sysbenchmem[subitem]["pngname"] = pngpath
         mkcontrol(self.md_chart_sysbenchmem[subitem])
@@ -200,15 +281,22 @@ class Create_md_Sysbenchmem(Create_Md):
             for key, value in self.md_subtitle_sysbenchmem.iteritems():
                 self.mk_md_title(value)
                 md_item = self.mkmd_item(osname)
-                print md_item
                 self.mk_md_item(md_item)
-                data_sysbenchmem = self.mkmd_data(osname, key)
+                data_sysbenchmem = self.mkmd_data_single(osname, key)
                 self.mk_md_data(data_sysbenchmem)
-                pngname = self.mkmd_mkchart(osname, data_sysbenchmem, md_item, key)
+                pngname = self.mkmd_mkchart_single(osname, data_sysbenchmem, md_item, key)
                 self.mk_md_chart(pngname)
 
     def mkmd_mult(self):
-        pass
+        self.mk_md_title(self.md_title_sysbenchmem)
+        for key, value in self.md_subtitle_sysbenchmem.iteritems():
+            self.mk_md_title(value)
+            md_item = self.mkmd_item(self.oslist[0])
+            self.mk_md_item(md_item)
+            data_sysbenchmem = self.mkmd_data_mult(key)
+            self.mk_md_data(data_sysbenchmem)
+            pngname = self.mkmd_mkchart_mult(data_sysbenchmem, md_item, key)
+            self.mk_md_chart(pngname)
 
     def create_md(self):
         self.check_key_args()
@@ -346,7 +434,7 @@ class Create_md_Iozone(Create_Md):
 ##Iozone - Performance Test of I/O
 """
     md_subtitle_iozone ="###Variety of File Operations"
-    # sysbenchcpu 柱状图参数模板
+    # iozone 柱状图参数模板
     md_chart_iozone = {
         'custom_font': 'goffer.ttf',
         'title':  'Variety of file operations(KB/sec)',
@@ -383,13 +471,23 @@ class Create_md_Iozone(Create_Md):
         else:
             self.resulttype = "SIGNLE"
 
-    def mkmd_data(self, osname):
+    def mkmd_data_single(self, osname):
         data_iozone_list = []
         itemlist = self.result_data[osname]["iozone"]["modelist"]
         data_iozone = {}
         for i in itemlist:
             data_iozone_list.extend(self.result_data[osname]["iozone"][i])
         data_iozone[osname] = data_iozone_list
+        return data_iozone
+
+    def mkmd_data_mult(self):
+        data_iozone = {}
+        for osname in self.oslist:
+            data_iozone_list = []
+            itemlist = self.result_data[osname]["iozone"]["modelist"]
+            for i in itemlist:
+                data_iozone_list.extend(self.result_data[osname]["iozone"][i])
+            data_iozone[osname] = data_iozone_list
         return data_iozone
 
     def mkmd_item(self, osname):
@@ -401,7 +499,7 @@ class Create_md_Iozone(Create_Md):
             iozone_item.extend(iozone_itemlist[i])
         return iozone_item
 
-    def mkmd_mkchart(self, osname, data_iozone, subjects):
+    def mkmd_mkchart_single(self, osname, data_iozone, subjects):
         osnames = []
         osnames.append(osname)
         self.md_chart_iozone["osnames"] = osnames
@@ -414,19 +512,42 @@ class Create_md_Iozone(Create_Md):
         mkcontrol(self.md_chart_iozone)
         return pngname
 
+    def mkmd_mkchart_mult(self, data_iozone, subjects):
+        scores = []
+        for osname in self.oslist:
+            score = data_iozone[osname]
+            score = map(float, score)
+            scores.append(score)
+        self.md_chart_iozone["osnames"] = self.oslist
+        self.md_chart_iozone["subjects"] = subjects
+        self.md_chart_iozone["scores"] = scores
+        pngname = "iozone.png"
+        pngpath = "current-report/svgfile/%s" % pngname
+        self.md_chart_iozone["pngname"] = pngpath
+        mkcontrol(self.md_chart_iozone)
+        return pngname
+
     def mkmd_single(self):
         self.mk_md_title(self.md_title_iozone)
         for osname in self.oslist:
             self.mk_md_title(self.md_subtitle_iozone)
             iozone_item = self.mkmd_item(osname)
             self.mk_md_item(iozone_item)
-            data_iozone = self.mkmd_data(osname)
+            data_iozone = self.mkmd_data_single(osname)
             self.mk_md_data(data_iozone)
-            pngname = self.mkmd_mkchart(osname, data_iozone, iozone_item)
+            pngname = self.mkmd_mkchart_single(osname, data_iozone, iozone_item)
             self.mk_md_chart(pngname)
 
     def mkmd_mult(self):
-        pass
+        self.mk_md_title(self.md_title_iozone)
+        self.mk_md_title(self.md_subtitle_iozone)
+        iozone_item = self.mkmd_item(self.oslist[0])
+        self.mk_md_item(iozone_item)
+        data_iozone = self.mkmd_data_mult()
+        self.mk_md_data(data_iozone)
+        pngname = self.mkmd_mkchart_mult(data_iozone, iozone_item)
+        self.mk_md_chart(pngname)
+ 
 
     def create_md(self):
         self.check_key_args()
@@ -454,7 +575,7 @@ class Create_md_Stream(Create_Md):
         Create_Md.__init__(self, src_file)
         self.result_data = result_data
 
-    def mkmd_mkchart(self, osname, data_stream, subitem):
+    def mkmd_mkchart_single(self, osname, data_stream, subitem):
         osnames = []
         osnames.append(osname)
         self.md_chart_stream["osnames"] = osnames
@@ -467,11 +588,33 @@ class Create_md_Stream(Create_Md):
         mkcontrol(self.md_chart_stream)
         return pngname
 
-    def mkmd_data(self, osname, subitem):
+    def mkmd_mkchart_mult(self, data_stream, subitem):
+        scores = []
+        for osname in self.oslist:
+            score = map(float,data_stream[osname])
+            scores.append(score)
+        self.md_chart_stream["osnames"] = self.oslist
+        self.md_chart_stream["title"] = "%sThreads Test(MB/s" % subitem
+        self.md_chart_stream["scores"] = scores
+        pngname = "stream" + "_" + subitem + ".png"
+        pngpath = "current-report/svgfile/%s" % pngname
+        self.md_chart_stream["pngname"] = pngpath
+        mkcontrol(self.md_chart_stream)
+        return pngname
+
+    def mkmd_data_single(self, osname, subitem):
         data_stream = {}
         data_stream_tmp = self.result_data[osname]["stream"][subitem]
         data_stream_tmp = map(str, data_stream_tmp)
         data_stream[osname] = data_stream_tmp
+        return data_stream
+ 
+    def mkmd_data_mult(self, subitem):
+        data_stream = {}
+        for osname in self.oslist:
+            data_stream_tmp = self.result_data[osname]["stream"][subitem]
+            data_stream_tmp = map(str, data_stream_tmp)
+            data_stream[osname] = data_stream_tmp
         return data_stream
 
     def mkmd_subtitle(self, osname):
@@ -490,9 +633,9 @@ class Create_md_Stream(Create_Md):
                 self.mk_md_title(value)
                 md_item = self.result_data[osname]["stream"]["stream_args"]
                 self.mk_md_item(md_item)
-                data_stream = self.mkmd_data(osname, key)
+                data_stream = self.mkmd_data_single(osname, key)
                 self.mk_md_data(data_stream)
-                pngname = self.mkmd_mkchart(osname, data_stream, key)
+                pngname = self.mkmd_mkchart_single(osname, data_stream, key)
                 self.mk_md_chart(pngname)
 
     def check_key_args(self):
@@ -509,7 +652,17 @@ class Create_md_Stream(Create_Md):
             self.resulttype = "SIGNLE"
 
     def mkmd_mult(self):
-        pass
+        self.mk_md_title(self.md_title_stream)
+        md_subtitle = self.mkmd_subtitle(self.oslist[0])
+        for key, value in md_subtitle.iteritems():
+            self.mk_md_title(value)
+            md_item = self.result_data[self.oslist[0]]["stream"]\
+                      ["stream_args"]
+            self.mk_md_item(md_item)
+            data_stream = self.mkmd_data_mult(key)
+            self.mk_md_data(data_stream)
+            pngname = self.mkmd_mkchart_mult(data_stream, key)
+            self.mk_md_chart(pngname)
 
     def create_md(self):
         self.check_key_args()
@@ -564,12 +717,18 @@ class Create_md_Pingpong(Create_Md):
         else:
             self.resulttype = "SIGNLE"
 
-    def mkmd_data(self, osname, item):
+    def mkmd_data_single(self, osname, item):
         data_pingpong = {}
         data_pingpong[osname] = self.result_data[osname]["pingpong"][item]
         return data_pingpong
 
-    def mkmd_mkchart(self, osname, data_pingpong, subjects, subitem):
+    def mkmd_data_mult(self, item):
+        data_pingpong = {}
+        for osname in self.oslist:
+            data_pingpong[osname] = self.result_data[osname]["pingpong"][item]
+        return data_pingpong
+
+    def mkmd_mkchart_single(self, osname, data_pingpong, subjects, subitem):
         osnames = []
         osnames.append(osname)
         self.md_chart_pingpong[subitem]["osnames"] = osnames
@@ -577,6 +736,21 @@ class Create_md_Pingpong(Create_Md):
         scores = map(float,data_pingpong[osname])
         self.md_chart_pingpong[subitem]["scores"] = [scores]
         pngname = "pingpong"+ '_'+ subitem + ".png"
+        pngpath = 'current-report/svgfile/%s' % pngname
+        self.md_chart_pingpong[subitem]["pngname"] = pngpath
+        mkcontrol(self.md_chart_pingpong[subitem])
+        return pngname
+
+    def mkmd_mkchart_mult(self, data_pingpong, subjects, subitem):
+        scores = []
+        for osname in self.oslist:
+            score = data_pingpong[osname]
+            score = map(float, data_pingpong[osname])
+            scores.append(score)
+        self.md_chart_pingpong[subitem]["osnames"] = self.oslist
+        self.md_chart_pingpong[subitem]["subjects"] = subjects
+        self.md_chart_pingpong[subitem]["scores"] = scores
+        pngname = "pingpong" + "_" + subitem + ".png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_pingpong[subitem]["pngname"] = pngpath
         mkcontrol(self.md_chart_pingpong[subitem])
@@ -596,14 +770,22 @@ class Create_md_Pingpong(Create_Md):
                 self.mk_md_title(value)
                 md_item = self.mkmd_item(osname)
                 self.mk_md_item(md_item)
-                data_pingpong = self.mkmd_data(osname, key)
+                data_pingpong = self.mkmd_data_single(osname, key)
                 self.mk_md_data(data_pingpong)
-                pngname = self.mkmd_mkchart(osname, data_pingpong, md_item, key)
+                pngname = self.mkmd_mkchart_single(osname, data_pingpong, md_item, key)
                 self.mk_md_chart(pngname)
 
     def mkmd_mult(self):
-        pass
-
+        self.mk_md_title(self.md_title_pingpong)
+        for key, value in self.md_subtitle_pingpong.iteritems():
+           self.mk_md_title(value)
+           md_item = self.mkmd_item(self.oslist[0])
+           self.mk_md_item(md_item)
+           data_pingpong = self.mkmd_data_mult(key)
+           self.mk_md_data(data_pingpong)
+           pngname = self.mkmd_mkchart_mult(data_pingpong, md_item, key)
+           self.mk_md_chart(pngname)
+           
     def create_md(self):
         self.check_key_args()
         if self.resulttype == "SIGNLE":
@@ -634,9 +816,9 @@ class Create_md_Unixbench(Create_Md):
     def check_key_args(self):
         self.oslist = self.result_data["oslist"]
         if len(self.oslist) > 1:
-            init_thread = self.result_data[self.oslist[0]]["sysbenchcpu"]["threads"]
+            init_thread = self.result_data[self.oslist[0]]["unixbench"]["threads"]
             for osname in self.oslist[1:]:
-                if self.result_data[osname]["sysbenchcpu"]["threads"] == init_thread:
+                if self.result_data[osname]["unixbench"]["threads"] == init_thread:
                     self.resulttype = "MULT"
                 else:
                     self.resulttype = "SIGNLE"
@@ -644,12 +826,22 @@ class Create_md_Unixbench(Create_Md):
         else:
             self.resulttype = "SIGNLE"
 
-    def mkmd_data(self, osname):
+    def mkmd_data_single(self, osname):
         data_unixbench_list = []
         data_unixbench = {}
         for thread in self.result_data[osname]["unixbench"]["threads"]:
             data_unixbench_list.append(self.result_data[osname]["unixbench"][thread])
         data_unixbench[osname] = data_unixbench_list
+        return data_unixbench
+
+    def mkmd_data_mult(self):
+        data_unixbench_list = []
+        data_unixbench = {}
+        for osname in self.oslist:
+            for thread in self.result_data[osname]["unixbench"]["threads"]:
+                data_unixbench_list.append(self.result_data[osname]\
+                    ["unixbench"][thread])
+            data_unixbench[osname] = data_unixbench_list
         return data_unixbench
 
     def mkmd_item(self, osname):
@@ -659,7 +851,7 @@ class Create_md_Unixbench(Create_Md):
             unixbench_item.append("%sthreads" % thread)
         return unixbench_item
 
-    def mkmd_mkchart(self, osname, data_unixbench, subitem):
+    def mkmd_mkchart_single(self, osname, data_unixbench, subitem):
         osnames = []
         osnames.append(osname)
         self.md_chart_unixbench["osnames"] = osnames
@@ -672,19 +864,40 @@ class Create_md_Unixbench(Create_Md):
         mkcontrol(self.md_chart_unixbench)
         return pngname
 
+    def mkmd_mkchart_mult(self, data_unixbench, subitem):
+        scores = []
+        for osname in self.oslist:
+            score = data_unixbench[osname]
+            score = map(float, score)
+            scores.append(score)
+        self.md_chart_unixbench["osnames"] = self.oslist
+        self.md_chart_unixbench["subjects"] = subitem
+        self.md_chart_unixbench["scores"] = scores
+        pngname = "unixbench.png"
+        pngpath = 'current-report/svgfile/%s' % pngname
+        mkcontrol(self.md_chart_unixbench)
+        return pngname
+
     def mkmd_single(self):
         self.mk_md_title(self.md_title_unixbench)
         for osname in self.oslist:
             self.mk_md_title(self.md_subtitle_unixbench)
             unixbench_item = self.mkmd_item(osname)
             self.mk_md_item(unixbench_item)
-            data_unixbench = self.mkmd_data(osname)
+            data_unixbench = self.mkmd_data_single(osname)
             self.mk_md_data(data_unixbench)
-            pngname = self.mkmd_mkchart(osname, data_unixbench, unixbench_item)
+            pngname = self.mkmd_mkchart_single(osname, data_unixbench, unixbench_item)
             self.mk_md_chart(pngname)
 
     def mkmd_mult(self):
-        pass
+        self.mk_md_title(self.md_title_unixbench)
+        self.mk_md_title(self.md_subtitle_unixbench)
+        unixbench_item = self.mkmd_item(self.oslist[0])
+        self.mk_md_item(unixbench_item)
+        data_unixbench = self.mkmd_data_mult()
+        self.mk_md_data(data_unixbench)
+        pngname = self.mkmd_mkchart_mult(data_unixbench, unixbench_item)
+        self.mk_md_chart(pngname)
 
     def create_md(self):
         self.check_key_args()
@@ -692,7 +905,6 @@ class Create_md_Unixbench(Create_Md):
             self.mkmd_single()
         else:
             self.mkmd_mult()
-
 
 
 # html_md处理列表
@@ -718,7 +930,7 @@ def mk_html_main(src_file, oslist, itemlist):
     for osname in oslist:
         tmp_data = read_database(osname)
         os_result_data[osname] = tmp_data
-    print os_result_data
+#    print os_result_data
     os_result_data["oslist"] = oslist
     for item in itemlist:
         Create_Md = Md_classlist[item]    
@@ -733,4 +945,5 @@ def mk_html_main(src_file, oslist, itemlist):
     except OSError as e:
         print >>sys.stderr, "Execution failed:", e      
 
-mk_html_main("current-report/test.md", ["local"], ["lmbench"])
+# test 生成html报告
+mk_html_main("current-report/test.md", ["test1", "test3"], ["stream", "iozone", "lmbench", "unixbench", "pingpong", "sysbenchcpu"])
