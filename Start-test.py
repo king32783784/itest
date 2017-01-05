@@ -23,6 +23,7 @@ from resulttab import *
 from testdrive import *
 from common import *
 from mkreport.data_capture import *
+from mkreport.mkresult import *
 
 
 class Window(QtGui.QMainWindow):
@@ -195,7 +196,8 @@ class Window(QtGui.QMainWindow):
         self.window_log.appendPlainText("%s" % info)
         if info == "All tests end":
             self.progressbar.setValue(100)
-            print("hello")
+            save_current_data()
+            mk_current_report()
         
     @pyqtSlot()
     def logwindow(self):

@@ -224,12 +224,12 @@ Data_classlist = {'sysbenchcpu': Data_sysbenchcpu, 'sysbenchmem': Data_sysbenchm
                   'lmbench': Data_lmbench, 'pingpong': Data_pingpong,
                   'stream': Data_stream, 'iozone': Data_iozone,
                   'unixbench': Data_unixbench}
-result_filepath = "../current-result/"
+result_filepath = "current-result/"
 
 # 保存当前测试结果
 def save_current_data():
     create_result_database() # 创建结果保存数据库
-    append_database_list('OS', "test3") # 添加临时系统local
+    append_database_list('OS', "test") # 添加临时系统local
     typelist = get_aftertest_typelist() # 获取测试type列表
     testlist = get_aftertest_itemlist(typelist[0]) # 获取type对应的测试列表
     src_file = result_filepath + typelist[0]
@@ -243,12 +243,13 @@ def save_current_data():
         data_os_result[testitem] = item_data
         src_file = result_filepath + typelist[0]
     data_os_result["testlist"] = testlist
-    write_database("test3", data_os_result)
+    write_database("test", data_os_result)
 
 
 # test
 # 保存数据
-# save_current_data()
+#if __name__ == "__main__": 
+    
 
 # a = Data_sysbenchcpu("../current-result/performance/sysbenchcpu/result/result.out")
 # data = a.getresultdata()

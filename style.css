@@ -1,0 +1,40 @@
+ {
+   font-family: "Microsoft YaHei";
+   }
+
+   body {
+     width: 1000px;
+     }
+
+     p {
+       font-size: 12pt;
+       }
+
+       table {
+         font-size: 10pt;
+           padding: 2px;
+             margin: 0;
+               border: 4px double;
+                 border-collapse:collapse;
+                   width: 1000px;
+                   }
+
+                   pre {
+                     width: 1000px;
+                       overflow: auto;
+                         word-wrap: break-word;
+                         }
+
+                         th, td {
+                           border: 1px solid;
+                             margin: 0;
+                               min-width: 100px;
+                                 max-width: 400px;
+                                   padding-left: 5px;
+                                     padding-right: 5px;
+                                       word-wrap: break-word;
+                                       }
+
+                                       #disqus_thread {
+                                         margin-top: 20px;
+                                         }

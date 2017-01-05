@@ -195,12 +195,12 @@ def save_testitem_args():
                 todo_itemlist.append(item)
         todo_testlist[key] = todo_itemlist
     for key, value in todo_testlist.iteritems():
-        writeconfig("mkreport/.tempseting.ini", "todo_test_type", key, "") # 写入测试类别
+        writeconfig(".tempseting.ini", "todo_test_type", key, "") # 写入测试类别
         for todo_item in value:
-            writeconfig("mkreport/.tempseting.ini", key, todo_item, "") # 写入测试项目
+            writeconfig(".tempseting.ini", key, todo_item, "") # 写入测试项目
             item_argslist = get_item_args(todo_item)
             for arg_key, arg_value in item_argslist.iteritems():
-                writeconfig("mkreport/.tempseting.ini", todo_item, arg_key, arg_value) # 写入测试项目对应参数
+                writeconfig(".tempseting.ini", todo_item, arg_key, arg_value) # 写入测试项目对应参数
 
 # 获取已完成测试的项目
 
@@ -229,7 +229,7 @@ def itemchecked_clean():
 # 初始化环境
 def initenv():
     # 清除临时文件和目录
-    tempfile = [".tempseting.ini", "tmp"]
+    tempfile = [".tempseting.ini", "tmp", "current-result/performance/", "current-report/"]
     for tmpfile in tempfile:
         delete_file_folder(tmpfile)
     # 清除之前选中的测试项目

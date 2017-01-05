@@ -1,25 +1,15 @@
 #/usr/bin/env python
 # coding: utf-8
-'''
-    Name: Test report automatically generate tool
-    Function: Automatically generate performance test results xls format report
-              with Python and XlsxWriter
-    Author: peng.li@i-soft.com.cn
-    Date :20160701
-'''
 import os
 import sys
-from processingcontrol import *
-reload(sys)
-sys.setdefaultencoding('utf8')
+from mk_html import *
+from data_operation import *
 
-if __name__== "__main__":
-    reciveargs = {}
-    reciveargs['osnames'] = ["itest-20161213033232"]
-    reciveargs['type'] = ["html", "xls"]
-    reciveargs['items'] = ["sysbenchcpu", "sysbenchmem", "stream", "iozone", "pingpong", "unixbench"]
-    maincontrol = Control_processing(reciveargs)
-    maincontrol._mkxls()
+def mk_current_report():
+   typelist = get_aftertest_typelist()
+   print typelist
+   testlist = get_aftertest_itemlist(typelist[0])
+   mk_html_main("current-report/test.md", ["test"], testlist)
 
-# reciveargs={'items': ['cpu', 'mem'], 'type': ['xls', 'html'], 'osnames': ['iSoft_Desktop_4.0', 'deepin']}
-# error: lmbench
+#mk_current_report()
+    
