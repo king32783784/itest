@@ -29,16 +29,16 @@ class ResultWindow(QtGui.QWidget):
         searchreport = SearchResult()
         self.tabwidget.addTab(curentreport, u'当前结果')
         self.tabwidget.addTab(searchreport, '报告查询')
-        self.tabwidget.addTab(QtGui.QPlainTextEdit(), '单项结果')
+#        self.tabwidget.addTab(QtGui.QPlainTextEdit(), '单项结果')
         self.tabwidget.addTab(QtGui.QPlainTextEdit(), '对比报告')
 
 
-if __name__ == "__main__":
-    application = QtGui.QApplication(sys.argv)
-    window = ResultWindow()
-    window.setWindowTitle('QTabWidget')  # title
-    qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-    window.setStyleSheet(qss)
-    window.resize(1024, 320)  # size
-    window.show()  # shows the window
-    sys.exit(application.exec_())
+#if __name__ == "__main__":
+#    application = QtGui.QApplication(sys.argv)
+#    window = ResultWindow()
+#    window.setWindowTitle('QTabWidget')  # title
+#    qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
+#    window.setStyleSheet(qss)
+#    window.resize(1024, 320)  # size
+#    window.show()  # shows the window
+#    sys.exit(application.exec_())

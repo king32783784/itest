@@ -6,6 +6,7 @@ from PyQt4 import QtGui
 from PyQt4 import QtWebKit
 from PyQt4 import QtCore
 from PyQt4.QtCore import *
+from PyQt4.QtGui import QColor
 from PyQt4.QtCore import QUrl
 from PyQt4.QtWebKit import QWebSettings, QWebPage
 
@@ -22,6 +23,11 @@ class CurentReport(QtGui.QMainWindow):
 
         # 生成网页浏览器
         self.webview = QtWebKit.QWebView(self)
+        self.webview.setWindowOpacity(90)
+        palette1 = QtGui.QPalette()
+        palette1.setColor(self.backgroundRole(), QColor("#57760e"))  # 设置背景色
+        self.setPalette(palette1)
+        self.setAutoFillBackground(True)
 
         # toolbar widgets (instantiated in the init_toolbar() method)
         self.search = None

@@ -152,6 +152,7 @@ class Window(QtGui.QMainWindow):
 
     @pyqtSlot()
     def resultwindow(self):
+        self.window_result = ResultWindow()
         self.window_result.show()
     
     @pyqtSlot()
@@ -167,6 +168,7 @@ class Window(QtGui.QMainWindow):
     def starttest(self):
         if self.startstatus == "E":
             self.window_log.appendPlainText("start")
+        #    self.mkresultbutton.setEnabled(False) # button禁用
             self.startbutton.setText(u"停止测试")
             self.startbutton.setIcon(QIcon("images/stop.ico"))
             save_testitem_args() # 保存当前测试项目及参数
@@ -176,8 +178,7 @@ class Window(QtGui.QMainWindow):
             sumtestnum = sumtests()
             self.progress_interval = 100 / sumtestnum
             self.window_log.show()
-            resultdirontime = createresultdir()
-            writeconfig(".resultseting.ini", "ontime", "resultdirontime", resultdirontime)
+            writeconfig(".resultseting.ini", "ontime", "resultdirontime", "test")
             test = TestThread(self)
             test.setup(self.window_log)
             test.trigger.connect(self.update_text)
@@ -198,6 +199,15 @@ class Window(QtGui.QMainWindow):
             self.progressbar.setValue(100)
             save_current_data()
             mk_current_report()
+            self.write_result_config()
+
+    # 写入当前报告地址
+    def write_result_config(self):
+        homepath = getlocatepath()
+        defaultresult = os.path.join(homepath, "current-report/test.html")
+        defaultresult = "file://" + defaultresult
+        writeconfig(".resultseting.ini", "currentresult", 
+                    "resultaddress", defaultresult)
         
     @pyqtSlot()
     def logwindow(self):

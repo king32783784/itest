@@ -122,7 +122,6 @@ class Create_md_Sysbenchcpu(Create_Md):
             for arg in self.result_data[osname]["sysbenchcpu"]["cpu_args"]:
                 data_sysbenchcpu_list.append(self.result_data[osname]["sysbenchcpu"][arg])
             data_sysbenchcpu[osname] = data_sysbenchcpu_list
-        print data_sysbenchcpu
         return data_sysbenchcpu
 
     def mkmd_mkchart_single(self, osname, data_sysbenchcpu):
@@ -135,7 +134,8 @@ class Create_md_Sysbenchcpu(Create_Md):
         pngname = osname + '_' + "syscpu.png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_sysbenchcpu["pngname"] = pngpath
-        mkcontrol(self.md_chart_sysbenchcpu)
+      #  mkcontrol(self.md_chart_sysbenchcpu)
+        mkchart(self.md_chart_sysbenchcpu)
         return pngname
 
     def mkmd_mkchart_mult(self, data_sysbenchcpu):
@@ -150,7 +150,7 @@ class Create_md_Sysbenchcpu(Create_Md):
         pngname = "sysbenchcpu.png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_sysbenchcpu["pngname"] = pngpath
-        mkcontrol(self.md_chart_sysbenchcpu)
+        mkchart(self.md_chart_sysbenchcpu)
         return pngname
 
     def mkmd_single(self):
@@ -250,7 +250,7 @@ class Create_md_Sysbenchmem(Create_Md):
         pngname = "sysbenchmem"+ '_'+ subitem + ".png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_sysbenchmem[subitem]["pngname"] = pngpath
-        mkcontrol(self.md_chart_sysbenchmem[subitem])
+        mkchart(self.md_chart_sysbenchmem[subitem])
         return pngname
 
     def mkmd_mkchart_mult(self, data_sysbenchmem, subjects, subitem):
@@ -265,7 +265,7 @@ class Create_md_Sysbenchmem(Create_Md):
         pngname = "sysbenchmem" + "_" + subitem + ".png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_sysbenchmem[subitem]["pngname"] = pngpath
-        mkcontrol(self.md_chart_sysbenchmem[subitem])
+        mkchart(self.md_chart_sysbenchmem[subitem])
         return pngname
  
     def mkmd_item(self, osname):
@@ -381,7 +381,7 @@ class Create_md_Lmbench(Create_Md):
         pngname = "lmbench"+ '_'+ subitem + ".png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_lmbench[subitem]["pngname"] = pngpath
-        mkcontrol(self.md_chart_lmbench[subitem])
+        mkchart(self.md_chart_lmbench[subitem])
         return pngname
 
     def mkmd_data(self, subitem):
@@ -509,7 +509,7 @@ class Create_md_Iozone(Create_Md):
         pngname = osname + '_' + "iozone.png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_iozone["pngname"] = pngpath
-        mkcontrol(self.md_chart_iozone)
+        mkchart(self.md_chart_iozone)
         return pngname
 
     def mkmd_mkchart_mult(self, data_iozone, subjects):
@@ -524,7 +524,7 @@ class Create_md_Iozone(Create_Md):
         pngname = "iozone.png"
         pngpath = "current-report/svgfile/%s" % pngname
         self.md_chart_iozone["pngname"] = pngpath
-        mkcontrol(self.md_chart_iozone)
+        mkchart(self.md_chart_iozone)
         return pngname
 
     def mkmd_single(self):
@@ -585,7 +585,7 @@ class Create_md_Stream(Create_Md):
         pngname = "stream"+ '_'+ subitem + ".png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_stream["pngname"] = pngpath
-        mkcontrol(self.md_chart_stream)
+        mkchart(self.md_chart_stream)
         return pngname
 
     def mkmd_mkchart_mult(self, data_stream, subitem):
@@ -599,7 +599,7 @@ class Create_md_Stream(Create_Md):
         pngname = "stream" + "_" + subitem + ".png"
         pngpath = "current-report/svgfile/%s" % pngname
         self.md_chart_stream["pngname"] = pngpath
-        mkcontrol(self.md_chart_stream)
+        mkchart(self.md_chart_stream)
         return pngname
 
     def mkmd_data_single(self, osname, subitem):
@@ -738,7 +738,7 @@ class Create_md_Pingpong(Create_Md):
         pngname = "pingpong"+ '_'+ subitem + ".png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_pingpong[subitem]["pngname"] = pngpath
-        mkcontrol(self.md_chart_pingpong[subitem])
+        mkchart(self.md_chart_pingpong[subitem])
         return pngname
 
     def mkmd_mkchart_mult(self, data_pingpong, subjects, subitem):
@@ -753,7 +753,7 @@ class Create_md_Pingpong(Create_Md):
         pngname = "pingpong" + "_" + subitem + ".png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_pingpong[subitem]["pngname"] = pngpath
-        mkcontrol(self.md_chart_pingpong[subitem])
+        mkchart(self.md_chart_pingpong[subitem])
         return pngname
 
     def mkmd_item(self, osname):
@@ -861,7 +861,7 @@ class Create_md_Unixbench(Create_Md):
         pngname = osname + '_' + "unxibench.png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_unixbench["pngname"] = pngpath
-        mkcontrol(self.md_chart_unixbench)
+        mkchart(self.md_chart_unixbench)
         return pngname
 
     def mkmd_mkchart_mult(self, data_unixbench, subitem):
@@ -875,7 +875,7 @@ class Create_md_Unixbench(Create_Md):
         self.md_chart_unixbench["scores"] = scores
         pngname = "unixbench.png"
         pngpath = 'current-report/svgfile/%s' % pngname
-        mkcontrol(self.md_chart_unixbench)
+        mkchart(self.md_chart_unixbench)
         return pngname
 
     def mkmd_single(self):
@@ -930,7 +930,7 @@ def mk_html_main(src_file, oslist, itemlist):
     for osname in oslist:
         tmp_data = read_database(osname)
         os_result_data[osname] = tmp_data
-#    print os_result_data
+    print os_result_data
     os_result_data["oslist"] = oslist
     for item in itemlist:
         Create_Md = Md_classlist[item]    
@@ -946,4 +946,4 @@ def mk_html_main(src_file, oslist, itemlist):
         print >>sys.stderr, "Execution failed:", e      
 
 # test 生成html报告
-# mk_html_main("current-report/test.md", ["local"], ["sysbenchcpu"])
+#mk_html_main("current-report/test.md", ["local"], ["sysbenchcpu", "sysbenchmem", "stream"])
