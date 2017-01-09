@@ -1,6 +1,7 @@
 # *-* coding=utf-8 *-*
 import os
 import time
+import shutil
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui,QtCore
@@ -244,6 +245,7 @@ def get_item_temp_args(item):
     for item_arg in item_argslist:
         item_args[str(item_arg)] = str(config.value(QString("%s/"% item) + item_arg).toString()[0:])
     return item_args
+
 
 
 #a = get_item_temp_args("sysbenchmem")

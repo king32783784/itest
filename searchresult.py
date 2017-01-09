@@ -5,7 +5,10 @@ import sys
 from PyQt4 import QtGui
 from PyQt4 import QtWebKit
 from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 from common import *
+from PyQt4.QtWebKit import QWebSettings, QWebPage
+
 
 class SearchResult(QtGui.QWidget):
     def __init__(self, parent=None):
@@ -68,8 +71,9 @@ class SearchResult(QtGui.QWidget):
             self.namelist.append(name)
             self.addresslist.append(address)
         self.combobox.addItems(self.namelist)
-        self.webview.load(QtCore.QUrl(self.addresslist[0]))
-        self.combobox.activated.connect(self.setCurrentIndex)
+        if len(self.addresslist) > 0:
+            self.webview.load(QtCore.QUrl(self.addresslist[0]))
+            self.combobox.activated.connect(self.setCurrentIndex)
 
     def setCurrentIndex(self, index):
         self.combobox.setCurrentIndex(index)
@@ -77,12 +81,81 @@ class SearchResult(QtGui.QWidget):
         self.webview.load(QtCore.QUrl(self.addresslist[index]))
         print(self.labelindex)
 
-#application = QtGui.QApplication(sys.argv)
 
+class MakeReport(QtGui.QWidget):
+    def __init__(self, parent=None):
+        super(MakeReport, self).__init__(parent)
+        self.resultslist = getresultslist()
+        # vertical box layout
+        setlavel1 = QtGui.QLabel(u"设置对比项目:")
+        namelabel1 = QtGui.QCheckBox(u"项目1")
+        namelabel2 = QtGui.QCheckBox(u"项目2")
+        namelabel3 = QtGui.QCheckBox(u"项目3")
+        namelabel4 = QtGui.QCheckBox(u"项目4")
+        namelabel5 = QtGui.QCheckBox(u"项目5")
+        setlavel2 = QtGui.QLabel(u"选择报告类型:")
+        self.combobox1 = self.create_combox()
+        self.combobox2 = self.create_combox()
+        self.combobox3 = self.create_combox()
+        self.combobox4 = self.create_combox()
+        self.combobox5 = self.create_combox()
+        report_type1 = QtGui.QCheckBox(u"HTML格式")
+        report_type2 = QtGui.QCheckBox(u"XLS格式")
+        makebutton = QtGui.QPushButton("开始制作")
+        cancelbutton = QtGui.QPushButton("取消")
+        vlayout = QtGui.QVBoxLayout()
+        vlayout.addWidget(setlavel1)
+        hlayout1 = QtGui.QHBoxLayout()
+        hlayout2 = QtGui.QHBoxLayout()
+        hlayout1.addWidget(report_type1)
+        hlayout1.addWidget(report_type2)
+        hlayout2.addWidget(makebutton)
+        hlayout2.addWidget(cancelbutton)
+        vlayout.addWidget(namelabel1)
+        vlayout.addWidget(self.combobox1)
+        vlayout.addWidget(namelabel2)
+        vlayout.addWidget(self.combobox2)
+        vlayout.addWidget(namelabel3)
+        vlayout.addWidget(self.combobox3)
+        vlayout.addWidget(namelabel4)
+        vlayout.addWidget(self.combobox4)
+        vlayout.addWidget(namelabel5)
+        vlayout.addWidget(self.combobox5)
+        vlayout.addWidget(setlavel2)
+        vlayout.addLayout(hlayout1)
+        vlayout.addLayout(hlayout2)
+        self.setLayout(vlayout)
+
+    def getcurrentresult(self):
+        config = QSettings(".resultseting.ini", QSettings.IniFormat)
+        result_address = {}
+        result_address["address"] = config.value("currentresult/" + "resultaddress").toString()[0:]
+        result_address["name"] = config.value("currentresult/" + "resultname").toString()[0:]
+        return result_address
+
+    def create_combox(self):
+        combobox = QtGui.QComboBox()
+        namelist = []
+        addresslist = []
+        for name, address in self.resultslist.iteritems():
+            namelist.append(name)
+            addresslist.append(address)
+        combobox.addItems(namelist)
+        return combobox
+
+    def setCurrentIndex(self, index):
+        self.combobox.setCurrentIndex(index)
+        self.labelindex = index
+        self.webview.load(QtCore.QUrl(self.addresslist[index]))
+        print(self.labelindex)
+
+
+
+if __name__ == '__main__':
+    application = QtGui.QApplication(sys.argv)
 # window
-#window = SearchResult()
-#window.setWindowTitle('Stacked Widget')
-#window.resize(280, 260)
-#window.show()
-
-#sys.exit(application.exec_())
+    window = MakeReport()
+    window.setWindowTitle('Stacked Widget')
+    window.resize(280, 260)
+    window.show()
+    sys.exit(application.exec_())

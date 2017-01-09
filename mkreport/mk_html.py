@@ -946,4 +946,4 @@ def mk_html_main(src_file, oslist, itemlist):
         print >>sys.stderr, "Execution failed:", e      
 
 # test 生成html报告
-#mk_html_main("current-report/test.md", ["local"], ["sysbenchcpu", "sysbenchmem", "stream"])
+#mk_html_main("current-report/test.md", ["local"], ["stream"])

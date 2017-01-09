@@ -229,7 +229,6 @@ result_filepath = "current-result/"
 # 保存当前测试结果
 def save_current_data():
     create_result_database() # 创建结果保存数据库
-    append_database_list('OS', "test") # 添加临时系统local
     typelist = get_aftertest_typelist() # 获取测试type列表
     testlist = get_aftertest_itemlist(typelist[0]) # 获取type对应的测试列表
     src_file = result_filepath + typelist[0]
