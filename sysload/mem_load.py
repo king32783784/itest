@@ -20,27 +20,29 @@ __all__ = ["MemLoadWidget"]
 class MemLoadWidget(QWidget):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.collectMachineLoad)
         self.loads = []
+        self.getrate = 0
         self.maxLength = 400
         self.pointDistance = 5 #每点之间的间隔
+        self.boxWidth = 60 
+        self.settimer()
+
+    def settimer(self):
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.collectMachineLoad)
         self.updateInterval = 1000 #更新的时间间隔
         self.timer.setInterval(self.updateInterval)
         self.timer.start()
-        self.cpuload = MemLoad()
-        self.cpuload.trigger.connect(self.getrate)
-        self.cpuload.start()
-        self.boxWidth = 60
-
-    def getrate(self, testrate):
-        self.getrate = testrate
 
     def finalize(self):
         self.timer.stop()
-        self.loads = []
 
     def collectMachineLoad(self):
+        def getrate(testrate):
+            self.getrate = testrate
+        self.memload = MemLoad(self)
+        self.memload.trigger.connect(getrate)
+        self.memload.start()
         rate = self.getrate
         self.loads.insert(0, rate)
         if len(self.loads) > self.maxLength:

@@ -14,7 +14,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from collections import OrderedDict
 
-__all__ = ["MemLoadWidget"]
+__all__ = ["SwapLoadWidget"]
 
 class SwapLoadWidget(QWidget):
     def __init__(self, parent=None):
