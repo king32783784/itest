@@ -55,9 +55,17 @@ class SaveResult(QtGui.QDialog):
         append_database_list('OSLIST', dst)
 
     def OnOk(self):
+        resultlist = read_database('OSLIST')
         self.text = self.textField.text()  # 获取文本框中的内容
-        self.save_report(self.text)
-        self.save_result(self.text)
+        if self.text in resultlist:
+            QtGui.QMessageBox.warning(self, "警告",
+            '名称已存在，请重新输入',
+            QtGui.QMessageBox.Yes,
+            QtGui.QMessageBox.No)
+        else:
+            self.save_result(self.text)
+            if self.radio1.isChecked():
+                self.save_report(self.text)
         self.done(1)
 
     def OnCancel(self):
@@ -93,7 +101,7 @@ class CurentReport(QtGui.QMainWindow):
     def init_toolbar(self):
 
         # 测试结果名称
-        resultaddress = self.getcurrentresult()
+        resultaddress = getcurrentresult()
         self.result_label = QtGui.QLabel(u'结果名称',self)
         self.result_bar = QtGui.QLineEdit(self)
         self.result_bar.setText(u"%s"%resultaddress["name"])
@@ -124,13 +132,6 @@ class CurentReport(QtGui.QMainWindow):
     def saveresultslot(self):
         saveresult = SaveResult()
         saveresult.exec_()
-
-    def getcurrentresult(self):
-        config = QSettings(".resultseting.ini", QSettings.IniFormat)
-        result_address = {}
-        result_address["address"] = config.value("currentresult/" + "resultaddress").toString()[0:]
-        result_address["name"] = config.value("currentresult/" + "resultname").toString()[0:]
-        return result_address
 
     def search_edited(self, text):
         # finds all occurrences of the specified string

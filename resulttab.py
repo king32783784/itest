@@ -31,7 +31,7 @@ class ResultWindow(QtGui.QWidget):
         self.tabwidget.addTab(curentreport, u'当前结果')
         self.tabwidget.addTab(searchreport, '报告查询')
 #        self.tabwidget.addTab(QtGui.QPlainTextEdit(), '单项结果')
-        self.tabwidget.addTab(makereport, '对比报告')
+        self.tabwidget.addTab(makereport, '制作报告')
 
 
 if __name__ == "__main__":

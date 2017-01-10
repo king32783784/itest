@@ -22,8 +22,8 @@ from signals_window import SignalsWindow
 from resulttab import *
 from testdrive import *
 from common import *
+from mkresult import *
 from mkreport.data_capture import *
-from mkreport.mkresult import *
 
 
 class Window(QtGui.QMainWindow):

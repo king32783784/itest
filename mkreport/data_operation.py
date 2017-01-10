@@ -21,14 +21,15 @@ def create_result_database():
         write_database('OSLIST', ["test"])
 
 def read_database(read_keys):
-    result_database = shelve.open('result.db', flag='r')
-    try:
-         existing = result_database[read_keys]
-    except:
-         return "NULL"
-    finally:
-         result_database.close()
-    return existing
+    if os.path.isfile('result.db'):
+        result_database = shelve.open('result.db', flag='r')
+        try:
+            existing = result_database[read_keys]
+        except:
+            return "NULL"
+        finally:
+            result_database.close()
+        return existing
 
 def write_database(data_key, data_value):
     result_database = shelve.open('result.db', writeback=True)

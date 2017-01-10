@@ -246,9 +246,15 @@ def get_item_temp_args(item):
         item_args[str(item_arg)] = str(config.value(QString("%s/"% item) + item_arg).toString()[0:])
     return item_args
 
+# 获取当前结果列表
+def getcurrentresult():
+    config = QSettings(".resultseting.ini", QSettings.IniFormat)
+    result_address = {}
+    result_address["address"] = config.value("currentresult/" + "resultaddress").toString()[0:]
+    result_address["name"] = config.value("currentresult/" + "resultname").toString()[0:]
+    return result_address
 
-
-#a = get_item_temp_args("sysbenchmem")
+#_item_temp_args("sysbenchmem")
 #print a
 # test-case
 
