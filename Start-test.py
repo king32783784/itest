@@ -40,7 +40,6 @@ class Window(QtGui.QMainWindow):
         self.lcdnumber.display("2016")
 
         # toolbox
- #       self.window_log = SignalsWindow()
         self.window_load = LoadWindow()
         self.window_load.hide()
         self.window_result = ResultWindow()
@@ -118,8 +117,6 @@ class Window(QtGui.QMainWindow):
         vlayout_left = QtGui.QVBoxLayout()
         vlayout_left.addWidget(self.label_itemlist)
         vlayout_left.addWidget(self.window_item)
- #       vlayout_left.addSpacerItem(vspacer_left)
-   #     vlayout_left.setMargin(10)
 
         #底部layout
         self.vlayout_footer = QtGui.QHBoxLayout()
@@ -127,12 +124,6 @@ class Window(QtGui.QMainWindow):
         self.vlayout_footer.addWidget(self.mkresultbutton)
         self.vlayout_footer.addWidget(self.logbutton)
         self.vlayout_footer.addWidget(self.loadbutton)
-        
-       #上下布局
-       # self.gridlayout = QtGui.QGridLayout()
-       #self.gridlayout.addLayout(vlayout_left, 0,0)
-       # self.gridlayout.addLayout(self.vlayout_footer, 1,0)
-       # self.gridlayout.addWidget(self.progressbar, 2,0)
         
         self.mainlayout = QtGui.QVBoxLayout()
         self.mainlayout.addLayout(vlayout_left)
@@ -167,26 +158,31 @@ class Window(QtGui.QMainWindow):
     @pyqtSlot()
     def starttest(self):
         if self.startstatus == "E":
-            self.window_log.appendPlainText("start")
-        #    self.mkresultbutton.setEnabled(False) # button禁用
-            self.startbutton.setText(u"停止测试")
-            self.startbutton.setIcon(QIcon("images/stop.ico"))
-            save_testitem_args() # 保存当前测试项目及参数
-            self.startstatus = "D"
-            self.progress_num = 0
-            self.progressbar.setValue(self.progress_num)
             sumtestnum = sumtests()
-            self.progress_interval = 100 / sumtestnum
-            self.window_log.show()
-            writeconfig(".resultseting.ini", "ontime", "resultdirontime", "test")
-            test = TestThread(self)
-            test.setup(self.window_log)
-            test.trigger.connect(self.update_text)
-            test.start()
+            if sumtestnum > 0:
+                self.window_log.appendPlainText("start")
+                self.startbutton.setEnabled(False) # button禁用
+              #  self.startbutton.setText(u"停止测试")
+              #  self.startbutton.setIcon(QIcon("images/stop.ico"))
+                save_testitem_args() # 保存当前测试项目及参数
+                self.startstatus = "D"
+                self.progress_num = 0
+                self.progressbar.setValue(self.progress_num)
+                self.progress_interval = 100 / sumtestnum
+                self.window_log.show()
+                writeconfig(".resultseting.ini", "ontime", "resultdirontime", "test")
+                test = TestThread(self)
+                test.setup(self.window_log)
+                test.trigger.connect(self.update_text)
+                test.start()
+            else:
+                QtGui.QMessageBox.about(self, u"提示",
+                u"至少选中一个测试项目")
+             
         else:
             self.window_log.hide()
-            self.startbutton.setText(u"开始测试")
-            self.startbutton.setIcon(QIcon("images/start.ico"))
+           # self.startbutton.setText(u"开始测试")
+           # self.startbutton.setIcon(QIcon("images/start.ico"))
             self.startstatus = "E"
             self.progressbar.setValue(0)
 
