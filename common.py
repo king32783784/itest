@@ -238,6 +238,7 @@ def initenv():
         delete_file_folder(tmpfile)
     # 清除之前选中的测试项目
     itemchecked_clean()
+    create_result_database()
 
 def get_item_temp_args(item):
     item_args = {}

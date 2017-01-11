@@ -133,7 +133,7 @@ class Data_lmbench(DataCapture):
         item_args = get_item_temp_args("lmbench")
         testtime = int(item_args["args"])
         pattern_lmbench = ["Processor_r  (.*?)\\n", "Context_r (.*?)\\n", "Local_r   (.*?)\\n",
-                           "File_VM_r  (.*?)\\n", "Bandwidth (.*?)\\n"]
+                           "File_VM_r (.*?)\\n", "Bandwidth (.*?)\\n"]
         lmbench_item = ["Processor", "Context", "Local_latencies", "File", "Local_bandwidths"]
         datalist_lmbench = {}
         for i, pattern in enumerate(pattern_lmbench):

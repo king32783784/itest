@@ -24,7 +24,6 @@ from testdrive import *
 from common import *
 from mkresult import *
 from mkreport.data_capture import *
-
 from testset.perfmemset import *
 
 
@@ -59,7 +58,7 @@ class Window(QtGui.QMainWindow):
 
     def createbutton(self):
         self.startbutton = QToolButton()
-        self.startbutton.setText(u"开始测试")
+        self.startbutton.setText(u"启动测试")
         self.startbutton.setIcon(QIcon("images/start.ico"))
         self.startbutton.setIconSize(QSize(25, 25))
         self.startbutton.setAutoRaise(True)
@@ -134,7 +133,6 @@ class Window(QtGui.QMainWindow):
        #   横向布局
         self.hlayout = QtGui.QHBoxLayout()
         self.hlayout.addLayout(self.mainlayout)
-      #  self.hlayout.addWidget(self.window_load)
 
         # central widget
         central = QtGui.QWidget()
@@ -162,10 +160,8 @@ class Window(QtGui.QMainWindow):
         if self.startstatus == "E":
             sumtestnum = sumtests()
             if sumtestnum > 0:
-                self.window_log.appendPlainText("start")
+                self.window_log.appendPlainText(u"测试已启动")
                 self.startbutton.setEnabled(False) # button禁用
-              #  self.startbutton.setText(u"停止测试")
-              #  self.startbutton.setIcon(QIcon("images/stop.ico"))
                 self.createdial()
                 save_testitem_args() # 保存当前测试项目及参数
                 self.startstatus = "D"
@@ -190,15 +186,16 @@ class Window(QtGui.QMainWindow):
             self.progressbar.setValue(0)
 
     def update_text(self, info):
-        if "finish" in info:
+        if "完成" in info:
             self.progress_num += self.progress_interval
             self.progressbar.setValue(self.progress_num)
         self.window_log.appendPlainText("%s" % info)
-        if info == "All tests end":
-            self.progressbar.setValue(100)
+        if info == "全部测试结束":
+            self.startbutton.setEnabled(True)
             save_current_data()
             mk_current_report()
             self.write_result_config()
+            self.progressbar.setValue(100)
 
     # 写入当前报告地址
     def write_result_config(self):
@@ -230,15 +227,15 @@ class TestThread(QtCore.QThread):
         print(todotestlist)
         for testtype, todotest in todotestlist.items():
             for testitem in todotest:
-                self.trigger.emit("Now test is %s" % testitem)
+                self.trigger.emit(u"正在测试的模块是 %s" % testitem)
                 testlist = getitemlist(testitem)
                 for item in testlist:
-                    self.trigger.emit("%s test start" % item)
+                    self.trigger.emit(u"%s 测试开始" % item)
                     testthread = TestDrive(testtype, item)
                     testthread.dotest()
-                    self.trigger.emit("%s test finish" % item)
-                self.trigger.emit("%s part test end" % testitem)
-        self.trigger.emit("All tests end")
+                    self.trigger.emit(u"%s 测试完成" % item)
+                self.trigger.emit(u"%s 模块的测试结束" % testitem)
+        self.trigger.emit(u"全部测试结束")
 
 # 监控窗口
 class LoadWindow(QWidget):
@@ -301,7 +298,7 @@ class MainWindow(QtGui.QMainWindow):
         self.helpuse = self.helpmenu.addAction(u'&使用说明')
         self.helpabout = self.helpmenu.addAction(u'关于')
         self.filemenu = self.menubar.addMenu(u'关闭') # 添加文件菜单
-        self.filemenuexit = self.filemenu.addAction(u'终止退出') # 添加退出命令
+        self.filemenuexit = self.filemenu.addAction(u'退出') # 添加退出命令
         self.creatmenuaction()
 
     def creatmenuaction(self):
@@ -313,7 +310,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.helpuse, QtCore.SIGNAL('triggered()'), self.Onhelpuse)
 
     def Onmenuexit(self):
-        message = QtGui.QMessageBox.question(self, u'提示:', u'确认要退出?',
+        message = QtGui.QMessageBox.question(self, u'提示:', u'确认要退出? 如果存在测试，测试将终止,且结果不做保存',
                                    QtGui.QMessageBox.Yes,
                                    QtGui.QMessageBox.No,
                                    QtGui.QMessageBox.Cancel)
@@ -333,8 +330,8 @@ class MainWindow(QtGui.QMainWindow):
 
     def Onhelpabout(self):
         print("test help")
-        QtGui.QMessageBox.about(self, u'关于Lpbs-i', '\n\n  Lpbs-i是一个Linux系统评测工具，主要包括linux系统的信息检测、性能评测、稳定性检测、基本能稳定性检测主要包括处理器&内存高负载压力测试、IO高负载压力测试、网络高负载压力测试、显示高负载压力测试、线程高负载压力测试、内核高负载压力测试。\n\n  基本功能检测主要包括ltp功能测试，具体测试项见ltp。\n\n  Lpbs-i的测试内容在不断完善和更新。\n\n\n\n 版本：V1.0 \n\n作者：peng.lee \n\nBug:https://github.com/king32783784/itest/issues')
-
+        QtGui.QMessageBox.about(self, u'关于Lpbs-i', '\n\n  Lpbs-i是一个Linux系统评测工具，主要包括linux系统的信息检测、性能评测、稳定性检测、基本能稳定性检测主要包括处理器&内存高负载压力测试、IO高负载压力测试、网络高负载压力测试、显示高负载压力测试、线程高负载压力测试、内核高负载压力测试。\n\n  基本功能检测主要包括ltp功能测试，具体测试项见ltp。\n\n  Lpbs-i的测试内容在不断完善和更新。\n\n\n\n 版本：V1.0 \n\n作者：peng.li@i-soft.com.cn \n\nBug:https://github.com/king32783784/itest/issues')
+ 
     def Onhelpuse(self):
         print("test use")
 

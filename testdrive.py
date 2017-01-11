@@ -44,7 +44,7 @@ class TestDrive(TestParpare):
         pathlist = self.mktestdir(self.testtype, self.test)
         Logging_Config.setlogger(self.test, '%s/setup.out' % pathlist['debug'])
         stdout_logger = logging.getLogger(self.test)
-        setup = StreamToLogger(stdout_logger, logging.INFO)
+        setup = StreamToLogger(stdout_logger, logging.DEBUG)
         sys.stdout = setup
         job = __import__('%s' % self.test)
         runjob = job.DoTest(testtoolget, testargs, self.homepath)

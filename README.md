@@ -9,12 +9,14 @@
     * Perf_browser
     * Perf_graphics
     * Perf_stream
-#### Table Style
 
-![Text](tmp/xls_smple.png)
+### Main Window
 
-#### Html Style
-![Text](tmp/html_smple.png)
+![Text](doc/main.png)
+
+### Report Window
+
+![Text](doc/result.png)
 
 
 

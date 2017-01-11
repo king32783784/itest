@@ -109,6 +109,7 @@ def autolabel(rects):
 
 
 def mkchart(chartargs):
+    plt.figure()
     custom_font = mpl.font_manager.FontProperties(fname='%s' %
                   chartargs['custom_font'])
     names = chartargs['osnames']   # 对比OS名称 *
@@ -119,8 +120,14 @@ def mkchart(chartargs):
     graphing(names, subjects, scores, title, custom_font)
     plt.savefig(pngname)
 
+
 def mkcontrol(chartargs):
     p = multiprocessing.Process(target=mkchart, args=(chartargs,))
     p.start()
-
+# test1
+#mkchart(sysbenchcpu)
+#mkchart(lmdouble)
+# test2
+#mkcontrol(sysbenchcpu)
+#mkcontrol(lmdouble)
 # samples

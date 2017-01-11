@@ -45,9 +45,6 @@ class Create_Md(object):
             compare_list = '%s | ' % compare_item + compare_list
             self.file_write(self.src_file, compare_list)
 
-    def mk_pic_chart(self, pic_chart):
-        mkcontrol(pic_chart)
- 
     def mk_md_chart(self, chart_png_name):
         md_chart_png = "\n![](./svgfile/%s)\n" % chart_png_name
         self.file_write(self.src_file, md_chart_png)
@@ -134,8 +131,8 @@ class Create_md_Sysbenchcpu(Create_Md):
         pngname = osname + '_' + "syscpu.png"
         pngpath = 'current-report/svgfile/%s' % pngname
         self.md_chart_sysbenchcpu["pngname"] = pngpath
-      #  mkcontrol(self.md_chart_sysbenchcpu)
         mkchart(self.md_chart_sysbenchcpu)
+      #  mkchart(self.md_chart_sysbenchcpu)
         return pngname
 
     def mkmd_mkchart_mult(self, data_sysbenchcpu):
@@ -390,7 +387,6 @@ class Create_md_Lmbench(Create_Md):
             data_lmbench_tmp = self.result_data[osname]["lmbench"][subitem]
             data_lmbench_tmp = map(str, data_lmbench_tmp)
             data_lmbench[osname] = data_lmbench_tmp
-        print data_lmbench
         return data_lmbench
 
     def mkmd_subjects(self, key):
@@ -930,7 +926,6 @@ def mk_html_main(src_file, oslist, itemlist):
     for osname in oslist:
         tmp_data = read_database(osname)
         os_result_data[osname] = tmp_data
-    print os_result_data
     os_result_data["oslist"] = oslist
     for item in itemlist:
         Create_Md = Md_classlist[item]    

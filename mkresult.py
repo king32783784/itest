@@ -58,3 +58,4 @@ def mkhtml_custom_report(mkoslist, reportname):
     config.beginGroup("totalresults")
     config.setValue(reportname, report_url)
     config.endGroup()
+#mk_current_report()
