@@ -42,8 +42,8 @@ class Window(QtGui.QMainWindow):
         self.lcdnumber.display("2016")
 
         # toolbox
-        self.window_load = LoadWindow()
-        self.window_load.hide()
+      #  self.window_load = LoadWindow()
+      #  self.window_load.hide()
         self.createlogwindow()
         self.window_log.hide()
         self.createprogressbar()
@@ -134,7 +134,7 @@ class Window(QtGui.QMainWindow):
        #   横向布局
         self.hlayout = QtGui.QHBoxLayout()
         self.hlayout.addLayout(self.mainlayout)
-        self.hlayout.addWidget(self.window_load)
+      #  self.hlayout.addWidget(self.window_load)
 
         # central widget
         central = QtGui.QWidget()
@@ -149,10 +149,12 @@ class Window(QtGui.QMainWindow):
     @pyqtSlot()
     def loadwindow(self):
         if self.loadstatus == "D":
+            self.window_load = LoadWindow()
+            self.hlayout.addWidget(self.window_load)
             self.window_load.show()
             self.loadstatus = "E"
         else:
-            self.window_load.hide()
+            self.window_load.close()
             self.loadstatus = "D"
 
     @pyqtSlot()
@@ -176,8 +178,6 @@ class Window(QtGui.QMainWindow):
                 test.setup(self.window_log)
                 test.trigger.connect(self.update_text)
                 test.start()
-                runwindow = ResultWindow()
-                runwindow.show()
             else:
                 QtGui.QMessageBox.about(self, u"提示",
                 u"至少选中一个测试项目")
@@ -246,6 +246,7 @@ class LoadWindow(QWidget):
         QWidget.__init__(self, parent)
         self.createloadcheck()
         self.setlayout()
+        self.setAttribute(Qt.WA_DeleteOnClose)
 
     def setlayout(self):
     
@@ -272,65 +273,6 @@ class LoadWindow(QWidget):
         self.toolbox3 = QtGui.QToolBox()
         self.toolbox3.addItem(window_net, u"网络负载")
 
-
-class RuningWindow(QtGui.QWidget):
-    def __init__(self):
-        super(RuningWindow,self).__init__()
-        self.setWindowTitle(u'结果设置')
-        self.setMinimumSize(360, 200)
-        self.gridlayout = QtGui.QGridLayout()
-        self.label0 = QtGui.QLabel(u"是否保存报告:")
-        self.label1 = QtGui.QLabel(u"输入结果名称:" )
-        self.gridlayout.addWidget(self.label0, 1, 0)
-        self.gridlayout.addWidget(self.label1, 0, 0)
-        self.textField = QtGui.QLineEdit()     #　创建单行文本框
-        self.gridlayout.addWidget(self.textField, 0,1) # 添加文本框到布局组件
-        self.radio1 = QtGui.QCheckBox(u"")
-        self.gridlayout.addWidget(self.radio1, 1,1)
-        self.okButton = QtGui.QPushButton(u"导入")  # 创建OK按钮
-        self.gridlayout.addWidget(self.okButton, 3,0)   #添加按钮到布局组件　　
-        self.cancelButton = QtGui.QPushButton(u"取消") # 创建cancel按钮
-        self.gridlayout.addWidget(self.cancelButton, 3, 1)
-        self.setLayout(self.gridlayout)
-
-        self.connect(self.okButton, QtCore.SIGNAL('clicked()'), self.OnOk)
-        self.connect(self.cancelButton, QtCore.SIGNAL('clicked()'), self.OnCancel)
-
-    def save_report(self,dst):
-        homepath = getlocatepath()
-        reportrepository = os.path.join(homepath, "ReportRepository")
-        dst = str(dst)
-        report_path = os.path.join(reportrepository, dst)
-        shutil.move("current-report", report_path) # 移动当前报告到报告仓库
-        report_url = "file://" + "%s" % report_path + "/test.html"
-        config = QSettings(".resultseting.ini", QSettings.IniFormat)
-        config.remove("currentresult")
-        config.remove("ontime")
-        config.beginGroup("totalresults")
-        config.setValue(dst, report_url)
-        config.endGroup()
-
-    def save_result(self,dst):
-        dst = str(dst)
-        update_database('test', dst)
-        append_database_list('OSLIST', dst)
-
-    def OnOk(self):
-        resultlist = read_database('OSLIST')
-        self.text = self.textField.text()  # 获取文本框中的内容
-        if self.text in resultlist:
-            QtGui.QMessageBox.warning(self, "警告",
-            '名称已存在，请重新输入',
-            QtGui.QMessageBox.Yes,
-            QtGui.QMessageBox.No)
-        else:
-            self.save_result(self.text)
-            if self.radio1.isChecked():
-                self.save_report(self.text)
-        self.done(1)
-
-    def OnCancel(self):
-        self.done(0)
 
 # 工具栏
 
@@ -391,7 +333,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def Onhelpabout(self):
         print("test help")
-        QtGui.QMessageBox.about(self, u'关于Lpbs-i', '\n\n  Lpbs-i是一个Linux系统评测工具，主要包括linux系统的信息检测、性能评测、稳定性检测、基本能稳定性检测主要包括处理器&内存高负载压力测试、IO高负载压力测试、网络高负载压力测试、显示高负载压力测试、线程高负载压力测试、内核高负载压力测试。\n\n  基本功能检测主要包括ltp功能测试，具体测试项见ltp。\n\n  Lpbs-i的测试内容在不断完善和更新。\n\n\n\n 版本：V1.0 \n\n作者：peng.lee \n\nBug:https://github.com/')
+        QtGui.QMessageBox.about(self, u'关于Lpbs-i', '\n\n  Lpbs-i是一个Linux系统评测工具，主要包括linux系统的信息检测、性能评测、稳定性检测、基本能稳定性检测主要包括处理器&内存高负载压力测试、IO高负载压力测试、网络高负载压力测试、显示高负载压力测试、线程高负载压力测试、内核高负载压力测试。\n\n  基本功能检测主要包括ltp功能测试，具体测试项见ltp。\n\n  Lpbs-i的测试内容在不断完善和更新。\n\n\n\n 版本：V1.0 \n\n作者：peng.lee \n\nBug:https://github.com/king32783784/itest/issues')
 
     def Onhelpuse(self):
         print("test use")

@@ -30,8 +30,8 @@ class StackDialog(QDialog):
         self.listWidget = QListWidget(self.mainSplitter)
         self.listWidget.insertItem(1, self.tr(u"邮件订阅"))
         self.listWidget.insertItem(0, self.tr(u"工具来源"))
-        self.listWidget.insertItem(2, self.tr(u"报告设置"))
-        self.listWidget.insertItem(3, self.tr(u"日志显示"))
+       # self.listWidget.insertItem(2, self.tr(u"报告设置"))
+       # self.listWidget.insertItem(3, self.tr(u"日志显示"))
 
         self.frame = QFrame(self.mainSplitter)
         self.stack = QStackedWidget()
@@ -43,8 +43,8 @@ class StackDialog(QDialog):
         self.setlog = SetLogmode() 
         self.stack.addWidget(self.settool)
         self.stack.addWidget(self.form)
-        self.stack.addWidget(self.setreport)
-        self.stack.addWidget(self.setlog)
+       # self.stack.addWidget(self.setreport)
+       # self.stack.addWidget(self.setlog)
 
         self.setbutton = QPushButton(self.tr(u"修改"))
         self.defaultbutton = QPushButton(self.tr(u"默认"))
@@ -79,20 +79,15 @@ class StackDialog(QDialog):
     def setCurrentIndex(self,index):
         self.stack.setCurrentIndex(index)
         self.labelindex = index
-        print self.labelindex
 
     def onset(self):
         if self.labelindex == 0:
-            print("set no0")
             self.settool.onset()
         elif self.labelindex == 1:
-            print("set no1")
             self.form.onset()
         elif self.labelindex == 2:
-            print("set no2")
             self.setreport.onset()
         elif self.labelindex == 3:
-            print("set no3")
             self.setlog.onset()
         else:
             pass

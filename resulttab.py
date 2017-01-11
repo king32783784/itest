@@ -12,6 +12,7 @@ class ResultWindow(QtGui.QWidget):
         super(ResultWindow, self).__init__(parent)
         self.setWindowTitle(u"结果管理器")
         self.resize(900,540)
+        self.setAttribute(Qt.WA_DeleteOnClose)
         Icon = QtGui.QIcon()
         titleico = os.path.join(HOMEPATH, "images/title.ico")
         Icon.addPixmap(QtGui.QPixmap(titleico),QtGui.QIcon.Normal, QtGui.QIcon.Off)

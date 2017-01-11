@@ -90,7 +90,6 @@ class PerfmemSet(QDialog):
         testargs = {}
         testargs["stream"] = self.config.value(QString(setmode) + "stream").toString()[0:]
         testargs["sysbenchmem"] = self.config.value(QString(setmode) + "sysbenchmem").toString()[0:]
-        print testargs
         return testargs
 
     def updatesetting(self):

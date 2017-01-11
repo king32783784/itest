@@ -263,8 +263,6 @@ class IozoneSet(QDialog):
             self.argstemp['times'] = str(argtime)
 
     def slotset(self):
-        print "test set"
-        print self.argstemp
         self.updatesetting(self.argstemp)
         self.close()
 
@@ -273,7 +271,6 @@ class IozoneSet(QDialog):
         helpdialog.exec_()
 
     def slotdefault(self):
-        print "set default"
         defaultargs = self.readsetting('iozone-default/')
         self.argstemp = defaultargs
         self.label_argi_0.setText(defaultargs["argi"])
