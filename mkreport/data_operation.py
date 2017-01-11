@@ -2,9 +2,6 @@
 import shelve 
 import os
 import sys
-sys.path.append('..')
-from common import *
-
 
 # 创建数据保存database
 

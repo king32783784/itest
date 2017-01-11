@@ -5,7 +5,10 @@ import shutil
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui,QtCore
+from mkreport.data_operation import *
 
+global HOMEPATH
+HOMEPATH=os.getcwd()
 # 计算测试总数
 def sumtests():
     totaltests = readtestlist()

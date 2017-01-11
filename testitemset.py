@@ -265,71 +265,51 @@ class TestitemSet(QToolBox):
     @pyqtSlot()
     def setperfcpu(self):
         cpu = PerfcpuSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        cpu.setStyleSheet(qss)
         cpu.exec_()
 
     @pyqtSlot()
     def setperfmem(self):
         mem = PerfmemSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        mem.setStyleSheet(qss)
         mem.exec_()
    
     @pyqtSlot()
     def setperfio(self):
         io = PerfioSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        io.setStyleSheet(qss)
         io.exec_()
 
     @pyqtSlot()
     def setperfthread(self):
         thread = PerfthreadSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        thread.setStyleSheet(qss)
         thread.exec_()
 
     @pyqtSlot()
     def setperfsystem(self):
         system = PerfsystemSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        system.setStyleSheet(qss)
         system.exec_()
 
     @pyqtSlot()
     def setperfkernel(self):
         kernel = PerfkernelSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        kernel.setStyleSheet(qss)
         kernel.exec_()
 
     @pyqtSlot()
     def setperfbrowser(self):
         browser = PerfbrowserSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        browser.setStyleSheet(qss)
         browser.exec_()
 
     @pyqtSlot()
     def setperfjava(self):
         java = PerfjavaSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        java.setStyleSheet(qss)
         java.exec_()
 
     @pyqtSlot()
     def setperf2d(self):
         test2d = Perf2dSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        test2d.setStyleSheet(qss)
         test2d.exec_()
 
     @pyqtSlot()
     def setperf3d(self):
         test3d = Perf3dSet()
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        test3d.setStyleSheet(qss)
         test3d.exec_()
 
     @pyqtSlot()

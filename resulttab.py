@@ -5,14 +5,17 @@ from aqua.qsshelper import QSSHelper
 from PyQt4 import QtGui  # provides the graphic elements
 from resultshow import *
 from searchresult import *
+from common import *
 
 class ResultWindow(QtGui.QWidget):
     def __init__(self, parent=None):
         super(ResultWindow, self).__init__(parent)
-        qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-        self.setStyleSheet(qss)
         self.setWindowTitle(u"结果管理器")
         self.resize(900,540)
+        Icon = QtGui.QIcon()
+        titleico = os.path.join(HOMEPATH, "images/title.ico")
+        Icon.addPixmap(QtGui.QPixmap(titleico),QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(Icon)
         # 创建tab
         self.tabwidget = QtGui.QTabWidget()
 
@@ -38,8 +41,6 @@ if __name__ == "__main__":
     application = QtGui.QApplication(sys.argv)
     window = ResultWindow()
     window.setWindowTitle('QTabWidget')  # title
-    qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
-    window.setStyleSheet(qss)
     window.resize(1024, 320)  # size
     window.show()  # shows the window
     sys.exit(application.exec_())

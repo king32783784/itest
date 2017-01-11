@@ -310,7 +310,7 @@ class HelpPerfcpu(HelpDialog):
         self.stack.addWidget(self.label1)
 
 # test
-# app = QApplication(sys.argv)
-# form = PerfcpuSet()
-# form.show()
-# app.exec_()
+#app = QApplication(sys.argv)
+#form = PerfcpuSet()
+#form.show()
+#app.exec_()

@@ -25,6 +25,8 @@ from common import *
 from mkresult import *
 from mkreport.data_capture import *
 
+from testset.perfmemset import *
+
 
 class Window(QtGui.QMainWindow):
     def __init__(self, parent=None):
@@ -42,8 +44,6 @@ class Window(QtGui.QMainWindow):
         # toolbox
         self.window_load = LoadWindow()
         self.window_load.hide()
-        self.window_result = ResultWindow()
-        self.window_result.hide()
         self.createlogwindow()
         self.window_log.hide()
         self.createprogressbar()
@@ -164,6 +164,7 @@ class Window(QtGui.QMainWindow):
                 self.startbutton.setEnabled(False) # button禁用
               #  self.startbutton.setText(u"停止测试")
               #  self.startbutton.setIcon(QIcon("images/stop.ico"))
+                self.createdial()
                 save_testitem_args() # 保存当前测试项目及参数
                 self.startstatus = "D"
                 self.progress_num = 0
@@ -175,6 +176,8 @@ class Window(QtGui.QMainWindow):
                 test.setup(self.window_log)
                 test.trigger.connect(self.update_text)
                 test.start()
+                runwindow = ResultWindow()
+                runwindow.show()
             else:
                 QtGui.QMessageBox.about(self, u"提示",
                 u"至少选中一个测试项目")
@@ -270,6 +273,64 @@ class LoadWindow(QWidget):
         self.toolbox3.addItem(window_net, u"网络负载")
 
 
+class RuningWindow(QtGui.QWidget):
+    def __init__(self):
+        super(RuningWindow,self).__init__()
+        self.setWindowTitle(u'结果设置')
+        self.setMinimumSize(360, 200)
+        self.gridlayout = QtGui.QGridLayout()
+        self.label0 = QtGui.QLabel(u"是否保存报告:")
+        self.label1 = QtGui.QLabel(u"输入结果名称:" )
+        self.gridlayout.addWidget(self.label0, 1, 0)
+        self.gridlayout.addWidget(self.label1, 0, 0)
+        self.textField = QtGui.QLineEdit()     #　创建单行文本框
+        self.gridlayout.addWidget(self.textField, 0,1) # 添加文本框到布局组件
+        self.radio1 = QtGui.QCheckBox(u"")
+        self.gridlayout.addWidget(self.radio1, 1,1)
+        self.okButton = QtGui.QPushButton(u"导入")  # 创建OK按钮
+        self.gridlayout.addWidget(self.okButton, 3,0)   #添加按钮到布局组件　　
+        self.cancelButton = QtGui.QPushButton(u"取消") # 创建cancel按钮
+        self.gridlayout.addWidget(self.cancelButton, 3, 1)
+        self.setLayout(self.gridlayout)
+
+        self.connect(self.okButton, QtCore.SIGNAL('clicked()'), self.OnOk)
+        self.connect(self.cancelButton, QtCore.SIGNAL('clicked()'), self.OnCancel)
+
+    def save_report(self,dst):
+        homepath = getlocatepath()
+        reportrepository = os.path.join(homepath, "ReportRepository")
+        dst = str(dst)
+        report_path = os.path.join(reportrepository, dst)
+        shutil.move("current-report", report_path) # 移动当前报告到报告仓库
+        report_url = "file://" + "%s" % report_path + "/test.html"
+        config = QSettings(".resultseting.ini", QSettings.IniFormat)
+        config.remove("currentresult")
+        config.remove("ontime")
+        config.beginGroup("totalresults")
+        config.setValue(dst, report_url)
+        config.endGroup()
+
+    def save_result(self,dst):
+        dst = str(dst)
+        update_database('test', dst)
+        append_database_list('OSLIST', dst)
+
+    def OnOk(self):
+        resultlist = read_database('OSLIST')
+        self.text = self.textField.text()  # 获取文本框中的内容
+        if self.text in resultlist:
+            QtGui.QMessageBox.warning(self, "警告",
+            '名称已存在，请重新输入',
+            QtGui.QMessageBox.Yes,
+            QtGui.QMessageBox.No)
+        else:
+            self.save_result(self.text)
+            if self.radio1.isChecked():
+                self.save_report(self.text)
+        self.done(1)
+
+    def OnCancel(self):
+        self.done(0)
 
 # 工具栏
 
@@ -285,8 +346,6 @@ class MainWindow(QtGui.QMainWindow):
         self.addmenu()
 
     def addmenu(self):
-        self.filemenu = self.menubar.addMenu(u'文件') # 添加文件菜单
-        self.filemenuexit = self.filemenu.addAction(u'退出') # 添加退出命令
 
         self.settingmenu = self.menubar.addMenu(u'&设置')
         self.settingrun = self.settingmenu.addAction(u'运行项目')
@@ -299,6 +358,8 @@ class MainWindow(QtGui.QMainWindow):
         self.helpmenu = self.menubar.addMenu(u'&帮助')
         self.helpuse = self.helpmenu.addAction(u'&使用说明')
         self.helpabout = self.helpmenu.addAction(u'关于')
+        self.filemenu = self.menubar.addMenu(u'关闭') # 添加文件菜单
+        self.filemenuexit = self.filemenu.addAction(u'终止退出') # 添加退出命令
         self.creatmenuaction()
 
     def creatmenuaction(self):
@@ -310,7 +371,12 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.helpuse, QtCore.SIGNAL('triggered()'), self.Onhelpuse)
 
     def Onmenuexit(self):
-        self.close()
+        message = QtGui.QMessageBox.question(self, u'提示:', u'确认要退出?',
+                                   QtGui.QMessageBox.Yes,
+                                   QtGui.QMessageBox.No,
+                                   QtGui.QMessageBox.Cancel)
+        if message == QtGui.QMessageBox.Yes:
+            self.close()
 
     def Onsettingrun(self):
         print("setting run")
@@ -359,7 +425,9 @@ def main():
     # 导入和设置Qt风格
     qss = QSSHelper.open_qss(os.path.join('aqua', 'aqua.qss'))
     window.setStyleSheet(qss)
- #   window.setWindowFlags(Qt.CustomizeWindowHint)
+   # window.setWindowFlags(Qt.FramelessWindowHint)
+    window.setWindowFlags(Qt.WindowTitleHint)
+    window.setWindowFlags(Qt.WindowMinimizeButtonHint)
 
     window.show()  #窗口显示
 
