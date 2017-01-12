@@ -44,7 +44,7 @@ Test Center
     try:
         server = smtplib.SMTP()
         server.connect('smtp.qq.com')
-        server.login('peng.li@i-soft.com.cn','King314159')
+        server.login('xxx','xxx')
         server.sendmail(msg['from'], mailto_list, msg.as_string())
         server.quit()
     except Exception, errormessage:  
