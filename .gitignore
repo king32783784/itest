@@ -11,3 +11,4 @@ ReportRepository
 *.out
 *.md
 *.swp
+*.log

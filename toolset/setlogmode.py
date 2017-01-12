@@ -7,6 +7,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class SetLogmode(QDialog):
     def __init__(self, parent=None):
@@ -24,7 +25,7 @@ class SetLogmode(QDialog):
                      self.Oncheck)
 
     def initstatus(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         logmode = self.config.value(QString("logmode-user/") + "logmodestatus").toString()[0:]
         if logmode == "E":
             self.maincheck.setChecked(True)
@@ -43,7 +44,7 @@ class SetLogmode(QDialog):
         self.setLayout(mainLayout)
 
     def updatesetting(self):
-       self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+       self.config = QSettings(SET_FILE, QSettings.IniFormat)
        self.config.beginGroup("logmode-user/")
        for key, value in self.argstmp.iteritems():
            self.config.setValue(key, value)

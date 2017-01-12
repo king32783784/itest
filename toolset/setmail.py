@@ -1,10 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
-import sys
+from common import *
 
 
 class InputDialog(QDialog):
@@ -53,7 +54,7 @@ class InputDialog(QDialog):
 
  
     def updatesetting(self, mailadress):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("mailtotal")
         self.config.setValue("total", mailadress["total"])
         self.config.endGroup()
@@ -64,7 +65,7 @@ class InputDialog(QDialog):
         self.config.endGroup()
 
     def readsetting(self):
-        self.readset = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.readset = QSettings(SET_FILE, QSettings.IniFormat)
         totalmails = self.readset.value(QString("mailtotal/") + "total").toInt()[0]
         for i in range(totalmails):
             mail = self.readset.value(QString("maillist/") + "No%d"%i).toString()[0:]
@@ -98,12 +99,12 @@ class InputDialog(QDialog):
         print maillists
         self.updatesetting(maillists)
         if self.check.isChecked():
-            self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+            self.config = QSettings(SET_FILE, QSettings.IniFormat)
             self.config.beginGroup("mailstatus")
             self.config.setValue("setting", "E")
             self.config.endGroup()
         else:
-            self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+            self.config = QSettings(SET_FILE, QSettings.IniFormat)
             self.config.beginGroup("mailstatus")
             self.config.setValue("setting", "D")
             self.config.endGroup()

@@ -16,6 +16,7 @@ from testset.perfbrowserset import *
 from testset.perfjavaset import *
 from testset.perf2dset import *
 from testset.perf3dset import *
+from common import *
 
 class TestitemSet(QToolBox):
 
@@ -34,7 +35,7 @@ class TestitemSet(QToolBox):
     """
     def __init__(self, parent=None):
         super(TestitemSet, self).__init__(parent)
-
+        print(HOMEPATH)
         self.setWindowTitle(u"普华测试套件")
         self.mkperfsignalist()
         self.mkpcheckslotlist()

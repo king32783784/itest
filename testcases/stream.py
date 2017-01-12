@@ -19,6 +19,7 @@ class DoTest(RunTest):
         '''
         # install depend tool
         RunTest._depend('gcc', 'make')
+        print("test setup log")
         # download and install testtool
         srcdir = RunTest._pretesttool('stream',"stream-5.9.tar.gz", self.tool, self.homepath)
         os.chdir(srcdir)

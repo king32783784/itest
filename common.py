@@ -2,25 +2,35 @@
 import os
 import time
 import shutil
+import logging
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui,QtCore
 from mkreport.data_operation import *
+from logging_config import *
 
+# COMMON PATH
+logger = logging.getLogger('itest')
 global HOMEPATH
 HOMEPATH=os.getcwd()
+global SET_FILE 
+SET_FILE=os.path.join(HOMEPATH, '.testseting.ini')
+print(SET_FILE)
+
 # 计算测试总数
 def sumtests():
     totaltests = readtestlist()
     totalnum = 0
     for key, value in totaltests.iteritems():
-        totalnum += len(value)
+        for testitem in value:
+            testcases = getitemlist(testitem) 
+            totalnum += len(testcases)
     return totalnum
 
 # 获取某一测试类型的待测项目列表
 def getestlist(testtype):
     testlist = []
-    config = QSettings(".testseting.ini", QSettings.IniFormat)
+    config = QSettings(SET_FILE, QSettings.IniFormat)
     config.beginGroup(testtype)
     tmptestlist = config.allKeys()
     config.endGroup()
@@ -58,7 +68,7 @@ def readtestlist():
 def getitemlist(item):
     try:
         todotests = []
-        config = QSettings(".testseting.ini", QSettings.IniFormat)
+        config = QSettings(SET_FILE, QSettings.IniFormat)
         itemtmp = item + "-user"
         config.beginGroup(itemtmp)
         itemlist = config.allKeys()
@@ -86,7 +96,7 @@ def getresultslist():
 
 # 检查item是否被选中 
 def checkstatus(group, item):
-    config = QSettings(".testseting.ini", QSettings.IniFormat)
+    config = QSettings(SET_FILE, QSettings.IniFormat)
     status = config.value(QString("%s/" % group) + item).toString()[0:]
     return status
 
@@ -95,10 +105,10 @@ def getitemargs(testtool):
     try:
         testargs = {}
         toollabel = testtool + "-user"
-        config = QSettings(".testseting.ini", QSettings.IniFormat)
+        config = QSettings(SET_FILE, QSettings.IniFormat)
         config.beginGroup(toollabel)
         argslist = config.allKeys()
-        config = QSettings(".testseting.ini", QSettings.IniFormat)
+        config = QSettings(SET_FILE, QSettings.IniFormat)
         for arg in argslist:
             testargs[str(arg)] = str(config.value(QString("%s/"% toollabel) + arg).toString()[0:])
         return testargs
@@ -109,7 +119,7 @@ def getitemargs(testtool):
 def gettesttool():
     try:
         testtool = {}
-        config = QSettings(".testseting.ini", QSettings.IniFormat)
+        config = QSettings(SET_FILE, QSettings.IniFormat)
         testtool["mode"] = config.value(QString("testtool-user/") + "settoolstatus").toString()[0:]
         if testtool["mode"] == "L":
             testtool["address"] = config.value(QString("testtool-user/") + "dir").toString()[0:]
@@ -179,10 +189,10 @@ def createresultdir():
 def get_item_args(item):
     item_args = {}
     item_group = item + "-user"
-    config = QSettings(".testseting.ini", QSettings.IniFormat)
+    config = QSettings(SET_FILE, QSettings.IniFormat)
     config.beginGroup(item_group)
     item_argslist = config.allKeys()
-    config = QSettings(".testseting.ini", QSettings.IniFormat)
+    config = QSettings(SET_FILE, QSettings.IniFormat)
     for item_arg in item_argslist:
         item_args[str(item_arg)] = str(config.value(QString("%s/"% item_group) + item_arg).toString()[0:])
     return item_args
@@ -239,6 +249,7 @@ def initenv():
     # 清除之前选中的测试项目
     itemchecked_clean()
     create_result_database()
+    sys.path.append('..')
 
 def get_item_temp_args(item):
     item_args = {}

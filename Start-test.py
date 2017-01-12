@@ -5,12 +5,14 @@
 import os
 import time
 import sys  # provides interaction with the Python interpreter
+import logging
 
 from PyQt4 import QtGui  # provides the graphic elements
 from PyQt4.QtCore import Qt  # provides Qt identifiers
 from subprocess import Popen, PIPE
 from aqua.qsshelper import QSSHelper
 
+from logging_config import Logging_Config
 from testitemset import *
 from toolset.mainset import *
 from helpinfo import HelpDialog
@@ -224,7 +226,6 @@ class TestThread(QtCore.QThread):
     
     def run(self):
         todotestlist = readtestlist()
-        print(todotestlist)
         for testtype, todotest in todotestlist.items():
             for testitem in todotest:
                 self.trigger.emit(u"正在测试的模块是 %s" % testitem)
@@ -347,6 +348,8 @@ class SetHelp(HelpDialog):
         self.stack.addWidget(sefl.label1)
 
 def main():
+    global HOMEPATH
+    HOMEPATH=os.getcwd()
     # 清除之前的temp文件
     initenv()
     # 创建应用，并接收命令行参数
@@ -375,6 +378,7 @@ def main():
 
 
 if __name__ == '__main__':
+    Logging_Config.setlogger('itest', 'itest.log')
     createresultdir()
     createdatarepository()
     main()

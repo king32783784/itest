@@ -1,7 +1,6 @@
 #*-* coding=utf-8 *-*
 import re
 import sys
-sys.path.append('..')
 from common import *
 from data_operation import *
 

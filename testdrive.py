@@ -12,7 +12,7 @@ from preparetest import TestParpare
 from logging_config import *
 
 class TestDrive(TestParpare):
-    logger = logging.getLogger('client')
+    logger = logging.getLogger('itest')
     homepath = os.getcwd()
     sys.path.append(os.path.abspath('testcases'))
 
@@ -42,12 +42,13 @@ class TestDrive(TestParpare):
         testargs = getitemargs(self.test)
         self.logger.info("This time test is %s" % self.test)
         pathlist = self.mktestdir(self.testtype, self.test)
-        Logging_Config.setlogger(self.test, '%s/setup.out' % pathlist['debug'])
-        stdout_logger = logging.getLogger(self.test)
-        setup = StreamToLogger(stdout_logger, logging.DEBUG)
-        sys.stdout = setup
         job = __import__('%s' % self.test)
+        logname = self.test + "debug"
+        Logging_Config.setlogger(logname, '%s/setup.out' % pathlist['debug'])
+        stderr_logger = logging.getLogger(logname)
         runjob = job.DoTest(testtoolget, testargs, self.homepath)
+        setup = StreamToLogger(stderr_logger, logging.DEBUG)
+        sys.stdout = setup
         runjob._setup()
         Logging_Config.setlogger(self.test, '%s/result.out' % pathlist['result'])
         stdout_logger = logging.getLogger(self.test)

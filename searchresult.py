@@ -18,6 +18,7 @@ class SearchResult(QtGui.QWidget):
         self.createwebview()
         # combobox
         self.createcombobox()
+        logger.info("result check")
         # vertical box layout
         namelabel = QtGui.QLabel(u"选择报告")
         hlayout = QtGui.QVBoxLayout()

@@ -33,7 +33,7 @@ class StreamToLogger():
     """
     Fake file-like stream object that redirects writes to a logger instance.
     """
-    def __init__(self, logger, log_level=logging.INFO):
+    def __init__(self, logger, log_level=logging.DEBUG):
         self.logger = logger
         self.log_level = log_level
         self.linebuf = ''

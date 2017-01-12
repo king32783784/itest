@@ -88,7 +88,7 @@ class SetReport(QDialog):
         pass  
 
     def readsetting(self):
-       self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+       self.config = QSettings(SET_FILE, QSettings.IniFormat)
        testargs = {}
        testargs["reportstatus"] = self.config.value(QString("testreport-user/") + "reportstatus").toString()[0:]
        testargs["htmlstatus"] = self.config.value(QString("testreport-user/") + "htmlstatus").toString()[0:]
@@ -96,7 +96,7 @@ class SetReport(QDialog):
        return testargs
 
     def updatesetting(self):
-       self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+       self.config = QSettings(SET_FILE, QSettings.IniFormat)
        self.config.beginGroup("testreport-user/")
        for key, value in self.argstmp.iteritems():
            self.config.setValue(key, value)

@@ -7,6 +7,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class SetTool(QDialog):
     def __init__(self, parent=None):
@@ -97,13 +98,13 @@ class SetTool(QDialog):
     def setlocaldefault(self):
         gethome = os.getcwd()
         defaultlocaldir = os.path.join(gethome, "testtool")
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("testtool-default/")
         self.config.setValue("dir", defaultlocaldir)
         return defaultlocaldir
 
     def readsetting(self):
-       self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+       self.config = QSettings(SET_FILE, QSettings.IniFormat)
        testargs = {}
        testargs["localdir"] = self.config.value(QString("testtool-user/") + "dir").toString()[0:]
        testargs["remoteip"] = self.config.value(QString("testtool-user/") + "address").toString()[0:]
@@ -111,7 +112,7 @@ class SetTool(QDialog):
        return testargs
 
     def updatesetting(self):
-       self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+       self.config = QSettings(SET_FILE, QSettings.IniFormat)
        self.config.beginGroup("testtool-user/")
        for key, value in self.argstmp.iteritems():
            self.config.setValue(key, value)
@@ -130,7 +131,7 @@ class SetTool(QDialog):
         self.remoteradio.setChecked(True)
         self.remoteWidget.show()
         self.localWidget.hide()
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
   
     def onhelp(self):
         helpdialog = SetToolhelp()

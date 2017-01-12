@@ -65,9 +65,10 @@ class RunTest(TestSetup, ParameterAnalysis):
         finalcmd = os.path.join(' ', ' '.join(cmds))
         print finalcmd
         for runonce in range(int(runtimes)):
-            test = Popen(finalcmd, stdout=PIPE, shell=True, preexec_fn=RunTest.restore_signals)
+            test = Popen(finalcmd, stdout=PIPE, stderr=PIPE, shell=True, preexec_fn=RunTest.restore_signals)
             stdout = test.communicate()[0]
             print stdout
+        print("test for run test")
 
     @staticmethod
     def _runtest(executable, cmd, runtimes):
@@ -88,6 +89,7 @@ class RunTest(TestSetup, ParameterAnalysis):
                     print >>sys.stderr, "Child returned", retcode
             except OSError as e:
                 print >>sys.stderr, "Execution failed:", e
+
     @staticmethod
     def restore_signals():
         signals = ('SIGPIPE', 'SIGXFZ', 'SIGXFSZ')

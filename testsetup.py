@@ -39,7 +39,7 @@ class TestSetup(TestParpare):
 
     def _configure(self, args):
         try:
-            configure = Popen('./configure %s' % args, stdout=PIPE, shell=True)
+            configure = Popen('./configure %s' % args, stdout=PIPE, stderr=PIPE, shell=True)
             stdout = configure.communicate()[0]
             print stdout
         except:
@@ -47,20 +47,20 @@ class TestSetup(TestParpare):
 
     def _make(self, args):
         try:
-            make = Popen('make clean', stdout=PIPE, shell=True)
+            make = Popen('make clean', stdout=PIPE, stderr=PIPE,shell=True)
             stdout = make.communicate()[0]
             print stdout
         except:
             pass
         try:
-            make = Popen('make %s' % args, stdout=PIPE, shell=True)
-            stdout = make.communicate()[0]
-            print stdout
+            make = Popen('make %s' % args, stdout=PIPE, stderr=PIPE, shell=True)
+            stdout, stderr = make.communicate()
+            print stdout, stderr
         except:
             pass
         try:
-            make = Popen('make install %s' % args, stdout=PIPE, shell=True)
-            stdout = make.communicate()[0]
+            make = Popen('make install %s' % args, stdout=PIPE, stderr=PIPE, shell=True)
+            stdout, stderr = make.communicate()[0]
             print stdout
         except:
             pass
