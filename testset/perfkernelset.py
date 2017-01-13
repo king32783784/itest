@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class PerfkernelSet(QDialog):
 
@@ -75,13 +76,13 @@ class PerfkernelSet(QDialog):
             self.checkbox_lmbench.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["lmbench"] = self.config.value(QString(setmode) + "lmbench").toString()[0:]
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perfkernel-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -178,14 +179,14 @@ class LmbenchSet(QDialog):
         self.timesshow.setText(str(testargs["args"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("lmbench-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["args"] = self.config.value(QString("lmbench-user/") + "args").toInt()[0]
         return testargs
@@ -204,7 +205,7 @@ class LmbenchSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["args"] = self.config.value(QString("lmbench-default/") + "args").toInt()[0]
         self.timesshow.setText(str(self.argstemp["args"]))
 

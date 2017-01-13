@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class PerfcpuSet(QDialog):
 
@@ -95,7 +96,7 @@ class PerfcpuSet(QDialog):
             self.checkbox_sysbench.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["spec0cpu"] = self.config.value(QString(setmode) + "spec0cpu").toString()[0:]
         testargs["spec6cpu"] = self.config.value(QString(setmode) + "spec6cpu").toString()[0:]
@@ -103,7 +104,7 @@ class PerfcpuSet(QDialog):
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perfcpu-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -240,14 +241,14 @@ class SysbenchSet(QDialog):
         self.primeshow.setText(str(testargs["argp"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("sysbenchcpu-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["argt"] = self.config.value(QString("sysbenchcpu-user/") + "argt").toInt()[0]
         testargs["argp"] = self.config.value(QString("sysbenchcpu-user/") + "argp").toString()[0:]
@@ -279,7 +280,7 @@ class SysbenchSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["argt"] = self.config.value(QString("sysbenchcpu-default/") + "argt").toInt()[0]
         self.argstemp["argp"] = self.config.value(QString("sysbenchcpu-default/") + "argp").toString()[0:]
         self.primeshow.setText(self.argstemp["argp"])

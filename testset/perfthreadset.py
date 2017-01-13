@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class PerfthreadSet(QDialog):
 
@@ -75,13 +76,13 @@ class PerfthreadSet(QDialog):
             self.checkbox_pingpong.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["pingpong"] = self.config.value(QString(setmode) + "pingpong").toString()[0:]
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perfthread-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -187,14 +188,14 @@ class PingpongSet(QDialog):
         self.timesshow.setText(str(testargs["args"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("pingpong-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["argt"] = self.config.value(QString("pingpong-user/") + "argt").toString()[0:]
         testargs["args"] = self.config.value(QString("pingpong-user/") + "args").toInt()[0]
@@ -226,7 +227,7 @@ class PingpongSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["argt"] = self.config.value(QString("pingpong-default/") + "argt").toString()[0:]
         self.argstemp["args"] = self.config.value(QString("pingpong-default/") + "args").toInt()[0]
         self.threadshow.setText(self.argstemp["argt"])

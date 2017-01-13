@@ -76,13 +76,13 @@ class PerfioSet(QDialog):
             self.checkbox_iozone.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["iozone"] = self.config.value(QString(setmode) + "iozone").toString()[0:]
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perfio-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -167,14 +167,14 @@ class IozoneSet(QDialog):
         self.label_argtime.setFrameStyle(QFrame.Panel|QFrame.Sunken)
 
     def updatesetting(self, argstmp):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("iozone-user")
         for key, value in argstmp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self, argstype):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["args"] = (self.config.value(QString(argstype) + "args").toInt()[0])
         testargs["argi"] = (self.config.value(QString(argstype) + "argi").toString()[0:])
@@ -282,7 +282,6 @@ class IozoneSet(QDialog):
         self.setargsprint()
 
     def retranslateUi(self):
-        file = QtCore.QFile('css.qss')
         file.open(QtCore.QFile.ReadOnly)
         styleSheet = file.readAll()
         styleSheet = unicode(styleSheet, encoding='utf8')

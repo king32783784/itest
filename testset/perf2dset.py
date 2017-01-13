@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class Perf2dSet(QDialog):
 
@@ -85,14 +86,14 @@ class Perf2dSet(QDialog):
             self.checkbox_qtperf.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["x11perf"] = self.config.value(QString(setmode) + "x11perf").toString()[0:]
         testargs["qtperf"] = self.config.value(QString(setmode) + "qtperf").toString()[0:]
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perf2d-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -206,14 +207,14 @@ class X11perfSet(QDialog):
         self.timesshow.setText(str(testargs["argt"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("x11perf-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["argt"] = self.config.value(QString("x11perf-user/") + "argt").toInt()[0]
         return testargs
@@ -232,7 +233,7 @@ class X11perfSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["argt"] = self.config.value(QString("x11perf-default/") + "argt").toInt()[0]
         self.timesshow.setText(self.argstemp["argt"])
 
@@ -302,14 +303,14 @@ class QtperfSet(QDialog):
         self.timesshow.setText(str(testargs["args"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("qtperf-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["args"] = self.config.value(QString("qtperf-user/") + "args").toInt()[0]
         return testargs
@@ -328,7 +329,7 @@ class QtperfSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["args"] = self.config.value(QString("qtperf-default/") + "args").toInt()[0]
         self.timesshow.setText(str(self.argstemp["args"]))
 

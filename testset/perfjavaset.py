@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class PerfjavaSet(QDialog):
 
@@ -75,13 +76,13 @@ class PerfjavaSet(QDialog):
             self.checkbox_specjvm.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["specjvm"] = self.config.value(QString(setmode) + "specjvm").toString()[0:]
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perfjava-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -179,14 +180,14 @@ class SpecjvmSet(QDialog):
         self.threadshow.setText(str(testargs["argt"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("specjvm-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["argt"] = self.config.value(QString("specjvm-user/") + "argt").toString()[0:]
         return testargs
@@ -205,7 +206,7 @@ class SpecjvmSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["argt"] = self.config.value(QString("specjvm-default/") + "argt").toString()[0:]
         self.threadshow.setText(self.argstemp["argt"])
 

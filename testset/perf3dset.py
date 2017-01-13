@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class Perf3dSet(QDialog):
 
@@ -85,14 +86,14 @@ class Perf3dSet(QDialog):
             self.checkbox_glmark.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["ubgears"] = self.config.value(QString(setmode) + "ubgears").toString()[0:]
         testargs["glmark"] = self.config.value(QString(setmode) + "glmark").toString()[0:]
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perf3d-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -206,14 +207,14 @@ class UbgearsSet(QDialog):
         self.timesshow.setText(str(testargs["argt"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("ubgears-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["argt"] = self.config.value(QString("ubgears-user/") + "argt").toInt()[0]
         return testargs
@@ -232,7 +233,7 @@ class UbgearsSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["argt"] = self.config.value(QString("ubgears-default/") + "argt").toInt()[0]
         self.timesshow.setText(self.argstemp["argt"])
 
@@ -328,14 +329,14 @@ class GlmarkSet(QDialog):
         self.windowshow.setText(str(testargs["argm"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("glmark-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["args"] = self.config.value(QString("glmark-user/") + "args").toInt()[0]
         testargs["argw"] = self.config.value(QString("glmark-user/") + "args").toInt()[0]
@@ -386,7 +387,7 @@ class GlmarkSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["args"] = self.config.value(QString("glmark-default/") + "args").toInt()[0]
         self.argstemp["argw"] = self.config.value(QString("glmark-default/") + "argw").toInt()[0]
         self.argstemp["argh"] = self.config.value(QString("glmark-default/") + "argh").toInt()[0]

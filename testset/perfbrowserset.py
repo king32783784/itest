@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class PerfbrowserSet(QDialog):
 
@@ -153,7 +154,7 @@ class PerfbrowserSet(QDialog):
             self.radio_all.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["css4"] = self.config.value(QString(setmode) + "css4").toString()[0:]
         testargs["acid3"] = self.config.value(QString(setmode) + "acid3").toString()[0:]
@@ -165,7 +166,7 @@ class PerfbrowserSet(QDialog):
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perfbrowser-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -365,14 +366,14 @@ class BrowserSet(QDialog):
         self.threadshow.setText(str(testargs["argt"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("%s-user/" %self.testitem)
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["argt"] = self.config.value(QString("%s-user/"%self.testitem) + "argt").toInt()[0]
         return testargs
@@ -391,7 +392,7 @@ class BrowserSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["argt"] = self.config.value(QString("browseritem-default/") + "argt").toInt()[0]
         self.threadshow.setText(str(self.argstemp["argt"]))
 

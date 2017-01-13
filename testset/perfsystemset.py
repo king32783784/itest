@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
+from common import *
 
 class PerfsystemSet(QDialog):
 
@@ -75,13 +76,13 @@ class PerfsystemSet(QDialog):
             self.checkbox_unixbench.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["unixbench"] = self.config.value(QString(setmode) + "unixbench").toString()[0:]
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perfsystem-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -188,14 +189,14 @@ class UnixbenchSet(QDialog):
         self.timesshow.setText(str(testargs["args"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("unixbench-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["argt"] = self.config.value(QString("unixbench-user/") + "argt").toString()[0:]
         testargs["args"] = self.config.value(QString("unixbench-user/") + "args").toInt()[0]
@@ -227,7 +228,7 @@ class UnixbenchSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["argt"] = self.config.value(QString("unixbench-default/") + "argt").toString()[0:]
         self.argstemp["args"] = self.config.value(QString("unixbench-default/") + "args").toInt()[0]
         self.threadshow.setText(self.argstemp["argt"])

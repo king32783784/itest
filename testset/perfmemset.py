@@ -5,8 +5,8 @@ import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import QtGui, QtCore
-sys.path.append('..')
 from helpinfo import HelpDialog
+from common import *
 
 class PerfmemSet(QDialog):
 
@@ -86,14 +86,14 @@ class PerfmemSet(QDialog):
             self.checkbox_sysbench.setChecked(True)
    
     def readsetting(self, setmode):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["stream"] = self.config.value(QString(setmode) + "stream").toString()[0:]
         testargs["sysbenchmem"] = self.config.value(QString(setmode) + "sysbenchmem").toString()[0:]
         return testargs
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("perfmem-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
@@ -225,14 +225,14 @@ class SysbenchSet(QDialog):
         self.memsizeshow.setText(str(testargs["args"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("sysbenchmem-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["argt"] = self.config.value(QString("sysbenchmem-user/") + "argt").toString()[0:]
         testargs["argb"] = self.config.value(QString("sysbenchmem-user/") + "argb").toInt()[0]
@@ -274,7 +274,7 @@ class SysbenchSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["argt"] = self.config.value(QString("sysbenchmem-default/") + "argt").toString()[0:]
         self.argstemp["argb"] = self.config.value(QString("sysbenchmem-default/") + "argb").toInt()[0]
         self.argstemp["args"] = self.config.value(QString("sysbenchmem-default/") + "args").toInt()[0]
@@ -357,14 +357,14 @@ class StreamSet(QDialog):
         self.timesshow.setText(str(testargs["args"]))
 
     def updatesetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.config.beginGroup("stream-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
     def readsetting(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["argt"] = self.config.value(QString("stream-user/") + "argt").toString()[0:]
         testargs["args"] = self.config.value(QString("stream-user/") + "args").toInt()[0]
@@ -396,7 +396,7 @@ class StreamSet(QDialog):
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
-        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
         self.argstemp["argt"] = self.config.value(QString("stream-default/") + "argt").toString()[0:]
         self.argstemp["args"] = self.config.value(QString("stream-default/") + "args").toInt()[0]
         self.threadshow.setText(self.argstemp["argt"])
