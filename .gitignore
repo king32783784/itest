@@ -13,3 +13,6 @@ ReportRepository
 *.swp
 *.log
 mkreport/result.db
+mkreport/common.py
+mkreport/logging_config.py
+mkreport/.tempseting.ini
