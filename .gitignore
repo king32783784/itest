@@ -12,3 +12,4 @@ ReportRepository
 *.md
 *.swp
 *.log
+mkreport/result.db

@@ -66,8 +66,8 @@ class RunTest(TestSetup, ParameterAnalysis):
         print finalcmd
         for runonce in range(int(runtimes)):
             test = Popen(finalcmd, stdout=PIPE, stderr=PIPE, shell=True, preexec_fn=RunTest.restore_signals)
-            stdout = test.communicate()[0]
-            print stdout
+            stdout, stderr = test.communicate()
+            print stdout, stderr
         print("test for run test")
 
     @staticmethod

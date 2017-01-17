@@ -73,7 +73,7 @@ class TestDrive(TestParpare):
 
 if __name__ == "__main__":
 
-# case1-sysbench
+ #   case1-sysbench
 #    testa = TestDrive('perf', 'sysbenchcpu')
 #    testa.dotest()
 # case2 - stream
@@ -100,20 +100,6 @@ if __name__ == "__main__":
 #    testg = TestDrive('perf', 'sysbenchcpu')
 #    testg.dotest()
 # case8 - css
-#    testh = TestDrive('performance', 'css')
-#    testh.dotest()
-# case9 - html
-#    testi = TestDrive('performance', 'html')
-#    testi.dotest()
-# case10 - acid3
-#    testj = TestDrive('performance', 'acid')
-#    testj.dotest()
-# case11 - dromaeo
-    testk = TestDrive('performance', 'dromaeo')
-    testk.dotest()
-# case12 - octane
-#    testl = TestDrive('performance', 'octane')
-#    testl.dotest()
-# case13 - v8
-#    testm = TestDrive('performance', 'v8')
-#    testm.dotest()
+    testh = TestDrive('perf', 'css')
+    testh.dotest()
+

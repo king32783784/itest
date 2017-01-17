@@ -19,6 +19,7 @@ class PerfcpuSet(QDialog):
         self.setPalette(palette1)
         self.setAutoFillBackground(True)
         self.argstemp = {}
+        print("test cpu set")
         self.createcheckbox()
         self.createbutton()
         self.Layout()

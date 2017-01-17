@@ -62,5 +62,5 @@ def remove_database_item(data_index, data_value):
 
 # test
 #append_database_list('OSLIST', 'isoft01')
-#a = read_database('OSLIST')
-#print(a)
+a = read_database('test')
+print(a)

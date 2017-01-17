@@ -35,8 +35,6 @@ class TestitemSet(QToolBox):
     """
     def __init__(self, parent=None):
         super(TestitemSet, self).__init__(parent)
-        print(HOMEPATH)
-        self.setWindowTitle(u"普华测试套件")
         self.mkperfsignalist()
         self.mkpcheckslotlist()
         self.mkinfosignalist()

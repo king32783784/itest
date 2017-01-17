@@ -151,7 +151,7 @@ class IozoneSet(QDialog):
         self.Layout()
         self.ConnectSignalSlot()
  #       self.writesetting()
-        self.retranslateUi()
+ #       self.retranslateUi()
 
     def setargsprint(self):
         printargs = self.readsetting("iozone-user/")

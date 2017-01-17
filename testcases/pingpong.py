@@ -7,7 +7,7 @@ from runtest import RunTest
 from common import *
 
 class DoTest(RunTest):
-    def __init__(self,testtoolget, testargs, homepath):
+    def __init__(self, testtoolget, testargs, homepath):
         self.homepath = homepath
         self.tool = testtoolget
         self.args = testargs

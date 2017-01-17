@@ -218,11 +218,123 @@ class Data_unixbench(DataCapture):
         return datadict_unixbench      
 
 
+# acid数据处理
+class Data_Acid(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        item_args = get_item_temp_args("acid")
+        testtime = int(item_args["args"])
+        acid_browser = item_args["argt"].split(",")
+        datadict_acid = {}
+        for browser in acid_browser:
+            pattern = "%s acid result: (.*?)\n" % browser
+            data_acid= self.data_search(pattern, testtime)
+            datadict_acid[browser] = data_acid[0]
+        datadict_acid["browsetype"] = acid_browser
+        return datadict_acid  
+
+
+# css数据处理
+class Data_Css(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        item_args = get_item_temp_args("acid")
+        testtime = int(item_args["args"])
+        css_browser = item_args["argt"].split(",")
+        datadict_css = {}
+        for browser in css_browser:
+            pattern = "%s css result: (.*?)\n" % browser
+            data_css = self.data_search(pattern, testtime)
+            datadict_css[browser] = data_css[0]
+        datadict_css["browsetype"] = css_browser
+        return datadict_css
+
+
+# html数据处理
+class Data_Html(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        item_args = get_item_temp_args("acid")
+        testtime = int(item_args["args"])
+        html_browser = item_args["argt"].split(",")
+        datadict_html = {}
+        for browser in html_browser:
+            pattern = "%s html5 result: (.*?)\n" % browser
+            data_html = self.data_search(pattern, testtime)
+            datadict_html[browser] = data_html[0]
+        datadict_html["browsetype"] = html_browser
+        return datadict_html
+
+
+# octane数据处理
+class Data_Octane(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        item_args = get_item_temp_args("acid")
+        testtime = int(item_args["args"])
+        octane_browser = item_args["argt"].split(",")
+        datadict_octane = {}
+        for browser in octane_browser:
+            pattern = "%s octane result: (.*?)\n" % browser
+            data_octane = self.data_search(pattern, testtime)
+            datadict_octane[browser] = data_octane[0]
+        datadict_octane["browsetype"] = octane_browser
+        return datadict_octane
+
+
+# dromaeo数据处理
+class Data_Dromaeo(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        item_args = get_item_temp_args("acid")
+        testtime = int(item_args["args"])
+        dromaeo_browser = item_args["argt"].split(",")
+        datadict_dromaeo = {}
+        for browser in dromaeo_browser:
+            pattern = "%s dromaeo result: (.*?)\n" % browser
+            data_dromaeo = self.data_search(pattern, testtime)
+            datadict_dromaeo[browser] = data_dromaeo[0]
+        datadict_dromaeo["browsetype"] = dromaeo_browser
+        return datadict_dromaeo
+
+
+# v8数据处理
+class Data_V8(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        item_args = get_item_temp_args("acid")
+        testtime = int(item_args["args"])
+        v8_browser = item_args["argt"].split(",")
+        datadict_v8 = {}
+        for browser in v8_browser:
+            pattern = "%s v8 result: (.*?)\n" % browser
+            data_v8 = self.data_search(pattern, testtime)
+            datadict_v8[browser] = data_v8[0]
+        datadict_v8["browsetype"] = v8_browser
+        return datadict_v8
+
+
 # 数据处理列表
 Data_classlist = {'sysbenchcpu': Data_sysbenchcpu, 'sysbenchmem': Data_sysbenchmem,
                   'lmbench': Data_lmbench, 'pingpong': Data_pingpong,
                   'stream': Data_stream, 'iozone': Data_iozone,
-                  'unixbench': Data_unixbench}
+                  'unixbench': Data_unixbench, 'acid': Data_Acid,
+                  'css': Data_Css, 'v8': Data_V8,
+                  'dromaeo': Data_Dromaeo, 'octane': Data_Octane,
+                  'html': Data_Html}
+
 result_filepath = "current-result/"
 
 # 保存当前测试结果
@@ -239,14 +351,15 @@ def save_current_data():
         item_data = object_data.getresultdata()
         data_os_result[testitem] = item_data
         src_file = result_filepath + typelist[0]
+    print data_os_result
     data_os_result["testlist"] = testlist
     write_database("test", data_os_result)
 
 
 # test
 # 保存数据
-#if __name__ == "__main__": 
-    
+if __name__ == "__main__": 
+     save_current_data() 
 
 # a = Data_sysbenchcpu("../current-result/performance/sysbenchcpu/result/result.out")
 # data = a.getresultdata()

@@ -903,6 +903,227 @@ class Create_md_Unixbench(Create_Md):
             self.mkmd_mult()
 
 
+class Create_md_Browser(Create_Md):
+    #  title 模板
+    md_title_browser ="""
+##Css - Performance Test of Browser
+"""
+    md_subtitle_browser = "###Browser test - Css"
+    # browser 柱状图参数模板
+    md_chart_browser = {
+        'custom_font': 'goffer.ttf',
+        'title':  'Browser Css Test',
+        'osnames':[],
+        'subjects':('chrome', 'firefox'),
+        'scores': [[10, 20, 30], [11, 21, 31]],
+        'pngname': 'current-report/svgfile/css.png'}
+
+    def __init__(self, src_file, result_data, testitem):
+        Create_Md.__init__(self, src_file)
+        self.result_data = result_data
+        self.testitem = testitem
+
+    def check_key_args(self):
+        self.oslist = self.result_data["oslist"]
+        if len(self.oslist) > 1:
+            init_itemlist = self.result_data[self.oslist[0]][self.testitem]\
+                                            ['browsetype']
+            for osname in self.oslist[1:]:
+                if self.result_data[osname][self.testitem]['browsetype'] == \
+                    init_itemlist:
+                    self.resulttype = "MULT"
+                else:
+                    self.resulttype = "SIGNLE"
+                    break
+        else:
+            self.resulttype = "SIGNLE"
+
+    def mkmd_data_single(self, osname, browseritem):
+        data_browser = {}
+        data_browser_list = []
+        for item in browseritem:
+            data_browser_list.append(self.result_data[osname][self.testitem][item])
+        data_browser[osname] = data_browser_list
+        return data_browser
+
+    def mkmd_data_mult(self):
+        data_browser_list = []
+        data_browser = {}
+        for osname in self.oslist:
+            for item in self.result_data[osname][self.testitem]["browsetype"]:
+                data_browser_list.append(self.result_data[osname]\
+                    [self.testitem][item])
+            data_browser[osname] = data_browser_list
+        return data_browser
+
+    def mkmd_mkchart_single(self, osname, data_browser, subitem):
+        osnames = []
+        osnames.append(osname)
+        self.md_chart_browser["osnames"] = osnames
+        self.md_chart_browser["subjects"] = subitem
+        scores = map(float,data_browser[osname])
+        self.md_chart_browser["scores"] = [scores]
+        pngname = osname + '_' + "%s.png" % self.testitem
+        pngpath = 'current-report/svgfile/%s' % pngname
+        self.md_chart_browser["pngname"] = pngpath
+        mkchart(self.md_chart_browser)
+        return pngname
+
+        mkchart(self.md_chart_browser)
+        return self.md_chart_browser['pngname']
+
+    def mkmd_mkchart_mult(self, data_browser, subitem):
+        scores = []
+        for osname in self.oslist:
+            score = data_browser[osname]
+            score = map(float, score)
+            scores.append(score)
+        self.md_chart_browser["osnames"] = self.oslist
+        self.md_chart_browser["subjects"] = subitem
+        self.md_chart_browser["scores"] = scores
+        pngname = self.testitem + '.png'
+        pngpath = 'current-report/svgfile/%s' % pngname
+        self.md_chart_browser["pngname"] = pngpath
+        mkchart(self.md_chart_browser)
+        return pngname
+
+    def mkmd_single(self):
+        self.mk_md_title(self.md_title_browser)
+        for osname in self.oslist:
+            self.mk_md_title(self.md_subtitle_browser)
+            browser_item = self.result_data[osname][self.testitem]['browsetype']
+            self.mk_md_item(browser_item)
+            data_browser = self.mkmd_data_single(osname, browser_item)
+            self.mk_md_data(data_browser)
+            pngname = self.mkmd_mkchart_single(osname, data_browser, browser_item)
+            self.mk_md_chart(pngname)
+
+    def mkmd_mult(self):
+        self.mk_md_title(self.md_title_browser)
+        self.mk_md_title(self.md_subtitle_browser)
+        browser_item = self.result_data[self.oslist[0]][self.testitem]['browsetype']
+        self.mk_md_item(browser_item)
+        data_browser = self.mkmd_data_mult()
+        self.mk_md_data(data_browser)
+        pngname = self.mkmd_mkchart_mult(data_browser, browser_item)
+        self.mk_md_chart(pngname)
+
+    def create_md(self):
+        self.check_key_args()
+        if self.resulttype == "SIGNLE":
+            self.mkmd_single()
+        else:
+            self.mkmd_mult()
+
+
+class Create_md_Css(Create_md_Browser):
+    #  title 模板
+    md_title_browser ="""
+##Css - Performance Test of Browser
+"""
+    md_subtitle_browser = "###Browser test - Css"
+    # browser 柱状图参数模板
+    md_chart_browser = {
+        'custom_font': 'goffer.ttf',
+        'title':  'Browser Css Test',
+        'osnames':[],
+        'subjects':('chrome', 'firefox'),
+        'scores': [[10, 20, 30], [11, 21, 31]],
+        'pngname': 'current-report/svgfile/css.png'}
+    def __init__(self, src_file, result_data):
+        Create_md_Browser.__init__(self, src_file, result_data, "css")
+
+
+class Create_md_Html(Create_md_Browser):
+    #  title 模板
+    md_title_browser ="""
+##Html - Performance Test of Browser
+"""
+    md_subtitle_browser = "###Browser test - Html"
+    # browser 柱状图参数模板
+    md_chart_browser = {
+        'custom_font': 'goffer.ttf',
+        'title':  'Browser Html Test',
+        'osnames':[],
+        'subjects':('chrome', 'firefox'),
+        'scores': [[10, 20, 30], [11, 21, 31]],
+        'pngname': 'current-report/svgfile/html.png'}
+    def __init__(self, src_file, result_data):
+        Create_md_Browser.__init__(self, src_file, result_data, "html")
+
+
+class Create_md_Acid(Create_md_Browser):
+    #  title 模板
+    md_title_browser ="""
+##Acid - Performance Test of Browser
+"""
+    md_subtitle_browser = "###Browser test - Acid"
+    # browser 柱状图参数模板
+    md_chart_browser = {
+        'custom_font': 'goffer.ttf',
+        'title':  'Browser Acid Test',
+        'osnames':[],
+        'subjects':('chrome', 'firefox'),
+        'scores': [[10, 20, 30], [11, 21, 31]],
+        'pngname': 'current-report/svgfile/acid.png'}
+    def __init__(self, src_file, result_data):
+        Create_md_Browser.__init__(self, src_file, result_data, "acid") 
+
+
+class Create_md_V8(Create_md_Browser):
+    #  title 模板
+    md_title_browser ="""
+##V8 - Performance Test of Browser
+"""
+    md_subtitle_browser = "###Browser test - V8"
+    # browser 柱状图参数模板
+    md_chart_browser = {
+        'custom_font': 'goffer.ttf',
+        'title':  'Browser V8 Test',
+        'osnames':[],
+        'subjects':('chrome', 'firefox'),
+        'scores': [[10, 20, 30], [11, 21, 31]],
+        'pngname': 'current-report/svgfile/v8.png'}
+    def __init__(self, src_file, result_data):
+        Create_md_Browser.__init__(self, src_file, result_data, "v8")      
+
+
+class Create_md_Octane(Create_md_Browser):
+    #  title 模板
+    md_title_browser ="""
+##Octane - Performance Test of Browser
+"""
+    md_subtitle_browser = "###Browser test - Octane"
+    # browser 柱状图参数模板
+    md_chart_browser = {
+        'custom_font': 'goffer.ttf',
+        'title':  'Browser Octane Test',
+        'osnames':[],
+        'subjects':('chrome', 'firefox'),
+        'scores': [[10, 20, 30], [11, 21, 31]],
+        'pngname': 'current-report/svgfile/octane.png'}
+    def __init__(self, src_file, result_data):
+        Create_md_Browser.__init__(self, src_file, result_data, "octane")
+
+
+class Create_md_Dromaeo(Create_md_Browser):
+    #  title 模板
+    md_title_browser ="""
+##Dromaeo - Performance Test of Browser
+"""
+    md_subtitle_browser = "###Browser test - Dromaeo"
+    # browser 柱状图参数模板
+    md_chart_browser = {
+        'custom_font': 'goffer.ttf',
+        'title':  'Browser Dromaeo Test',
+        'osnames':[],
+        'subjects':('chrome', 'firefox'),
+        'scores': [[10, 20, 30], [11, 21, 31]],
+        'pngname': 'current-report/svgfile/dromaeo.png'}
+    def __init__(self, src_file, result_data):
+        Create_md_Browser.__init__(self, src_file, result_data, "dromaeo")
+
+
 # html_md处理列表
 Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'sysbenchmem': Create_md_Sysbenchmem,
@@ -910,7 +1131,13 @@ Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'pingpong': Create_md_Pingpong,
                 'stream': Create_md_Stream,
                 'iozone': Create_md_Iozone,
-                'unixbench': Create_md_Unixbench}
+                'unixbench': Create_md_Unixbench,
+                'css': Create_md_Css,
+                'html': Create_md_Html,
+                'acid': Create_md_Acid,
+                'v8': Create_md_V8,
+                'octane': Create_md_Octane,
+                'dromaeo': Create_md_Dromaeo}
 
 def mk_html_main(src_file, oslist, itemlist):
     
@@ -941,4 +1168,4 @@ def mk_html_main(src_file, oslist, itemlist):
         print >>sys.stderr, "Execution failed:", e      
 
 # test 生成html报告
-#mk_html_main("current-report/test.md", ["local"], ["stream"])
+# mk_html_main("current-report/test.md", ["test", "test"], ["css", "html", "dromaeo", "acid", "v8", "octane"])

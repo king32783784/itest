@@ -38,19 +38,15 @@ class Window(QtGui.QMainWindow):
         self.resultstatus = "D"
         self.initcheck()
         # LCD number
-        self.lcdnumber = QtGui.QLCDNumber()
-        self.lcdnumber.setNumDigits(10)
-        self.lcdnumber.display("2016")
-
         # toolbox
       #  self.window_load = LoadWindow()
       #  self.window_load.hide()
         self.createlogwindow()
-        self.window_log.hide()
+        self.window_log.hide()   # case1
         self.createprogressbar()
         self.createbutton()
         self.createlabel()
-        self.window_item = TestitemSet()
+        self.window_item = TestitemSet() # case2
         self.setlayout()
  
     def createlogwindow(self):
@@ -173,7 +169,7 @@ class Window(QtGui.QMainWindow):
                 self.window_log.show()
                 writeconfig(".resultseting.ini", "ontime", "resultdirontime", "test")
                 test = TestThread(self)
-                test.setup(self.window_log)
+              #  test.setup(self.window_log)
                 test.trigger.connect(self.update_text)
                 test.start()
             else:
@@ -221,8 +217,8 @@ class TestThread(QtCore.QThread):
     def __init__(self, parent=None):
         super(TestThread, self).__init__(parent)
 
-    def setup(self, testwindow):
-        self.testwindow = testwindow
+#    def setup(self, testwindow):
+#        self.testwindow = testwindow
     
     def run(self):
         todotestlist = readtestlist()

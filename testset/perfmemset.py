@@ -19,6 +19,7 @@ class PerfmemSet(QDialog):
         self.setPalette(palette1)
         self.setAutoFillBackground(True)
         self.argstemp = {}
+        print("test mem set")
         self.createcheckbox()
         self.createbutton()
         self.Layout()
@@ -145,7 +146,7 @@ class PerfmemSet(QDialog):
         self.argstemp["stream"] = "E"
         self.argstemp["sysbenchmem"] = "E"
 
-# sysbench-cpu测试设置
+# sysbench-mem测试设置
 
 class SysbenchSet(QDialog):
     
@@ -153,6 +154,7 @@ class SysbenchSet(QDialog):
         super(SysbenchSet, self).__init__(parent)
         self.setWindowTitle("sysbench设置")
         self.resize(450,550)
+        print("test sysbenchmem")
         palette1 = QtGui.QPalette()
         palette1.setColor(self.backgroundRole(), QColor("#cccddc"))
         self.setPalette(palette1)

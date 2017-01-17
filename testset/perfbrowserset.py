@@ -30,19 +30,19 @@ class PerfbrowserSet(QDialog):
         self.mainlabel = QLabel(self.tr("选择测试项目:"))        
 
     def createcheckbox(self):
-        self.checkbox_acid3 = QtGui.QCheckBox(u'acid3')
+        self.checkbox_acid3 = QtGui.QCheckBox(u'acid')
         self.connect(self.checkbox_acid3, QtCore.SIGNAL('clicked()'),
                      self.Oncheckbox_acid3)
-        self.checkbox_v8test = QtGui.QCheckBox(u'v8test')
+        self.checkbox_v8test = QtGui.QCheckBox(u'v8')
         self.connect(self.checkbox_v8test, QtCore.SIGNAL('clicked()'),
                      self.Oncheckbox_v8test)
-        self.checkbox_css4 = QtGui.QCheckBox(u'css4')
+        self.checkbox_css4 = QtGui.QCheckBox(u'css')
         self.connect(self.checkbox_css4, QtCore.SIGNAL('clicked()'),
                      self.Oncheckbox_css4)
         self.checkbox_octane = QtGui.QCheckBox(u'octane')
         self.connect(self.checkbox_octane, QtCore.SIGNAL('clicked()'),
                      self.Oncheckbox_octane)
-        self.checkbox_html5 = QtGui.QCheckBox(u'html5')
+        self.checkbox_html5 = QtGui.QCheckBox(u'html')
         self.connect(self.checkbox_html5, QtCore.SIGNAL('clicked()'),
                      self.Oncheckbox_html5)
         self.checkbox_dromaeo = QtGui.QCheckBox(u'dromaeo')
@@ -134,15 +134,15 @@ class PerfbrowserSet(QDialog):
 
     def initstatus(self):
         testargs = self.readsetting("perfbrowser-user/")
-        if testargs["css4"] == "E":
+        if testargs["css"] == "E":
             self.checkbox_css4.setChecked(True)
-        if testargs["acid3"] == "E":
+        if testargs["acid"] == "E":
             self.checkbox_acid3.setChecked(True)
-        if testargs["v8test"] == "E":
+        if testargs["v8"] == "E":
             self.checkbox_v8test.setChecked(True)
         if testargs["octane"] == "E":
             self.checkbox_octane.setChecked(True)
-        if testargs["html5"] == "E":
+        if testargs["html"] == "E":
             self.checkbox_html5.setChecked(True)
         if testargs["dromaeo"] == "E":
             self.checkbox_dromaeo.setChecked(True)
@@ -156,11 +156,11 @@ class PerfbrowserSet(QDialog):
     def readsetting(self, setmode):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
-        testargs["css4"] = self.config.value(QString(setmode) + "css4").toString()[0:]
-        testargs["acid3"] = self.config.value(QString(setmode) + "acid3").toString()[0:]
-        testargs["v8test"] = self.config.value(QString(setmode) + "v8test").toString()[0:]
+        testargs["css"] = self.config.value(QString(setmode) + "css").toString()[0:]
+        testargs["acid"] = self.config.value(QString(setmode) + "acid").toString()[0:]
+        testargs["v8"] = self.config.value(QString(setmode) + "v8").toString()[0:]
         testargs["octane"] = self.config.value(QString(setmode) + "octane").toString()[0:]
-        testargs["html5"] = self.config.value(QString(setmode) + "html5").toString()[0:]
+        testargs["html"] = self.config.value(QString(setmode) + "html").toString()[0:]
         testargs["dromaeo"] = self.config.value(QString(setmode) + "dromaeo").toString()[0:]
         testargs["browser"] = self.config.value(QString(setmode) + "browser").toString()[0:]
         return testargs
@@ -174,21 +174,21 @@ class PerfbrowserSet(QDialog):
 
     def Oncheckbox_css4(self):
         if self.checkbox_css4.isChecked():
-            self.argstemp["css4"] = "E"
+            self.argstemp["css"] = "E"
         else:
-            self.argstemp["css4"] = "D"
+            self.argstemp["css"] = "D"
 
     def Oncheckbox_acid3(self):
         if self.checkbox_acid3.isChecked():
-            self.argstemp["acid3"] = "E"
+            self.argstemp["acid"] = "E"
         else:
-            self.argstemp["acid3"] = "D"
+            self.argstemp["acid"] = "D"
 
     def Oncheckbox_v8test(self):
         if self.checkbox_v8test.isChecked():
-            self.argstemp["v8test"] = "E"
+            self.argstemp["v8"] = "E"
         else:
-            self.argstemp["v8test"] = "D"
+            self.argstemp["v8"] = "D"
 
     def Oncheckbox_octane(self):
         if self.checkbox_octane.isChecked():
@@ -198,38 +198,62 @@ class PerfbrowserSet(QDialog):
 
     def Oncheckbox_html5(self):
         if self.checkbox_html5.isChecked():
-            self.argstemp["html5"] = "E"
+            self.argstemp["html"] = "E"
         else:
-            self.argstemp["html5"] = "D"
+            self.argstemp["html"] = "D"
 
     def Oncheckbox_dromaeo(self):
         if self.checkbox_dromaeo.isChecked():
             self.argstemp["dromaeo"] = "E"
         else:
             self.argstemp["dromaeo"] = "D"
+   
+    def write_browser(self, key, value):
+        self.config = QSettings(SET_FILE, QSettings.IniFormat)
+        self.config.beginGroup("%s-user" %key )
+        self.config.setValue('argt', value)
+        self.config.endGroup()
  
     def Onradio_chrome(self):
         if self.radio_chrome.isChecked():
             self.argstemp["browser"] = "C"
+            self.write_browser("css", "chrome")
+            self.write_browser("html", "chrome")
+            self.write_browser("v8", "chrome")
+            self.write_browser("actane", "chrome")
+            self.write_browser("dromaeo", "chrome")
+            self.write_browser("acid", "chrome")
     
     def Onradio_firefox(self):
         if self.radio_firefox.isChecked():
             self.argstemp["browser"] = "F"
-    
+            self.write_browser("css", "firefox")
+            self.write_browser("html", "firefox")
+            self.write_browser("v8", "firefox")
+            self.write_browser("actane", "firefox")
+            self.write_browser("dromaeo", "firefox")
+            self.write_browser("acid", "firefox")
+  
     def Onradio_all(self):
         if self.radio_all.isChecked():
             self.argstemp["browser"] = "A"
+            self.write_browser("css", "chrome,firefox")
+            self.write_browser("html", "chrome,firefox")
+            self.write_browser("v8", "chrome,firefox")
+            self.write_browser("actane", "chrome,firefox")
+            self.write_browser("dromaeo", "chrome,firefox")
+            self.write_browser("acid", "chrome,firefox")
 
     def Onsetcss4(self):
-        setcss4 = BrowserSet("css4")
+        setcss4 = BrowserSet("css")
         setcss4.exec_()
 
     def Onsetacid3(self):
-        setacid3 = BrowserSet("acid3")
+        setacid3 = BrowserSet("acid")
         setacid3.exec_()
 
     def Onsetv8test(self):
-        setv8test = BrowserSet("v8test")
+        setv8test = BrowserSet("v8")
         setv8test.exec_()
        
     def Onsetoctane(self):
@@ -241,20 +265,20 @@ class PerfbrowserSet(QDialog):
         setdromaeo.exec_()
 
     def Onsethtml5(self):
-        sethtml5 = BrowserSet("html5")
+        sethtml5 = BrowserSet("html")
         sethtml5.exec_()
 
     def Ondefault(self):
         defaultset = self.readsetting("perfbrowser-default/")
-        if defaultset["css4"] == "E":
+        if defaultset["css"] == "E":
             self.checkbox_css4.setChecked(True)
         else:
             self.checkbox_css4.setChecked(False)
-        if defaultset["acid3"] == "E":
+        if defaultset["acid"] == "E":
             self.checkbox_acid3.setChecked(True)
         else:
             self.checkbox_acid3.setChecked(False)
-        if defaultset["v8test"] == "E":
+        if defaultset["v8"] == "E":
             self.checkbox_v8test.setChecked(True)
         else:
             self.checkbox_v8test.setChecked(False)
@@ -262,7 +286,7 @@ class PerfbrowserSet(QDialog):
             self.checkbox_octane.setChecked(True)
         else:
             self.checkbox_octane.setChecked(False) 
-        if defaultset["html5"] == "E":
+        if defaultset["html"] == "E":
             self.checkbox_html5.setChecked(True)
         else:
             self.checkbox_html5.setChecked(False)
@@ -294,11 +318,11 @@ class PerfbrowserSet(QDialog):
         self.checkbox_html5.setChecked(True)
         self.checkbox_dromaeo.setChecked(True)
         self.radio_all.setChecked(True)
-        self.argstemp["css4"] = "E"
-        self.argstemp["acid3"] = "E"
-        self.argstemp["v8test"] = "E"
+        self.argstemp["css"] = "E"
+        self.argstemp["acid"] = "E"
+        self.argstemp["v8"] = "E"
         self.argstemp["octane"] = "E"
-        self.argstemp["html5"] = "E"
+        self.argstemp["html"] = "E"
         self.argstemp["dromaeo"] = "E"
         self.argstemp["browser"] = "A"
 
@@ -363,7 +387,7 @@ class BrowserSet(QDialog):
 
     def initstatus(self):
         testargs = self.readsetting()
-        self.threadshow.setText(str(testargs["argt"]))
+        self.threadshow.setText(str(testargs["args"]))
 
     def updatesetting(self):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
@@ -375,17 +399,17 @@ class BrowserSet(QDialog):
     def readsetting(self):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
-        testargs["argt"] = self.config.value(QString("%s-user/"%self.testitem) + "argt").toInt()[0]
+        testargs["args"] = self.config.value(QString("%s-user/"%self.testitem) + "args").toInt()[0]
         return testargs
 
     def Onthreadbutton(self):
-        argt, ok = QInputDialog.getInteger(self,
+        args, ok = QInputDialog.getInteger(self,
                                            self.tr(u"次数"),
                                            self.tr(u"请输入测试次数:默认3"),
                                            int(self.threadshow.text()), 1,10)
         if ok:
-            self.threadshow.setText(str(argt))
-            self.argstemp['argt'] = str(argt)
+            self.threadshow.setText(str(args))
+            self.argstemp['args'] = str(args)
 
     def Onhelpbutton(self):
         helpdialog = HelpTime()
@@ -393,8 +417,8 @@ class BrowserSet(QDialog):
 
     def Ondefaultbutton(self):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
-        self.argstemp["argt"] = self.config.value(QString("browseritem-default/") + "argt").toInt()[0]
-        self.threadshow.setText(str(self.argstemp["argt"]))
+        self.argstemp["args"] = self.config.value(QString("browseritem-default/") + "args").toInt()[0]
+        self.threadshow.setText(str(self.argstemp["args"]))
 
     def Onsetbutton(self):
         self.updatesetting()
