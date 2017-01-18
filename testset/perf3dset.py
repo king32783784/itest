@@ -101,7 +101,7 @@ class Perf3dSet(QDialog):
 
     def Oncheckbox_ubgears(self):
         if self.checkbox_ubgears.isChecked():
-            self.argstemp["ungears"] = "E"
+            self.argstemp["ubgears"] = "E"
         else:
             self.argstemp["glmark"] = "D"
 
@@ -272,6 +272,10 @@ class GlmarkSet(QDialog):
         self.windowlabel = QLabel(self.tr("模式(0窗口1全屏)"))
         self.windowshow = QLabel("")
         self.windowshow.setFrameStyle(QFrame.Panel|QFrame.Sunken)       
+        self.bpplabel = QLabel(self.tr("像素深度"))
+        self.bppshow = QLabel("")
+        self.bppshow.setFrameStyle(QFrame.Panel|QFrame.Sunken)
+
 
     def createbutton(self):
         self.timesbutton = QPushButton(u"自定义")
@@ -282,6 +286,8 @@ class GlmarkSet(QDialog):
         self.connect(self.heightbutton, QtCore.SIGNAL("clicked()"), self.Onheightbutton)
         self.windowbutton = QPushButton(u"自定义")
         self.connect(self.windowbutton, QtCore.SIGNAL("clicked()"), self.Onwindowbutton)
+        self.bppbutton = QPushButton(u"自定义")
+        self.connect(self.bppbutton, QtCore.SIGNAL("clicked()"), self.Onbppbutton)
         self.helpbutton = QPushButton(u"帮助")
         self.connect(self.helpbutton, QtCore.SIGNAL("clicked()"), self.Onhelpbutton)
         self.defaultbutton = QPushButton(u"默认")
@@ -300,9 +306,12 @@ class GlmarkSet(QDialog):
         baseLayout.addWidget(self.heightlabel, 2,0)
         baseLayout.addWidget(self.heightshow, 2,1)
         baseLayout.addWidget(self.heightbutton, 2,3)
-        baseLayout.addWidget(self.windowlabel, 3,0)
-        baseLayout.addWidget(self.windowshow, 3,1)
-        baseLayout.addWidget(self.windowbutton,3,3)
+        baseLayout.addWidget(self.bpplabel, 3,0)
+        baseLayout.addWidget(self.bppshow, 3,1)
+        baseLayout.addWidget(self.bppbutton, 3,3)
+        baseLayout.addWidget(self.windowlabel, 4,0)
+        baseLayout.addWidget(self.windowshow, 4,1)
+        baseLayout.addWidget(self.windowbutton,4,3)
 
         footer1Layout = QHBoxLayout()
         acer1 = QtGui.QSpacerItem(30,160)
@@ -311,14 +320,14 @@ class GlmarkSet(QDialog):
         footer2Layout = QHBoxLayout()
         footer1Layout.addWidget(self.helpbutton)
         footer1Layout.addWidget(self.defaultbutton)
-        baseLayout.addItem(acer1, 4,0)
-        baseLayout.addItem(acer2, 5,1)
+        baseLayout.addItem(acer1, 5,0)
+        baseLayout.addItem(acer2, 6,1)
         footer2Layout.addWidget(self.setbutton)
 
        # baseLayout.setSizeConstraint(QLayout.SetFixedSize)
        # baseLayout.setSpacing(10)
-        baseLayout.addLayout(footer1Layout,5,0)
-        baseLayout.addLayout(footer2Layout,5,3)
+        baseLayout.addLayout(footer1Layout,6,0)
+        baseLayout.addLayout(footer2Layout,6,3)
         self.setLayout(baseLayout)
 
     def initstatus(self):
@@ -327,6 +336,7 @@ class GlmarkSet(QDialog):
         self.widthshow.setText(str(testargs["argw"]))
         self.heightshow.setText(str(testargs["argh"]))
         self.windowshow.setText(str(testargs["argm"]))
+        self.bppshow.setText(str(testargs["argb"]))
 
     def updatesetting(self):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
@@ -339,9 +349,10 @@ class GlmarkSet(QDialog):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
         testargs["args"] = self.config.value(QString("glmark-user/") + "args").toInt()[0]
-        testargs["argw"] = self.config.value(QString("glmark-user/") + "args").toInt()[0]
-        testargs["argh"] = self.config.value(QString("glmark-user/") + "args").toInt()[0]
-        testargs["argm"] = self.config.value(QString("glmark-user/") + "args").toInt()[0]
+        testargs["argw"] = self.config.value(QString("glmark-user/") + "argw").toInt()[0]
+        testargs["argh"] = self.config.value(QString("glmark-user/") + "argh").toInt()[0]
+        testargs["argm"] = self.config.value(QString("glmark-user/") + "argm").toInt()[0]
+        testargs["argb"] = self.config.value(QString("glmark-user/") + "argb").toInt()[0]
         return testargs
 
     def Ontimesbutton(self):
@@ -352,6 +363,16 @@ class GlmarkSet(QDialog):
         if ok:
             self.timesshow.setText(str(args))
             self.argstemp['args'] = str(args)
+
+    def Onbppbutton(self):
+        argb, ok = QInputDialog.getInteger(self,
+                                           self.tr(u'参数bpp'),
+                                           self.tr(u"请输入参数bpp:默认为32"),
+                                           int(self.timesshow.text()),1,256)
+        if ok:
+            self.timesshow.setText(str(argb))
+            self.argstemp['argb'] = str(argb)
+
 
     def Onwidthbutton(self):
         argw, ok = QInputDialog.getInteger(self,
@@ -392,10 +413,12 @@ class GlmarkSet(QDialog):
         self.argstemp["argw"] = self.config.value(QString("glmark-default/") + "argw").toInt()[0]
         self.argstemp["argh"] = self.config.value(QString("glmark-default/") + "argh").toInt()[0]
         self.argstemp["argm"] = self.config.value(QString("glmark-default/") + "argm").toInt()[0]
+        self.argstemp["argb"] = self.config.value(QString("glmark-default/") + "argb").toInt()[0]
         self.timesshow.setText(str(self.argstemp["args"]))
         self.widthshow.setText(str(self.argstemp["argw"]))
         self.heightshow.setText(str(self.argstemp["argh"]))
         self.windowshow.setText(str(self.argstemp["argm"]))
+        self.bppshow.setText(str(self.argstemp["argb"]))
 
     def Onsetbutton(self):
         self.updatesetting()

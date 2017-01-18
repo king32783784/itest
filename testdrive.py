@@ -109,11 +109,23 @@ if __name__ == "__main__":
 #    testj = TestDrive('performance', 'acid')
 #    testj.dotest()
 # case11 - dromaeo
-    testk = TestDrive('performance', 'dromaeo')
-    testk.dotest()
+#    testk = TestDrive('performance', 'dromaeo')
+#    testk.dotest()
 # case12 - octane
 #    testl = TestDrive('performance', 'octane')
 #    testl.dotest()
 # case13 - v8
 #    testm = TestDrive('performance', 'v8')
 #    testm.dotest()
+# case14 - glmark
+#    testn = TestDrive('performance', 'glmark')
+#    testn.dotest()
+# case15 - ubgears
+#    testo = TestDrive('performance', 'ubgears')
+#    testo.dotest()
+# case16 - x11perf
+#    testp = TestDrive('performance', 'x11perf')
+#    testp.dotest()
+# case17 - qtperf
+    testq = TestDrive('performance', 'qtperf')
+    testq.dotest()

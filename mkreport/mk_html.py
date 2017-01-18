@@ -969,9 +969,6 @@ class Create_md_Browser(Create_Md):
         mkchart(self.md_chart_browser)
         return pngname
 
-        mkchart(self.md_chart_browser)
-        return self.md_chart_browser['pngname']
-
     def mkmd_mkchart_mult(self, data_browser, subitem):
         scores = []
         for osname in self.oslist:
@@ -1124,6 +1121,140 @@ class Create_md_Dromaeo(Create_md_Browser):
         Create_md_Browser.__init__(self, src_file, result_data, "dromaeo")
 
 
+class Create_md_Graphics(Create_Md):
+    #  title 模板
+    md_title_graphics ="""
+##Qtperf - Performance Test of Graphics
+"""
+    md_subtitle_graphics = "###Graphic test - Qtperf"
+    # graphics 柱状图参数模板
+    md_chart_graphics = {
+        'custom_font': 'goffer.ttf',
+        'title':  'Graphics Qtperf Test',
+        'osnames':[],
+        'subjects':['Total Time'],
+        'scores': [[10, 20, 30]],
+        'pngname': 'current-report/svgfile/qtperf.png'}
+
+    def __init__(self, src_file, result_data, testitem):
+        Create_Md.__init__(self, src_file)
+        self.result_data = result_data
+        self.testitem = testitem
+
+    def mkmd_data_mult(self):
+        data_graphics = {}
+        for osname in self.oslist:
+            data = self.result_data[osname][self.testitem][self.testitem]
+            data_graphics[osname] = [data]
+        return data_graphics
+
+    def mkmd_mkchart_mult(self, data_browser, subitem):
+        scores = []
+        for osname in self.oslist:
+            score = data_browser[osname]
+            score = map(float, score)
+            scores.append(score)
+        self.md_chart_graphics["osnames"] = self.oslist
+        self.md_chart_graphics["subjects"] = subitem
+        self.md_chart_graphics["scores"] = scores
+        pngname = self.testitem + '.png'
+        pngpath = 'current-report/svgfile/%s' % pngname
+        self.md_chart_graphics["pngname"] = pngpath
+        mkchart(self.md_chart_graphics)
+        return pngname
+
+    def mkmd_mult(self):
+        self.mk_md_title(self.md_title_graphics)
+        self.mk_md_title(self.md_subtitle_graphics)
+        graphics_item = self.md_chart_graphics["subjects"]
+        self.mk_md_item(graphics_item)
+        data_graphics = self.mkmd_data_mult()
+        self.mk_md_data(data_graphics)
+        pngname = self.mkmd_mkchart_mult(data_graphics, graphics_item)
+        self.mk_md_chart(pngname)
+
+    def create_md(self):
+        self.oslist = self.result_data["oslist"]
+        self.mkmd_mult()
+
+
+class Create_md_Qtperf(Create_md_Graphics):
+    #  title 模板
+    md_title_graphics ="""
+##Qtperf - Performance Test of 2D
+"""
+    md_subtitle_graphics = "###2D test - Qtperf"
+    # graphics 柱状图参数模板
+    md_chart_graphics = {
+        'custom_font': 'goffer.ttf',
+        'title':  '2D Qtperf Test',
+        'osnames':[],
+        'subjects':['Total Time'],
+        'scores': [[10, 20, 30]],
+        'pngname': 'current-report/svgfile/qtperf.png'}
+
+    def __init__(self, src_file, result_data):
+        Create_md_Graphics.__init__(self, src_file, result_data, "qtperf")
+
+
+class Create_md_Glmark(Create_md_Graphics):
+    #  title 模板
+    md_title_graphics ="""
+##Glmark - Performance Test of 3D
+"""
+    md_subtitle_graphics = "###3D test - Glmark"
+    # graphics 柱状图参数模板
+    md_chart_graphics = {
+        'custom_font': 'goffer.ttf',
+        'title':  '3D Glmark Test',
+        'osnames':[],
+        'subjects':['Score'],
+        'scores': [[10, 20, 30]],
+        'pngname': 'current-report/svgfile/glmark.png'}
+
+    def __init__(self, src_file, result_data):
+        Create_md_Graphics.__init__(self, src_file, result_data, "glmark")
+
+
+class Create_md_X11perf(Create_md_Graphics):
+    #  title 模板
+    md_title_graphics ="""
+##X11perf - Performance Test of 2D
+"""
+    md_subtitle_graphics = "###2D test - X11perf"
+    # graphics 柱状图参数模板
+    md_chart_graphics = {
+        'custom_font': 'goffer.ttf',
+        'title':  '2D X11perf Test',
+        'osnames':[],
+        'subjects':['Index Score'],
+        'scores': [[10, 20, 30]],
+        'pngname': 'current-report/svgfile/x11perf.png'}
+
+    def __init__(self, src_file, result_data):
+        Create_md_Graphics.__init__(self, src_file, result_data, "x11perf")
+
+
+class Create_md_Ubgears(Create_md_Graphics):
+    #  title 模板
+    md_title_graphics ="""
+##Ubgears - Performance Test of 3D
+"""
+    md_subtitle_graphics = "###3D test - Ubgears"
+    # graphics 柱状图参数模板
+    md_chart_graphics = {
+        'custom_font': 'goffer.ttf',
+        'title':  '2D Ubgears Test',
+        'osnames':[],
+        'subjects':['Index Score'],
+        'scores': [[10, 20, 30]],
+        'pngname': 'current-report/svgfile/ubgears.png'}
+
+    def __init__(self, src_file, result_data):
+        Create_md_Graphics.__init__(self, src_file, result_data, "ubgears")
+
+
+
 # html_md处理列表
 Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'sysbenchmem': Create_md_Sysbenchmem,
@@ -1137,7 +1268,11 @@ Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'acid': Create_md_Acid,
                 'v8': Create_md_V8,
                 'octane': Create_md_Octane,
-                'dromaeo': Create_md_Dromaeo}
+                'dromaeo': Create_md_Dromaeo,
+                'qtperf': Create_md_Qtperf,
+                'glmark': Create_md_Glmark,
+                'x11perf': Create_md_X11perf,
+                'ubgears': Create_md_Ubgears}
 
 def mk_html_main(src_file, oslist, itemlist):
     
@@ -1168,4 +1303,4 @@ def mk_html_main(src_file, oslist, itemlist):
         print >>sys.stderr, "Execution failed:", e      
 
 # test 生成html报告
-# mk_html_main("current-report/test.md", ["test", "test"], ["css", "html", "dromaeo", "acid", "v8", "octane"])
+mk_html_main("current-report/test.md", ["test"], ["glmark", "qtperf", "ubgears", "x11perf"])

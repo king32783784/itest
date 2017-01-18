@@ -32,10 +32,3 @@ class DoTest(RunTest):
         RunTest._dotest('/bin/make rerun', cmd, runtimes-1)
         RunTest._dotest('/bin/make see', cmd, 1)
         
-#        resulttmppath = os.path.join(self.homepath, 'resulttmp/performance/Perf_cpu/result/result.out')
-#        doprocessresult = MkResult(data_cpu_aidinfo, runtimes, resulttmppath, self.result)
-#        doprocessresult.mkresult()          
-# testcase
-#a = Perf_cpu('Testsetup_sample.xml', 'Test_parameter.xml')
-#a._setup()
-#a._runtest()

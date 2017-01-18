@@ -326,16 +326,86 @@ class Data_V8(DataCapture):
         return datadict_v8
 
 
-# 数据处理列表
-Data_classlist = {'sysbenchcpu': Data_sysbenchcpu, 'sysbenchmem': Data_sysbenchmem,
-                  'lmbench': Data_lmbench, 'pingpong': Data_pingpong,
-                  'stream': Data_stream, 'iozone': Data_iozone,
-                  'unixbench': Data_unixbench, 'acid': Data_Acid,
-                  'css': Data_Css, 'v8': Data_V8,
-                  'dromaeo': Data_Dromaeo, 'octane': Data_Octane,
-                  'html': Data_Html}
+# glmark数据处理
+class Data_Glmark(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
 
-result_filepath = "current-result/"
+    def getresultdata(self):
+        item_args = get_item_temp_args("glmark")
+        testtime = int(item_args["args"])
+        datadict_glmark = {}
+        pattern = "Your GLMark08 Score is (.*?) "
+        data_glmark = self.data_search(pattern, testtime)
+        datadict_glmark['glmark'] = data_glmark[0]
+        return datadict_glmark
+
+
+# qtperf数据处理
+class Data_Qtperf(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        item_args = get_item_temp_args("qtperf")
+        testtime = int(item_args["args"])
+        datadict_qtperf = {}
+        pattern = "Total: (.*?) s"
+        data_qtperf = self.data_search(pattern, testtime)
+        datadict_qtperf['qtperf'] = data_qtperf[0]
+        return datadict_qtperf
+
+
+# x11perf数据处理
+class Data_X11perf(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        item_args = get_item_temp_args("x11perf")
+        testtime = int(item_args["argt"])
+        datadict_x11perf = {}
+        pattern = "2D Graphics Benchmarks Index Score                                  (.*?)\n"
+        data_x11perf = self.data_search(pattern, testtime)
+        datadict_x11perf['x11perf'] = data_x11perf[0]
+        return datadict_x11perf
+
+
+# ubgears数据处理
+class Data_Ubgears(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        item_args = get_item_temp_args("ubgears")
+        testtime = int(item_args["argt"])
+        datadict_ubgears = {}
+        pattern = "3D Graphics Benchmarks Index Score                                  (.*?)\n"
+        data_ubgears = self.data_search(pattern, testtime)
+        datadict_ubgears['ubgears'] = data_ubgears[0]
+        return datadict_ubgears
+
+
+# 数据处理列表
+Data_classlist = {'sysbenchcpu': Data_sysbenchcpu,
+                  'sysbenchmem': Data_sysbenchmem,
+                  'lmbench': Data_lmbench,
+                  'pingpong': Data_pingpong,
+                  'stream': Data_stream,
+                  'iozone': Data_iozone,
+                  'unixbench': Data_unixbench,
+                  'acid': Data_Acid,
+                  'css': Data_Css,
+                  'v8': Data_V8,
+                  'dromaeo': Data_Dromaeo,
+                  'octane': Data_Octane,
+                  'html': Data_Html,
+                  'glmark': Data_Glmark,
+                  'qtperf': Data_Qtperf,
+                  'x11perf': Data_X11perf,
+                  'ubgears': Data_Ubgears}
+
+result_filepath = "../current-result/"
 
 # 保存当前测试结果
 def save_current_data():
