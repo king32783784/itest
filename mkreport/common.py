@@ -15,7 +15,6 @@ global HOMEPATH
 HOMEPATH=os.getcwd()
 global SET_FILE 
 SET_FILE=os.path.join(HOMEPATH, '.testseting.ini')
-print(SET_FILE)
 
 # 计算测试总数
 def sumtests():

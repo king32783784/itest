@@ -71,7 +71,7 @@ class TestDrive(TestParpare):
 
 # testcase
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
 
 # case1-sysbench
 #    testa = TestDrive('perf', 'sysbenchcpu')
@@ -127,5 +127,14 @@ if __name__ == "__main__":
 #    testp = TestDrive('performance', 'x11perf')
 #    testp.dotest()
 # case17 - qtperf
-    testq = TestDrive('performance', 'qtperf')
-    testq.dotest()
+#    testq = TestDrive('performance', 'qtperf')
+#    testq.dotest()
+# case18 - hw
+#    testr = TestDrive('info', 'hw')
+#    testr.dotest()
+# case19 - sw
+#    tests = TestDrive('info', 'sw')
+#    tests.dotest()
+# case20 - all
+#    tests = TestDrive('info', 'all')
+#    tests.dotest()

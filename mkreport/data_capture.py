@@ -17,6 +17,14 @@ class DataCapture(object):
         except OSError:
             return NULL
 
+    def info_search(self, search_pattern):
+        f = self.readfile()
+        if f == "NULL":
+            return "unknow"
+        else:
+            info_cache_str = re.findall(r"%s" % search_pattern, f, re.S)
+        return info_cache_str
+
     def data_search(self, search_pattern, testtime):
         f = self.readfile()
         if f == "NULL":
@@ -385,6 +393,86 @@ class Data_Ubgears(DataCapture):
         datadict_ubgears['ubgears'] = data_ubgears[0]
         return datadict_ubgears
 
+# hw数据处理
+class Data_Hw(DataCapture):
+    parttern_hw = {
+        "cpuinfo": "cpuinfo: (.*?)\n",
+        "mbinfo": "mbinfo: (.*?)\n",
+        "biosinfo": "biosinfo: (.*?)\n",
+        "meminfo": "meminfo: (.*?)\n",
+        "northbridge": "northbridge: (.*?)\n",
+        "sorthbridge": "sorthbridge: (.*?)\n",
+        "gfcinfo": "gfcinfo: (.*?)\n",
+        "audioinfo": "audioinfo: (.*?)\n",
+        "net": "net: (.*?)\n",
+        "wlan": "wlan: (.*?)\n",
+        "sata": "sata: (.*?)\n",
+        "hdd": "hdd: (.*?)\n",
+        "odd": "odd: (.*?)\n",
+        "raid": "raid: (.*?)\n",
+        "blue": "blue: (.*?)\n",
+        "kb": "kb: (.*?)\n",
+        "ms": "ms: (.*?)\n",
+        "usb": "usb: (.*?)\n"}
+
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        data_hw = {}
+        for key, value in self.parttern_hw.iteritems():
+            data_hw[key] = self.info_search(value)
+        return data_hw
+
+
+# sw数据处理
+class Data_Sw(DataCapture):
+    pattern_sw = {
+        "os": "os: (.*?)\n",
+        "kernel": "kernel: (.*?)\n",
+        "fs": "ext4: (.*?)\n",
+        "gcc": "gcc: (.*?)\n",
+        "glibc": "glibc: (.*?)\n",
+        "env": "env: (.*?)\n",
+        "qt": "qt: (.*?)\n",
+        "xorg": "xorg: (.*?)\n",
+        "mesa": "meas: (.*?)\n",
+        "java": "java: (.*?)\n",
+        "browser": "browser: (.*?)\n",  
+        "nbdriver": "nbdriver: (.*?)\n",
+        "sbdriver": "sbdriver: (.*?)\n",
+        "gfcdriver": "gfcdriver: (.*?)\n",
+        "audiodriver": "audiodriver: (.*?)\n",
+        "landriver": "landriver: (.*?)\n",  
+        "wlandriver": "wlandriver: (.*?)\n",
+        "raiddriver": "raiddriver: (.*?)\n"}
+ 
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        data_sw = {}
+        for key, value in self.pattern_sw.iteritems():
+            data_sw[key] = self.info_search(value)
+        return data_sw
+
+
+# INFO数据处理
+class Data_All(DataCapture):
+    def __init__(self, result_file):
+        self.result_file = result_file
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        data_all = {}
+        data_hw = Data_Hw(self.result_file)
+        datahw = data_hw.getresultdata()
+        data_sw = Data_Hw(self.result_file)
+        datasw = data_sw.getresultdata()
+        data_all = dict(datahw, **datasw)
+        return data_all
+
+
 
 # 数据处理列表
 Data_classlist = {'sysbenchcpu': Data_sysbenchcpu,
@@ -403,7 +491,10 @@ Data_classlist = {'sysbenchcpu': Data_sysbenchcpu,
                   'glmark': Data_Glmark,
                   'qtperf': Data_Qtperf,
                   'x11perf': Data_X11perf,
-                  'ubgears': Data_Ubgears}
+                  'ubgears': Data_Ubgears,
+                  'hw': Data_Hw,
+                  'sw': Data_Sw,
+                  'all': Data_All}
 
 result_filepath = "../current-result/"
 
@@ -421,7 +512,7 @@ def save_current_data():
         item_data = object_data.getresultdata()
         data_os_result[testitem] = item_data
         src_file = result_filepath + typelist[0]
-    print data_os_result
+    print(data_os_result)
     data_os_result["testlist"] = testlist
     write_database("test", data_os_result)
 

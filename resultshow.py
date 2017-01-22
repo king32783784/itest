@@ -144,14 +144,14 @@ class CurentReport(QtGui.QMainWindow):
         find_flags = QWebPage.FindWrapsAroundDocument
         self.webview.findText(self.search.text(), find_flags)
 
-def main():
-    application = QtGui.QApplication(sys.argv)
+#def main():
+#    application = QtGui.QApplication(sys.argv)
+#
+#    # web browser
+#    web_browser = CurentReport()
+#    web_browser.show()
+#    sys.exit(application.exec_())
 
-    # web browser
-    web_browser = CurentReport()
-    web_browser.show()
-    sys.exit(application.exec_())
 
-
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+#    main()

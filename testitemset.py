@@ -23,7 +23,7 @@ class TestitemSet(QToolBox):
     """ 
               support test list
         info test :
-        0:CPU 1:MEM 2:HDD 3:Graphic 4:kernel
+        0:HW 1:SW 2:ALL
         func test:
         0:ltp-kernel 1:ltp-cmds 2:ltp-service 3:ltp-others
         perf test:
@@ -38,6 +38,7 @@ class TestitemSet(QToolBox):
         self.mkperfsignalist()
         self.mkpcheckslotlist()
         self.mkinfosignalist()
+        self.mkicheckslotlist()
         self.mkfuncsignalist()
         self.mkstresssignalist()
         self.create_group_items()
@@ -45,11 +46,9 @@ class TestitemSet(QToolBox):
 
     def create_group_items(self):
         self.group_list = []
-        group_info = [[u"CPU", "images/info.png"],
-                             ["MEM", "images/info.png"],
-                             ["HDD", "images/info.png"],
-                             ["Graphic", "images/info.png"],
-                             ["Kernel", "images/info.png"]]
+        group_info = [[u"HW", "images/info.png"],
+                             ["SW", "images/info.png"],
+                             ["ALL", "images/info.png"]]
 
         group_func = [["Ltp-kernel", "images/function.ico"],
                              ["Ltp-cmds", "images/function.ico"],
@@ -103,7 +102,8 @@ class TestitemSet(QToolBox):
                     toolButton.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
                     toolButton.pressed.connect(self.infosingallist[j])
                     self.toolbox_info_list.append(toolButton)
-                    check = QtGui.QCheckBox('')
+                    check = QtGui.QRadioButton('')
+                    check.clicked.connect(self.icheckslotlist[j])
                     self.checkbox_info_list.append(check)
             elif i == 1:
                 for j, item in enumerate(group):
@@ -171,11 +171,16 @@ class TestitemSet(QToolBox):
 
     def mkinfosignalist(self):
         self.infosingallist = []
-        self.infosingallist.append(self.setinfocpu)
-        self.infosingallist.append(self.setinfomem)
-        self.infosingallist.append(self.setinfohdd)
-        self.infosingallist.append(self.setinfographic)
-        self.infosingallist.append(self.setinfokernel)
+        self.infosingallist.append(self.setinfohw)
+        self.infosingallist.append(self.setinfosw)
+        self.infosingallist.append(self.setinfoall)
+
+    def mkicheckslotlist(self):
+        self.icheckslotlist = []
+        self.icheckslotlist.append(self.checkhwinfo)
+        self.icheckslotlist.append(self.checkswinfo)
+        self.icheckslotlist.append(self.checkallinfo)
+      
 
     def mkfuncsignalist(self):
         self.funcsingallist = []
@@ -184,6 +189,7 @@ class TestitemSet(QToolBox):
         self.funcsingallist.append(self.setfuncservice)
         self.funcsingallist.append(self.setfuncothers)
 
+    # 性能项目设置信号
     def mkperfsignalist(self):
         self.perfsingallist = []
         self.perfsingallist.append(self.setperfcpu)
@@ -198,6 +204,7 @@ class TestitemSet(QToolBox):
         self.perfsingallist.append(self.setperf3d)
         self.perfsingallist.append(self.setperfnet)
 
+    # 性能项目选中信号
     def mkpcheckslotlist(self):
         self.pcheckslotlist = []
         self.pcheckslotlist.append(self.checkperfcpu)
@@ -224,24 +231,48 @@ class TestitemSet(QToolBox):
 
     # Info-test slot
     @pyqtSlot()
-    def setinfocpu(self):
+    def setinfohw(self):
         pass
 
     @pyqtSlot()
-    def setinfomem(self):
+    def setinfosw(self):
         pass
     
     @pyqtSlot()
-    def setinfohdd(self):
+    def setinfoall(self):
         pass
 
+    # Info-check slot
     @pyqtSlot()
-    def setinfographic(self):
-        pass
+    def checkhwinfo(self):
+        if self.checkbox_info_list[0].isChecked():
+            self.addcheck("info", "info_testlists")
+            self.infoinit()
+            writeconfig(SET_FILE, "info-user" , "hw", "E")
+        else:
+            self.removecheck("info", "info_testlists")
+            self.removecheck("hw", "info_user")
 
     @pyqtSlot()
-    def setinfokernel(self):
-        pass
+    def checkswinfo(self):
+        if self.checkbox_info_list[1].isChecked():
+            self.addcheck("info", "info_testlists")
+            self.infoinit()
+            writeconfig(SET_FILE, "info-user" , "sw", "E")
+        else:
+            self.removecheck("info", "info_testlists")
+            self.removecheck("sw", "info_user")
+
+    @pyqtSlot()
+    def checkallinfo(self):
+        if self.checkbox_info_list[2].isChecked():
+            self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+            self.infoinit()
+            self.addcheck("info", "info_testlists")
+            writeconfig(SET_FILE, "info-user" , "all", "E")
+        else:
+            self.removecheck("info", "info_testlists")
+            self.removecheck("all", "info-user")
 
     # Func-test slot
     @pyqtSlot()
@@ -379,7 +410,6 @@ class TestitemSet(QToolBox):
         else:
             self.removecheck("perf2d", "perf_testlists")
 
-
     @pyqtSlot()
     def checkperf3d(self):
         if self.checkbox_perf_list[9].isChecked():
@@ -429,6 +459,10 @@ class TestitemSet(QToolBox):
         self.config.beginGroup(testgroup)
         self.config.setValue(testitem,"")
         self.config.endGroup()
+
+    def infoinit(self):
+        self.config = QSettings(".testseting.ini", QSettings.IniFormat)
+        self.config.remove("info-user") # 移除info
 
     def removecheck(self, testitem, testgroup):
         self.config = QSettings(".testseting.ini", QSettings.IniFormat)

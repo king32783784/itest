@@ -15,16 +15,18 @@ global HOMEPATH
 HOMEPATH=os.getcwd()
 global SET_FILE 
 SET_FILE=os.path.join(HOMEPATH, '.testseting.ini')
-print(SET_FILE)
 
 # 计算测试总数
 def sumtests():
     totaltests = readtestlist()
+    print totaltests
     totalnum = 0
     for key, value in totaltests.iteritems():
         for testitem in value:
+            print testitem
             testcases = getitemlist(testitem) 
             totalnum += len(testcases)
+    print totalnum
     return totalnum
 
 # 获取某一测试类型的待测项目列表
@@ -243,7 +245,7 @@ def itemchecked_clean():
 # 初始化环境
 def initenv():
     # 清除临时文件和目录
-    tempfile = [".tempseting.ini", "tmp", "current-result/performance/", "current-report/"]
+    tempfile = [".tempseting.ini", "tmp", "current-result", "current-report"]
     for tmpfile in tempfile:
         delete_file_folder(tmpfile)
     # 清除之前选中的测试项目
@@ -281,6 +283,7 @@ def getcurrentresult():
 # getresultslist()
 # writeconfig(".resultseting.ini", "test", "test", "test")    
 # delete_file_folder("tmp")
-# sumtests()
+#sumtests()
 # save_testitem_args()
 # get_item_args("sysbenchcpu")
+#initenv()

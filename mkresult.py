@@ -48,9 +48,6 @@ def mkhtml_custom_report(mkoslist, reportname):
     reportpath = os.path.join(homepath, "ReportRepository")
     reportname = str(reportname)
     reportpath = os.path.join(reportpath, reportname)
-    if os.path.exists("current-report/"):
-        shutil.rmtree("current-report/")
-    os.mkdir("current-report/")
     mk_html_main("current-report/test.md", mkoslist, tomakelist)
     shutil.move("current-report", reportpath)
     report_url = "file://" + "%s" % reportpath + "/test.html"

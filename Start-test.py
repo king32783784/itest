@@ -209,7 +209,9 @@ class Window(QtGui.QMainWindow):
 
     def initcheck(self):
         self.config = QSettings(".testseting.ini", QSettings.IniFormat)
-        self.config.remove("perf_testlists")
+        self.config.remove("info_testlists") # 移除info
+        self.config.remove("info_user")
+        self.config.remove("perf_testlists") # 移除perf
 
 # 测试线程
 class TestThread(QtCore.QThread):
@@ -348,6 +350,7 @@ def main():
     HOMEPATH=os.getcwd()
     # 清除之前的temp文件
     initenv()
+    os.mkdir("current-report")
     # 创建应用，并接收命令行参数
     application = QtGui.QApplication(sys.argv)
 
@@ -375,6 +378,5 @@ def main():
 
 if __name__ == '__main__':
     Logging_Config.setlogger('itest', 'itest.log')
-    createresultdir()
     createdatarepository()
     main()
