@@ -501,7 +501,8 @@ result_filepath = "../current-result/"
 # 保存当前测试结果
 def save_current_data():
     typelist = get_aftertest_typelist() # 获取测试type列表
-    testlist = get_aftertest_itemlist(typelist[0]) # 获取type对应的测试列表
+    print typelist
+    testlist = get_aftertest_itemlist(typelist[0]) # 获取type对应的测试列表;目前只处理perf
     src_file = result_filepath + typelist[0]
     data_os_result = {}
     for testitem in testlist:
@@ -512,7 +513,6 @@ def save_current_data():
         item_data = object_data.getresultdata()
         data_os_result[testitem] = item_data
         src_file = result_filepath + typelist[0]
-    print(data_os_result)
     data_os_result["testlist"] = testlist
     write_database("test", data_os_result)
 
