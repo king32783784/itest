@@ -1254,7 +1254,166 @@ class Create_md_Ubgears(Create_md_Graphics):
         Create_md_Graphics.__init__(self, src_file, result_data, "ubgears")
 
 
+class Create_md_Info(Create_Md):
+    def __init__(self, src_file, result_data, testtype):
+        Create_Md.__init__(self, src_file)
+        self.result_data = result_data
+        self.testtype = testtype
 
+    def mk_md_item(self, oslist):
+        itemlist = map(self.joinstar, oslist)
+        md_item_title = ' | '.join(itemlist)
+        md_item_title = '*类型* | ' + md_item_title
+        self.file_write(self.src_file, md_item_title)
+        table_line = '---------- |'
+        for item in itemlist:
+            table_line += ' ----------- |'
+        self.file_write(self.src_file, table_line)
+
+    def mk_md_data(self, comparelist):
+        for item in self.md_info_list:
+            compare_list = ' | '.join(comparelist[item])
+            compare_list = '%s | ' % item + compare_list
+            self.file_write(self.src_file, compare_list)
+
+    def mkmd_data(self):
+        data_info = {}
+        for item in self.md_info_list:
+            data_info_list = []
+            for osname in self.oslist:
+                data_info_list.append(self.result_data[osname][self.testtype][self.md_item_info[item]][0])
+            data_info[item] = data_info_list
+        return data_info
+
+    def mkmd_info(self):
+        self.mk_md_title(self.md_title_info)
+        self.mk_md_item(self.oslist)
+        data_info = self.mkmd_data()
+        self.mk_md_data(data_info)
+
+    def create_md(self):
+        self.oslist = self.result_data["oslist"]
+        self.mkmd_info()
+
+
+class Create_md_Hw(Create_md_Info):
+    # Hwinfo title 模板
+    md_title_info ="""
+## HardWare information
+"""
+    md_item_info = {
+                '处理器': 'cpuinfo',
+                '主板': 'mbinfo',
+                'BIOS': 'biosinfo',
+                '内存': 'meminfo',
+                '北桥': 'northbridge',
+                '南桥': 'sorthbridge',
+                '显卡': 'gfcinfo',
+                '声卡': 'audioinfo',
+                '网卡': 'net',
+                '无线网卡': 'wlan',
+                'SATA': 'sata',
+                '硬盘': 'hdd',
+                '光驱': 'odd',
+                'RAID': 'raid',
+                '蓝牙': 'blue',
+                '键盘': 'kb',
+                '鼠标': 'ms',
+                'USB': 'usb'}
+    md_info_list = ('处理器', '主板', 'BIOS', '内存', '北桥', '南桥','显卡', '网卡', '无线网卡', 'SATA', '硬盘','光驱', 'RAID', '蓝牙', '键盘', '鼠标', 'USB')
+
+    def __init__(self, src_file, result_data):
+        Create_md_Info.__init__(self, src_file, result_data, "hw")
+
+
+class Create_md_Sw(Create_md_Info):
+    # Swinfo title模板
+    md_title_info = """
+## SoftWare information
+"""
+    md_item_info = {
+                '系统版本': 'os',
+                '内核版本': 'kernel',
+                '文件系统': 'fs',
+                'GCC': 'gcc',
+                'GLibc': 'glibc',
+                '桌面管理器': 'env',
+                'QT': 'qt',
+                'Xorg': 'xorg',
+                'Mesa': 'mesa',
+                'Java': 'java',
+                '浏览器': 'browser',
+                '北桥驱动': 'nbdriver',
+                '南桥驱动': 'sbdriver',
+                '显卡驱动': 'gfcdriver',
+                '声卡驱动': 'audiodriver',
+                '网卡驱动': 'landriver',
+                '无线网卡驱动':'wlandriver',
+                'RAID驱动': 'raiddriver'}
+    md_info_list = ('系统版本', '内核版本', '文件系统', 'GCC',
+                    'GLibc', '桌面管理器', 'QT', 'Xorg', 'Mesa',
+                    'Java', '浏览器', '北桥驱动', '南桥驱动', 
+                    '显卡驱动', '声卡驱动', '网卡驱动', 
+                    '无线网卡驱动', 'RAID驱动')
+    def __init__(self, src_file, result_data):
+        Create_md_Info.__init__(self, src_file, result_data, 'sw')
+
+
+class Create_md_All(Create_md_Info):
+    # Hwinfo title 模板
+    md_title_info ="""
+## HardWare&SoftWare information
+"""
+    md_item_info = {
+                '处理器': 'cpuinfo',
+                '主板': 'mbinfo',
+                'BIOS': 'biosinfo',
+                '内存': 'meminfo',
+                '北桥': 'northbridge',
+                '南桥': 'sorthbridge',
+                '显卡': 'gfcinfo',
+                '声卡': 'audioinfo',
+                '网卡': 'net',
+                '无线网卡': 'wlan',
+                'SATA': 'sata',
+                '硬盘': 'hdd',
+                '光驱': 'odd',
+                'RAID': 'raid',
+                '蓝牙': 'blue',
+                '键盘': 'kb',
+                '鼠标': 'ms',
+                'USB': 'usb',
+                '系统版本': 'os',
+                '内核版本': 'kernel',
+                '文件系统': 'fs',
+                'GCC': 'gcc',
+                'GLibc': 'glibc',
+                '桌面管理器': 'env',
+                'QT': 'qt',
+                'Xorg': 'xorg',
+                'Mesa': 'mesa',
+                'Java': 'java',
+                '浏览器': 'browser',
+                '北桥驱动': 'nbdriver',
+                '南桥驱动': 'sbdriver',
+                '显卡驱动': 'gfcdriver',
+                '声卡驱动': 'audiodriver',
+                '网卡驱动': 'landriver',
+                '无线网卡驱动':'wlandriver',
+                'RAID驱动': 'raiddriver'}
+    md_info_list = ('处理器', '主板', 'BIOS', '内存', '北桥', 
+                    '南桥','显卡', '网卡', '无线网卡', 'SATA', 
+                    '硬盘','光驱', 'RAID', '蓝牙', '键盘', '鼠标',
+                    'USB','系统版本', '内核版本', '文件系统', 'GCC',
+                    'GLibc', '桌面管理器', 'QT', 'Xorg', 'Mesa',
+                    'Java', '浏览器', '北桥驱动', '南桥驱动',
+                    '显卡驱动', '声卡驱动', '网卡驱动',
+                    '无线网卡驱动', 'RAID驱动')
+
+    def __init__(self, src_file, result_data):
+        Create_md_Info.__init__(self, src_file, result_data, "all")
+
+    
 # html_md处理列表
 Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'sysbenchmem': Create_md_Sysbenchmem,
@@ -1272,7 +1431,10 @@ Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'qtperf': Create_md_Qtperf,
                 'glmark': Create_md_Glmark,
                 'x11perf': Create_md_X11perf,
-                'ubgears': Create_md_Ubgears}
+                'ubgears': Create_md_Ubgears,
+                'hw': Create_md_Hw,
+                'sw': Create_md_Sw,
+                'all': Create_md_All}
 
 def mk_html_main(src_file, oslist, itemlist):
     

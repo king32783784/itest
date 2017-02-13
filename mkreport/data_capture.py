@@ -430,13 +430,13 @@ class Data_Sw(DataCapture):
     pattern_sw = {
         "os": "os: (.*?)\n",
         "kernel": "kernel: (.*?)\n",
-        "fs": "ext4: (.*?)\n",
+        "fs": "fs: (.*?)\n",
         "gcc": "gcc: (.*?)\n",
         "glibc": "glibc: (.*?)\n",
         "env": "env: (.*?)\n",
         "qt": "qt: (.*?)\n",
         "xorg": "xorg: (.*?)\n",
-        "mesa": "meas: (.*?)\n",
+        "mesa": "mesa: (.*?)\n",
         "java": "java: (.*?)\n",
         "browser": "browser: (.*?)\n",  
         "nbdriver": "nbdriver: (.*?)\n",
@@ -467,7 +467,7 @@ class Data_All(DataCapture):
         data_all = {}
         data_hw = Data_Hw(self.result_file)
         datahw = data_hw.getresultdata()
-        data_sw = Data_Hw(self.result_file)
+        data_sw = Data_Sw(self.result_file)
         datasw = data_sw.getresultdata()
         data_all = dict(datahw, **datasw)
         return data_all
@@ -496,12 +496,11 @@ Data_classlist = {'sysbenchcpu': Data_sysbenchcpu,
                   'sw': Data_Sw,
                   'all': Data_All}
 
-result_filepath = "../current-result/"
+result_filepath = "current-result/"
 
 # 保存当前测试结果
 def save_current_data():
     typelist = get_aftertest_typelist() # 获取测试type列表
-    print typelist
     testlist = get_aftertest_itemlist(typelist[0]) # 获取type对应的测试列表;目前只处理perf
     src_file = result_filepath + typelist[0]
     data_os_result = {}

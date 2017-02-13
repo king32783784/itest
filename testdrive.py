@@ -40,7 +40,6 @@ class TestDrive(TestParpare):
     def runtest(self):
         testtoolget = gettesttool()
         testargs = getitemargs(self.test)
-        print testargs
         self.logger.info("This time test is %s" % self.test)
         pathlist = self.mktestdir(self.testtype, self.test)
         job = __import__('%s' % self.test)

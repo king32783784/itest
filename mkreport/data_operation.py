@@ -37,7 +37,6 @@ def write_database(data_key, data_value):
 
 def append_database_list(data_index, data_value):
     old_list = read_database(data_index)
-    print old_list
     old_list.append(data_value)
     write_database(data_index, old_list)
 
@@ -62,5 +61,3 @@ def remove_database_item(data_index, data_value):
 
 # test
 #append_database_list('OSLIST', 'isoft01')
-a = read_database('test')
-print(a)

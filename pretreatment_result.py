@@ -27,7 +27,6 @@ class MkResult(ResultSorting):
               datatemp = datatemp + "|" + "%s" % charter
          f = open(mdfile, 'a+')
          testresult ="%s %s" %(ReadSysinfo.os_name(), datatemp)
-         print testresult
          f.write("%s=\"%s\"" % (self.testaidinfo['itemname'], testresult))
     
      def mkresult(self):
