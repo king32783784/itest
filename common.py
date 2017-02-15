@@ -25,6 +25,7 @@ def sumtests():
         for testitem in value:
             print testitem
             testcases = getitemlist(testitem) 
+            print testcases
             totalnum += len(testcases)
     print totalnum
     return totalnum
@@ -241,6 +242,8 @@ def get_aftertest_typelist():
 def itemchecked_clean():
     config = QSettings(".testsetting.ini", QSettings.IniFormat)
     config.remove("perf_testlists")  # 清除perf选择的测试项目
+    config.remove("func_testlists")  # 清除perf选择的测试项目
+    config.remove("stress_testlists")  # 清除perf选择的测试项目
     
 # 初始化环境
 def initenv():

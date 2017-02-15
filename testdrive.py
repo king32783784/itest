@@ -137,3 +137,24 @@ class TestDrive(TestParpare):
 # case20 - all
 #    tests = TestDrive('info', 'all')
 #    tests.dotest()
+# case21 - stressapptest
+#    testt = TestDrive('stability', 'stressapptest')
+#    testt.dotest()
+# case22 - stress
+#    testu = TestDrive('stability', 'stress')
+#    testu.dotest()
+# case23 - ltp-basic
+#    testv = TestDrive('function', 'ltpbasic')
+#    testv.dotest()
+# case24 - iozone-sta
+#    testw = TestDrive('stability', 'iozonesta')
+#    testw.dotest()
+# case25 - x11perfsta
+#    testx = TestDrive('stability', 'x11perfsta')
+#    testx.dotest()
+# case26 - glmarksta
+#    testy = TestDrive('stability', 'glmarksta')
+#    testy.dotest()
+# case27 - ltpstress
+#    testz = TestDrive('stability', 'ltpstress')
+#    testz.dotest()

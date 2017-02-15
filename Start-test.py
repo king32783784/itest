@@ -212,6 +212,8 @@ class Window(QtGui.QMainWindow):
         self.config.remove("info_testlists") # 移除info
         self.config.remove("info_user")
         self.config.remove("perf_testlists") # 移除perf
+        self.config.remove("func_testlists") # 移除perf
+        self.config.remove("stress_testlists") # 移除perf
 
 # 测试线程
 class TestThread(QtCore.QThread):

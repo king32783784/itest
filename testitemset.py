@@ -16,6 +16,7 @@ from testset.perfbrowserset import *
 from testset.perfjavaset import *
 from testset.perf2dset import *
 from testset.perf3dset import *
+from testset.stbcpuset import *
 from common import *
 
 class TestitemSet(QToolBox):
@@ -40,7 +41,9 @@ class TestitemSet(QToolBox):
         self.mkinfosignalist()
         self.mkicheckslotlist()
         self.mkfuncsignalist()
+        self.mkfcheckslotlist()
         self.mkstresssignalist()
+        self.mkscheckslotlist()
         self.create_group_items()
         self.create_toolBox()
 
@@ -50,10 +53,7 @@ class TestitemSet(QToolBox):
                              ["SW", "images/info.png"],
                              ["ALL", "images/info.png"]]
 
-        group_func = [["Ltp-kernel", "images/function.ico"],
-                             ["Ltp-cmds", "images/function.ico"],
-                             ["Ltp-service", "images/function.ico"],
-                             ["Ltp-others", "images/function.ico"]]
+        group_func = [["Ltp-kernel", "images/function.ico"]]
 
         group_perf = [[u"CPU运算", "images/performance.gif"],
                       [u"MEM操作", "images/performance.gif"],
@@ -67,13 +67,13 @@ class TestitemSet(QToolBox):
                       [u"3D", "images/performance.gif"],
                       [u"网络", "images/performance.gif"]]
 
-        group_stre = [["CPU","images/stress.gif"],
+        group_stre = [["SYSTEM", "images/stress.gif"],
+                      ["CPU","images/stress.gif"],
                       ["MEM","images/stress.gif"],
                       ["THREAD","images/stress.gif"],
                       ["IO", "images/stress.gif"],
                       ["2D", "images/stress.gif"],
-                      ["3D", "images/stress.gif"],
-                      ["Net", "images/stress.gif"]]
+                      ["3D", "images/stress.gif"]]
 
         self.group_list.append(group_info)
         self.group_list.append(group_func)
@@ -116,6 +116,7 @@ class TestitemSet(QToolBox):
                     toolButton.pressed.connect(self.funcsingallist[j])
                     self.toolbox_func_list.append(toolButton)
                     check = QtGui.QCheckBox('')
+                    check.clicked.connect(self.fcheckslotlist[j])
                     self.checkbox_func_list.append(check)
             elif i == 2:
                 for j, item in enumerate(group):
@@ -141,6 +142,7 @@ class TestitemSet(QToolBox):
                     toolButton.pressed.connect(self.stresssingallist[j])
                     self.toolbox_stress_list.append(toolButton)
                     check = QtGui.QCheckBox('')
+                    check.clicked.connect(self.scheckslotlist[j])
                     self.checkbox_stress_list.append(check)
             else:
                 pass
@@ -169,25 +171,29 @@ class TestitemSet(QToolBox):
             self.addItem(groupbox, self.tr(group_name_list[index]))
             groupbox.contentHorizontalAlignment = 0
 
+    # 信息检查项目设置信号
     def mkinfosignalist(self):
         self.infosingallist = []
         self.infosingallist.append(self.setinfohw)
         self.infosingallist.append(self.setinfosw)
         self.infosingallist.append(self.setinfoall)
 
+    # 信息检查项目选中信号
     def mkicheckslotlist(self):
         self.icheckslotlist = []
         self.icheckslotlist.append(self.checkhwinfo)
         self.icheckslotlist.append(self.checkswinfo)
         self.icheckslotlist.append(self.checkallinfo)
       
-
+    # 功能项目设置信号
     def mkfuncsignalist(self):
         self.funcsingallist = []
         self.funcsingallist.append(self.setfunckernel)
-        self.funcsingallist.append(self.setfunccmds)
-        self.funcsingallist.append(self.setfuncservice)
-        self.funcsingallist.append(self.setfuncothers)
+
+    # 功能项目选中信号
+    def mkfcheckslotlist(self):
+        self.fcheckslotlist = []
+        self.fcheckslotlist.append(self.checkkernelfun)
 
     # 性能项目设置信号
     def mkperfsignalist(self):
@@ -219,15 +225,27 @@ class TestitemSet(QToolBox):
         self.pcheckslotlist.append(self.checkperf3d)
         self.pcheckslotlist.append(self.checkperfnet)
 
+    # 压力项目设置信号
     def mkstresssignalist(self):
         self.stresssingallist = []
+        self.stresssingallist.append(self.setstresssystem)
         self.stresssingallist.append(self.setstresscpu)
         self.stresssingallist.append(self.setstressmem)
         self.stresssingallist.append(self.setstressio)
-        self.stresssingallist.append(self.setstresssystem)
+        self.stresssingallist.append(self.setstressthread)
         self.stresssingallist.append(self.setstress2d)
         self.stresssingallist.append(self.setstress3d)
-        self.stresssingallist.append(self.setstressnet)
+    
+    # 压力项目选中信号
+    def mkscheckslotlist(self):
+        self.scheckslotlist = []
+        self.scheckslotlist.append(self.checkstresssystem)
+        self.scheckslotlist.append(self.checkstresscpu)
+        self.scheckslotlist.append(self.checkstressmem)
+        self.scheckslotlist.append(self.checkstressio)
+        self.scheckslotlist.append(self.checkstressthread)
+        self.scheckslotlist.append(self.checkstress2d)
+        self.scheckslotlist.append(self.checkstress3d)
 
     # Info-test slot
     @pyqtSlot()
@@ -279,17 +297,14 @@ class TestitemSet(QToolBox):
     def setfunckernel(self):
         pass
 
+   # Func-check slot
     @pyqtSlot()
-    def setfunccmds(self):
-        pass
-
-    @pyqtSlot()
-    def setfuncservice(self):
-        pass
-
-    @pyqtSlot()
-    def setfuncothers(self):
-        pass
+    def checkkernelfun(self):
+        if self.checkbox_func_list[0].isChecked():
+            print("test check func")
+            self.addcheck("ltpbasic", "func_testlists")
+        else:
+            self.removecheck("ltpbasic", "func_testlists")
 
     # Perf-test slot
     @pyqtSlot()
@@ -426,8 +441,13 @@ class TestitemSet(QToolBox):
 
     # stress-test Slot
     @pyqtSlot()
-    def setstresscpu(self):
+    def setstresssystem(self):
         pass
+
+    @pyqtSlot()
+    def setstresscpu(self):
+        testcpu = StbcpuSet()
+        testcpu.exec_()
 
     @pyqtSlot()
     def setstressmem(self):
@@ -438,7 +458,7 @@ class TestitemSet(QToolBox):
         pass
 
     @pyqtSlot()
-    def setstresssystem(self):
+    def setstressthread(self):
         pass
 
     @pyqtSlot()
@@ -449,9 +469,55 @@ class TestitemSet(QToolBox):
     def setstress3d(self):
         pass
 
+    # stress-check slot
     @pyqtSlot()
-    def setstressnet(self):
-        pass
+    def checkstresssystem(self):
+        if self.checkbox_stress_list[0].isChecked():
+            self.addcheck("stresssystem", "stress_testlists")
+        else:
+            self.removecheck("stresssystem", "stress_testlists")
+
+    @pyqtSlot()
+    def checkstresscpu(self):
+        if self.checkbox_stress_list[1].isChecked():
+            self.addcheck("stresscpu", "stress_testlists")
+        else:
+            self.removecheck("stresssystem", "stress_testlists")
+
+    @pyqtSlot()
+    def checkstressmem(self):
+        if self.checkbox_stress_list[2].isChecked():
+            self.addcheck("stressmem", "stress_testlists")
+        else:
+            self.removecheck("stresssystem", "stress_testlists")
+
+    @pyqtSlot()
+    def checkstressio(self):
+        if self.checkbox_stress_list[3].isChecked():
+            self.addcheck("stressio", "stress_testlists")
+        else:
+            self.removecheck("stresssystem", "stress_testlists")
+
+    @pyqtSlot()
+    def checkstressthread(self):
+        if self.checkbox_stress_list[4].isChecked():
+            self.addcheck("stressthread", "stress_testlists")
+        else:
+            self.removecheck("stressthread", "stress_testlists")
+
+    @pyqtSlot()
+    def checkstress2d(self):
+        if self.checkbox_stress_list[5].isChecked():
+            self.addcheck("stress2d", "stress_testlists")
+        else:
+            self.removecheck("stress2d", "stress_testlists")
+
+    @pyqtSlot()
+    def checkstress3d(self):
+        if self.checkbox_stress_list[6].isChecked():
+            self.addcheck("stress3d", "stress_testlists")
+        else:
+            self.removecheck("stress3d", "stress_testlists")
 
     def addcheck(self, testitem, testgroup):
         self.config = QSettings(".testseting.ini", QSettings.IniFormat)
