@@ -17,6 +17,12 @@ from testset.perfjavaset import *
 from testset.perf2dset import *
 from testset.perf3dset import *
 from testset.stbcpuset import *
+from testset.stbmemset import *
+from testset.stbsystemset import *
+from testset.stbioset import *
+from testset.stbthreadset import *
+from testset.stb2dset import *
+from testset.stb3dset import *
 from common import *
 
 class TestitemSet(QToolBox):
@@ -231,8 +237,8 @@ class TestitemSet(QToolBox):
         self.stresssingallist.append(self.setstresssystem)
         self.stresssingallist.append(self.setstresscpu)
         self.stresssingallist.append(self.setstressmem)
-        self.stresssingallist.append(self.setstressio)
         self.stresssingallist.append(self.setstressthread)
+        self.stresssingallist.append(self.setstressio)
         self.stresssingallist.append(self.setstress2d)
         self.stresssingallist.append(self.setstress3d)
     
@@ -242,8 +248,8 @@ class TestitemSet(QToolBox):
         self.scheckslotlist.append(self.checkstresssystem)
         self.scheckslotlist.append(self.checkstresscpu)
         self.scheckslotlist.append(self.checkstressmem)
-        self.scheckslotlist.append(self.checkstressio)
         self.scheckslotlist.append(self.checkstressthread)
+        self.scheckslotlist.append(self.checkstressio)
         self.scheckslotlist.append(self.checkstress2d)
         self.scheckslotlist.append(self.checkstress3d)
 
@@ -442,7 +448,8 @@ class TestitemSet(QToolBox):
     # stress-test Slot
     @pyqtSlot()
     def setstresssystem(self):
-        pass
+        testsystem = StbsystemSet()
+        testsystem.exec_()
 
     @pyqtSlot()
     def setstresscpu(self):
@@ -451,23 +458,28 @@ class TestitemSet(QToolBox):
 
     @pyqtSlot()
     def setstressmem(self):
-        pass
+        testmem = StbmemSet()
+        testmem.exec_()
 
     @pyqtSlot()
     def setstressio(self):
-        pass
+        testio = StbioSet()
+        testio.exec_()
 
     @pyqtSlot()
     def setstressthread(self):
-        pass
+        testthread = StbthreadSet()
+        testthread.exec_()
 
     @pyqtSlot()
     def setstress2d(self):
-        pass
+        test2d = Stb2dSet()
+        test2d.exec_()
 
     @pyqtSlot()
     def setstress3d(self):
-        pass
+        test3d = Stb3dSet()
+        test3d.exec_()
 
     # stress-check slot
     @pyqtSlot()
@@ -493,14 +505,14 @@ class TestitemSet(QToolBox):
 
     @pyqtSlot()
     def checkstressio(self):
-        if self.checkbox_stress_list[3].isChecked():
+        if self.checkbox_stress_list[4].isChecked():
             self.addcheck("stressio", "stress_testlists")
         else:
             self.removecheck("stresssystem", "stress_testlists")
 
     @pyqtSlot()
     def checkstressthread(self):
-        if self.checkbox_stress_list[4].isChecked():
+        if self.checkbox_stress_list[3].isChecked():
             self.addcheck("stressthread", "stress_testlists")
         else:
             self.removecheck("stressthread", "stress_testlists")

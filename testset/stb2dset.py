@@ -8,11 +8,11 @@ from PyQt4 import QtGui, QtCore
 from helpinfo import HelpDialog
 from common import *
 
-class StbcpuSet(QDialog):
+class Stb2dSet(QDialog):
 
     def __init__(self, parent=None):
-        super(StbcpuSet, self).__init__(parent)
-        self.setWindowTitle(u"CPU稳定性")
+        super(Stb2dSet, self).__init__(parent)
+        self.setWindowTitle(u"2D图形稳定性")
         self.resize(450, 550)
         palette1 = QtGui.QPalette()
         palette1.setColor(self.backgroundRole(), QColor("#cccddc"))
@@ -25,14 +25,14 @@ class StbcpuSet(QDialog):
         self.initstatus()
     
     def createcheckbox(self):
-        self.checkbox_stressappcpu = QtGui.QCheckBox(u'stressapptest')
-        self.connect(self.checkbox_stressappcpu, QtCore.SIGNAL('clicked()'),
-                     self.Oncheckbox_stressappcpu)
+        self.checkbox_2d = QtGui.QCheckBox(u'x11perf')
+        self.connect(self.checkbox_2d, QtCore.SIGNAL('clicked()'),
+                     self.Oncheckbox_2d)
 
     def createbutton(self):
-        self.stressappcpusetbutton = QtGui.QPushButton(u"参数设置")
-        self.connect(self.stressappcpusetbutton, QtCore.SIGNAL('clicked()'),
-                     self.Onsetstressappcpu)
+        self.setbutton2d = QtGui.QPushButton(u"参数设置")
+        self.connect(self.setbutton2d, QtCore.SIGNAL('clicked()'),
+                     self.Onsetltp)
         self.defaultbutton = QtGui.QPushButton(u"默认")
         self.connect(self.defaultbutton, QtCore.SIGNAL('clicked()'),
                      self.Ondefault)
@@ -48,9 +48,9 @@ class StbcpuSet(QDialog):
     
     def Layout(self):
         baseLayout = QGridLayout()
-        baseLayout.addWidget(self.checkbox_stressappcpu, 0,0)
+        baseLayout.addWidget(self.checkbox_2d, 0,0)
 
-        baseLayout.addWidget(self.stressappcpusetbutton, 0,3)
+        baseLayout.addWidget(self.setbutton2d, 0,3)
         
         footer1Layout = QHBoxLayout()
         acer1 = QtGui.QSpacerItem(30,160)
@@ -71,40 +71,40 @@ class StbcpuSet(QDialog):
         self.setLayout(baseLayout)
 
     def initstatus(self):
-        testargs = self.readsetting("stresscpu-user/")
-        if testargs["stressappcpu"] == "E":
-            self.checkbox_stressappcpu.setChecked(True)
+        testargs = self.readsetting("stress2d-user/")
+        if testargs["x11perfsta"] == "E":
+            self.checkbox_2d.setChecked(True)
    
     def readsetting(self, setmode):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
-        testargs["stressappcpu"] = self.config.value(QString(setmode)
-                                   + "stressappcpu").toString()[0:]
+        testargs["x11perfsta"] = self.config.value(QString(setmode)
+                                   + "x11perfsta").toString()[0:]
         return testargs
 
     def updatesetting(self):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
-        self.config.beginGroup("stresscpu-user")
+        self.config.beginGroup("stress2d-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
 
-    def Oncheckbox_stressappcpu(self):
-        if self.checkbox_stressappcpu.isChecked():
-            self.argstemp["stressappcpu"] = "E"
+    def Oncheckbox_2d(self):
+        if self.checkbox_2d.isChecked():
+            self.argstemp["x11perfsta"] = "E"
         else:
-            self.argstemp["stressappcpu"] = "D"
+            self.argstemp["x11perfsta"] = "D"
 
-    def Onsetstressappcpu(self):
-        setstressappcpu = StressappcpuSet()
-        setstressappcpu.exec_()
+    def Onsetltp(self):
+        set2d = Stress2dSet()
+        set2d.exec_()
        
     def Ondefault(self):
-        defaultset = self.readsetting("stresscpu-default/")
-        if defaultset["stressappcpu"] == "E":
-            self.checkbox_stressappcpu.setChecked(True)
+        defaultset = self.readsetting("stress2d-default/")
+        if defaultset["x11perfsta"] == "E":
+            self.checkbox_2d.setChecked(True)
         else:
-            self.checkbox_stressappcpu.setChecked(False)    
+            self.checkbox_2d.setChecked(False)    
         self.argstemp = defaultset
 
     def Onhelp(self):
@@ -116,16 +116,16 @@ class StbcpuSet(QDialog):
         self.close()
 
     def Onsetall(self):
-        self.checkbox_stressappcpu.setChecked(True)
-        self.argstemp["stressappcpu"] = "E"
+        self.checkbox_2d.setChecked(True)
+        self.argstemp["x11perfsta"] = "E"
 
-# stressapp-cpu测试设置
+# stress2d测试设置
 
-class StressappcpuSet(QDialog):
+class Stress2dSet(QDialog):
     
     def __init__(self, parent=None):
-        super(StressappcpuSet, self).__init__(parent)
-        self.setWindowTitle("stressapptest设置")
+        super(Stress2dSet, self).__init__(parent)
+        self.setWindowTitle("x11perf设置")
         self.resize(450,550)
         palette1 = QtGui.QPalette()
         palette1.setColor(self.backgroundRole(), QColor("#cccddc"))
@@ -141,15 +141,10 @@ class StressappcpuSet(QDialog):
         self.timelabel = QLabel(self.tr("测试时间(hours)"))
         self.timeshow = QLabel("1")
         self.timeshow.setFrameStyle(QFrame.Panel|QFrame.Sunken)
-        self.memlabel = QLabel(self.tr("内存负载(%)"))
-        self.memshow = QLabel("10")
-        self.memshow.setFrameStyle(QFrame.Panel|QFrame.Sunken)
 
     def createbutton(self):
         self.timebutton = QPushButton(u"自定义")
         self.connect(self.timebutton, QtCore.SIGNAL("clicked()"), self.Ontimebutton)
-        self.membutton = QPushButton(u"自定义")
-        self.connect(self.membutton, QtCore.SIGNAL("clicked()"), self.Onmembutton)
         self.helpbutton = QPushButton(u"帮助")
         self.connect(self.helpbutton, QtCore.SIGNAL("clicked()"), self.Onhelpbutton)
         self.defaultbutton = QPushButton(u"默认")
@@ -160,12 +155,9 @@ class StressappcpuSet(QDialog):
     def Layout(self):
         baseLayout = QGridLayout()
         baseLayout.addWidget(self.timelabel, 0,0)
-        baseLayout.addWidget(self.memlabel, 1,0)
         baseLayout.addWidget(self.timeshow, 0,1)
-        baseLayout.addWidget(self.memshow, 1,1)
         
         baseLayout.addWidget(self.timebutton, 0,3)
-        baseLayout.addWidget(self.membutton, 1,3)
 
         footer1Layout = QHBoxLayout()
         acer1 = QtGui.QSpacerItem(30,240)
@@ -185,11 +177,10 @@ class StressappcpuSet(QDialog):
     def initstatus(self):
         testargs = self.readsetting()
         self.timeshow.setText(str(testargs["argt"]))
-        self.memshow.setText(str(testargs["argl"]))
 
     def updatesetting(self):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
-        self.config.beginGroup("stressappcpu-user")
+        self.config.beginGroup("x11perfsta-user")
         for key, value in self.argstemp.iteritems():
             self.config.setValue(key, value)
         self.config.endGroup()
@@ -197,8 +188,7 @@ class StressappcpuSet(QDialog):
     def readsetting(self):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
         testargs = {}
-        testargs["argt"] = self.config.value(QString("stressappcpu-user/") + "argt").toInt()[0]
-        testargs["argl"] = self.config.value(QString("stressappcpu-user/") + "argl").toInt()[0]
+        testargs["argt"] = self.config.value(QString("x11perfsta-user/") + "argt").toInt()[0]
         return testargs
 
     def Ontimebutton(self):
@@ -210,25 +200,14 @@ class StressappcpuSet(QDialog):
             self.timeshow.setText(str(argt))
             self.argstemp['argt'] = str(argt)
 
-    def Onmembutton(self):
-        argl, ok = QInputDialog.getInteger(self, 
-                                        self.tr(u'内存负载'),
-                                        self.tr(u"请输入内存负载百分比:"),
-                                        int(self.memshow.text()), 1, 90)
-        if ok:
-            self.memshow.setText(str(argl))
-            self.argstemp['argl'] = str(argl)
-
     def Onhelpbutton(self):
         helpdialog = HelpSyscpu()
         helpdialog.exec_()
 
     def Ondefaultbutton(self):
         self.config = QSettings(SET_FILE, QSettings.IniFormat)
-        self.argstemp["argt"] = self.config.value(QString("stressappcpu-default/") + "argt").toInt()[0]
-        self.argstemp["argl"] = self.config.value(QString("stressappcpu-default/") + "argl").toInt()[0]
+        self.argstemp["argt"] = self.config.value(QString("x11pefsta-default/") + "argt").toInt()[0]
         self.timeshow.setText(str(self.argstemp["argt"]))
-        self.memshow.setText(str(self.argstemp["argl"]))
 
     def Onsetbutton(self):
         self.updatesetting()

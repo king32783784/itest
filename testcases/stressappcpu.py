@@ -28,6 +28,6 @@ class DoTest(RunTest):
     def _runtest(self):
         print "test is %s" % self.args
         argt = self.args['argt']
-        argl = self.args['argl']
+        argl = float(self.args['argl']) / 100
         cmd = "%s %s" % (argt, argl)
         RunTest._dotest('stressapptest.sh', cmd, 1)

@@ -425,6 +425,15 @@ class Data_Hw(DataCapture):
         return data_hw
 
 
+# 2dsta数据处理
+class Data_X11perfsta(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        data_sw = self.info_search("x11perfsta test(.*?)\n")
+        return data_sw
+
 # sw数据处理
 class Data_Sw(DataCapture):
     pattern_sw = {
@@ -438,15 +447,15 @@ class Data_Sw(DataCapture):
         "xorg": "xorg: (.*?)\n",
         "mesa": "mesa: (.*?)\n",
         "java": "java: (.*?)\n",
-        "browser": "browser: (.*?)\n",  
+        "browser": "browser: (.*?)\n",
         "nbdriver": "nbdriver: (.*?)\n",
         "sbdriver": "sbdriver: (.*?)\n",
         "gfcdriver": "gfcdriver: (.*?)\n",
         "audiodriver": "audiodriver: (.*?)\n",
-        "landriver": "landriver: (.*?)\n",  
+        "landriver": "landriver: (.*?)\n",
         "wlandriver": "wlandriver: (.*?)\n",
         "raiddriver": "raiddriver: (.*?)\n"}
- 
+
     def __init__(self, result_file):
         DataCapture.__init__(self, result_file)
 
@@ -494,7 +503,8 @@ Data_classlist = {'sysbenchcpu': Data_sysbenchcpu,
                   'ubgears': Data_Ubgears,
                   'hw': Data_Hw,
                   'sw': Data_Sw,
-                  'all': Data_All}
+                  'all': Data_All,
+                  'x11perfsta': Data_X11perfsta}
 
 result_filepath = "current-result/"
 

@@ -1413,6 +1413,19 @@ class Create_md_All(Create_md_Info):
     def __init__(self, src_file, result_data):
         Create_md_Info.__init__(self, src_file, result_data, "all")
 
+
+class Create_md_X11perfsta(Create_md_Info):
+    # Hwinfo title 模板
+    md_title_info ="""
+## HardWare&SoftWare information
+"""
+    md_item_info = {
+                'x11perfsta': 'x11perfsta'}
+    md_info_list = ('x11perfsta')
+
+    def __init__(self, src_file, result_data):
+        Create_md_Info.__init__(self, src_file, result_data, "x11perfsta")
+
     
 # html_md处理列表
 Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
@@ -1434,7 +1447,8 @@ Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'ubgears': Create_md_Ubgears,
                 'hw': Create_md_Hw,
                 'sw': Create_md_Sw,
-                'all': Create_md_All}
+                'all': Create_md_All,
+                'x11perfsta': Create_md_X11perfsta}
 
 def mk_html_main(src_file, oslist, itemlist):
     
