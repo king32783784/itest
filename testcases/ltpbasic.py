@@ -3,6 +3,7 @@
     test: stb-cpu&mem
 '''
 import os
+import time
 from runtest import RunTest
 from common import *
 
@@ -30,3 +31,11 @@ class DoTest(RunTest):
         print "test is %s" % self.args
         cmd = "-o runalltest.out -p -l runalltest.log"
         RunTest._dotest('runltp', cmd, 1)
+        time.sleep(10)
+        f = open("/opt/ltp/results/runalltest.log")
+        while 1:
+            lines = f.readlines(10000)
+            if not lines:
+                break
+            for line in lines:
+                print line

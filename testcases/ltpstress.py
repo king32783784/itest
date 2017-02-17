@@ -31,3 +31,4 @@ class DoTest(RunTest):
         argt = self.args["argt"]
         cmd = "-d /tmp/sardate -l /tmp/ltplog -t %s -n -p -S" % argt
         RunTest._dotest('ltpstress.sh', cmd, 1)
+        

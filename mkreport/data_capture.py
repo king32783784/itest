@@ -425,15 +425,6 @@ class Data_Hw(DataCapture):
         return data_hw
 
 
-# 2dsta数据处理
-class Data_X11perfsta(DataCapture):
-    def __init__(self, result_file):
-        DataCapture.__init__(self, result_file)
-
-    def getresultdata(self):
-        data_sw = self.info_search("x11perfsta test(.*?)\n")
-        return data_sw
-
 # sw数据处理
 class Data_Sw(DataCapture):
     pattern_sw = {
@@ -483,6 +474,126 @@ class Data_All(DataCapture):
 
 
 
+# 2dsta数据处理
+class Data_X11perfsta(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        data_x11perfsta = {}
+        data = self.info_search("x11perfsta test(.*?)\n")
+        data_x11perfsta["x11perfsta"] = data
+        return data_x11perfsta
+
+
+# 3dsta数据处理
+class Data_Glmarksta(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        data_glmarksta = {}
+        data = self.info_search("Glmark test is (.*?)\n")
+        data_glmarksta["glmarksta"] = data
+        return data_glmarksta
+
+
+# iozonesta数据处理
+class Data_Iozonesta(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        data_iozonesta = {}
+        data = self.info_search("iozone test is (.*?)\n")
+        data_iozonesta["iozonesta"] = data
+        return data_iozonesta
+
+
+# stress结果处理
+class Data_Stresssta(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        data_stresssta = {}
+        data = self.info_search("stress test is (.*?)\n")
+        data_stresssta["stresssta"] = data
+        return data_stresssta
+
+
+# stressappcpu结果处理
+class Data_Stressappcpu(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+    
+    def getresultdata(self):
+        data_stressappcpu = {}
+        data = self.info_search("The CPU&MEM Stability Test is (.*?)\n")
+        data_stressappcpu["stressappcpu"] = data
+        return data_stressappcpu
+
+
+# stressappmem结果处理
+class Data_Stressappmem(DataCapture):
+    def __init__(self, result_file):
+        DataCapture.__init__(self, result_file)
+
+    def getresultdata(self):
+        data_stressappmem = {}
+        data = self.info_search("The CPU&MEM Stability Test is (.*?)\n")
+        data_stressappmem["stressappmem"] = data
+        return data_stressappmem
+
+# ltpbasic 结果处理
+class Data_Ltpbasic(object):
+    def __init__(self, result_file):
+        pass 
+
+    def getresultdata(self):
+        data_ltpbasic = {}
+        PASSNUM=0
+        FAILNUM=0
+        CONFNUM=0
+        PASSLIST=[]
+        FAILLIST=[]
+        CONFLIST=[]
+        f = open("/opt/ltp/results/runalltest.log")
+        while True:
+            lines = f.readlines(10000)
+            if not lines:
+                break
+            for line in lines:
+                linelist = re.split('\W+', line)
+                if "PASS" in linelist:
+                    PASSNUM += 1
+                    if linelist.index("PASS") == 1:
+                        PASSLIST.append(linelist[0])
+                    else:
+                        index = linelist.index("PASS")
+                        PASSLIST.append('-'.join(linelist[:index]))
+                if "FAIL" in linelist:
+                    FAILNUM +=1
+                    if linelist.index("FAIL") == 1:
+                        FAILLIST.append(linelist[0])
+                    else:
+                        index = linelist.index("FAIL")
+                        FAILLIST.append("-".join(linelist[:index]))
+                if "CONF" in linelist:
+                    CONFNUM += 1
+                    if linelist.index("CONF") == 1:
+                        CONFLIST.append(linelist[0])
+                    else:
+                        index = linelist.index("CONF")
+                        CONFLIST.append("-".join(linelist[:index]))
+        data_ltpbasic["failnum"] = FAILNUM
+        data_ltpbasic["passnum"] = PASSNUM
+        data_ltpbasic["confnum"] = CONFNUM
+        data_ltpbasic["totalnum"] = FAILNUM + PASSNUM + CONFNUM
+        data_ltpbasic["failist"] = FAILLIST
+        data_ltpbasic["conflist"] = CONFLIST
+        return data_ltpbasic
+
 # 数据处理列表
 Data_classlist = {'sysbenchcpu': Data_sysbenchcpu,
                   'sysbenchmem': Data_sysbenchmem,
@@ -504,7 +615,13 @@ Data_classlist = {'sysbenchcpu': Data_sysbenchcpu,
                   'hw': Data_Hw,
                   'sw': Data_Sw,
                   'all': Data_All,
-                  'x11perfsta': Data_X11perfsta}
+                  'x11perfsta': Data_X11perfsta,
+                  'glmarksta': Data_Glmarksta,
+                  'iozonesta': Data_Iozonesta,
+                  'stresssta': Data_Stresssta,
+                  'stressappcpu': Data_Stressappcpu,
+                  'stressappmem': Data_Stressappmem,
+                  'ltpbasic': Data_Ltpbasic}
 
 result_filepath = "current-result/"
 
@@ -523,17 +640,14 @@ def save_current_data():
         data_os_result[testitem] = item_data
         src_file = result_filepath + typelist[0]
     data_os_result["testlist"] = testlist
+    print(data_os_result)
     write_database("test", data_os_result)
 
 
 # test
 # 保存数据
 if __name__ == "__main__": 
-     save_current_data() 
-
-# a = Data_sysbenchcpu("../current-result/performance/sysbenchcpu/result/result.out")
-# data = a.getresultdata()
-# print data
+    save_current_data()
 
 # a = Data_sysbenchmem("../current-result/performance/sysbenchmem/result/result.out")
 # data = a.getresultdata()

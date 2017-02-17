@@ -43,7 +43,6 @@ def getos_common_items(mkoslist):
 # 制作html定制报告
 def mkhtml_custom_report(mkoslist, reportname):
     homepath = getlocatepath()
-    print homepath
     tomakelist = getos_common_items(mkoslist)
     reportpath = os.path.join(homepath, "ReportRepository")
     reportname = str(reportname)

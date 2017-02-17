@@ -31,3 +31,4 @@ class DoTest(RunTest):
         argl = float(self.args['argl']) / 100
         cmd = "%s %s" % (argt, argl)
         RunTest._dotest('stressapptest.sh', cmd, 1)
+        print "stressappptestcpu test finish"

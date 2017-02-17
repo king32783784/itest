@@ -68,7 +68,6 @@ class RunTest(TestSetup, ParameterAnalysis):
             test = Popen(finalcmd, stdout=PIPE, stderr=PIPE, shell=True, preexec_fn=RunTest.restore_signals)
             stdout, stderr = test.communicate()
             print stdout, stderr
-        print("test for run test")
 
     @staticmethod
     def _runtest(executable, cmd, runtimes):

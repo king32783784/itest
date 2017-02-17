@@ -1414,19 +1414,179 @@ class Create_md_All(Create_md_Info):
         Create_md_Info.__init__(self, src_file, result_data, "all")
 
 
-class Create_md_X11perfsta(Create_md_Info):
-    # Hwinfo title 模板
-    md_title_info ="""
-## HardWare&SoftWare information
+class Create_md_Stress(Create_Md):
+    def __init__(self, src_file, result_data, item):
+        Create_Md.__init__(self, src_file)
+        self.result_data = result_data
+        self.item = item
+
+    def mk_md_item(self, oslist):
+        itemlist = map(self.joinstar, oslist)
+        md_item_title = ' | '.join(itemlist)
+        md_item_title = '*项目* | ' + md_item_title
+        self.file_write(self.src_file, md_item_title)
+        table_line = '---------- |'
+        for item in itemlist:
+            table_line += ' ----------- |'
+        self.file_write(self.src_file, table_line)
+
+    def mk_md_data(self, data_info):
+        compare_list = ' | '.join(data_info)
+        compare_list = '%s | ' % self.item +  compare_list
+        self.file_write(self.src_file, compare_list)
+
+    def mkmd_data(self):
+        data_stress_list=[]
+        for osname in self.oslist:
+            data_stress_list.append(self.result_data[osname][self.item][self.item][0])
+        return data_stress_list
+
+    def mkmd_stress(self):
+        self.mk_md_title(self.md_title_stress)
+        self.mk_md_item(self.oslist)
+        data_info = self.mkmd_data()
+        self.mk_md_data(data_info)
+
+    def create_md(self):
+        self.oslist = self.result_data["oslist"]
+        self.mkmd_stress()
+
+
+class Create_md_X11perfsta(Create_md_Stress):
+    md_title_stress ="""
+## 2D Stress - X11perf Test Result
 """
-    md_item_info = {
-                'x11perfsta': 'x11perfsta'}
-    md_info_list = ('x11perfsta')
+    def __init__(self, src_file, result_data):
+        Create_md_Stress.__init__(self, src_file, result_data, "x11perfsta")
+
+
+class Create_md_Glmarksta(Create_md_Stress):
+    md_title_stress = """
+## 3D Stress - Glmark Test Result
+"""
 
     def __init__(self, src_file, result_data):
-        Create_md_Info.__init__(self, src_file, result_data, "x11perfsta")
+        Create_md_Stress.__init__(self, src_file, result_data, "glmarksta")
 
-    
+
+class Create_md_Iozonesta(Create_md_Stress):
+    md_title_stress = """
+## IO Stress - Iozone Test Result
+"""
+
+    def __init__(self, src_file, result_data):
+        Create_md_Stress.__init__(self, src_file, result_data, "iozonesta")
+
+
+class Create_md_Stresssta(Create_md_Stress):
+    md_title_stress = """
+## Thread Stress - Stress Test Result
+"""
+
+    def __init__(self, src_file, result_data):
+        Create_md_Stress.__init__(self, src_file, result_data, "stresssta")
+
+
+class Create_md_Stressappcpu(Create_md_Stress):
+    md_title_stress = """
+## CPU stress - Stressapptest Test Result
+"""
+
+    def __init__(self, src_file, result_data):
+        Create_md_Stress.__init__(self, src_file, result_data, "stressappcpu")
+
+
+class Create_md_Stressappmem(Create_md_Stress):
+    md_title_stress = """
+## MEM stress - Stressapptest Test Result
+"""
+
+    def __init__(self, src_file, result_data):
+        Create_md_Stress.__init__(self, src_file, result_data, "stressappmem")
+
+
+class Create_md_Ltpbasic(Create_Md):
+    md_title_ltpbasic = """
+## System function - Ltp Test Result
+"""
+    md_title_total = """
+### Ltp Case Status
+"""
+    md_title_fail = """
+### Fail Case List
+"""
+    md_title_conf = """
+### Conf Case List
+"""
+    casenum = ('Total Case', 'Pass Case', 'Fail Case', 'Conf Case')
+    casenumlist = {'Total Case': 'totalnum',
+                   'Pass Case': 'passnum',
+                   'Fail Case': 'failnum',
+                   'Conf Case': 'confnum'}
+ 
+    def __init__(self, src_file, result_data):
+        Create_Md.__init__(self, src_file)
+        self.result_data = result_data
+
+    def mk_md_status(self, oslist):
+        itemlist = map(self.joinstar, oslist)
+        md_item_title = ' | '.join(itemlist)
+        md_item_title = '*系统* | ' + md_item_title
+        self.file_write(self.src_file, md_item_title)
+        table_line = '---------- |'
+        for item in itemlist:
+            table_line += ' ----------- |'
+        self.file_write(self.src_file, table_line)
+
+    def mk_md_data(self, data_info, itemname):
+        compare_list = ' | '.join(data_info)
+        compare_list = '%s | ' % itemname +  compare_list
+        self.file_write(self.src_file, compare_list)
+
+    def mkmd_data(self, typestatus):
+        data_ltp_list=[]
+        for osname in self.oslist:
+            data_ltp_list.append(str(self.result_data[osname]['ltpbasic'][typestatus]))
+        return data_ltp_list
+
+    def mk_md_case(self, comparelist, num):
+        compare_list = ' | '.join(comparelist)
+        compare_list = '%s | ' % num + compare_list
+        self.file_write(self.src_file, compare_list)
+
+    def mkmd_caselist(self, casetype):
+        caselistmax = 0
+        case_list = []
+        for osname in self.oslist:
+            caselisttmp = len(self.result_data[osname]['ltpbasic'][casetype])
+            if caselisttmp > caselistmax:
+                caselistmax = caselisttmp
+        for i in xrange(caselistmax):
+             for osname in self.oslist:
+                 case_list.append(self.result_data[osname]['ltpbasic'][casetype][i])
+             self.mk_md_case(case_list, i)
+             case_list = []
+
+    def mkmd_ltp(self):
+        self.mk_md_title(self.md_title_ltpbasic)
+        self.mk_md_title(self.md_title_total)
+        self.mk_md_item(self.oslist)
+        for item in self.casenum:
+            data_info = self.mkmd_data(self.casenumlist[item])
+            self.mk_md_data(data_info, item)
+        self.mk_md_title(self.md_title_fail)
+        self.mk_md_item(self.oslist)
+        self.mkmd_caselist('failist')
+        self.mk_md_title(self.md_title_conf)
+        self.mk_md_item(self.oslist)
+        self.mkmd_caselist('conflist')
+
+    def create_md(self):
+        self.oslist = self.result_data["oslist"]
+        self.mkmd_ltp()
+
+
+
 # html_md处理列表
 Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'sysbenchmem': Create_md_Sysbenchmem,
@@ -1448,7 +1608,14 @@ Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'hw': Create_md_Hw,
                 'sw': Create_md_Sw,
                 'all': Create_md_All,
-                'x11perfsta': Create_md_X11perfsta}
+                'x11perfsta': Create_md_X11perfsta,
+                'glmarksta': Create_md_Glmarksta,
+                'iozonesta': Create_md_Iozonesta,
+                'stresssta': Create_md_Stresssta,
+                'stressappcpu': Create_md_Stressappcpu,
+                'stressappmem': Create_md_Stressappmem,
+                'ltpbasic': Create_md_Ltpbasic }
+
 
 def mk_html_main(src_file, oslist, itemlist):
     
@@ -1465,6 +1632,7 @@ def mk_html_main(src_file, oslist, itemlist):
         tmp_data = read_database(osname)
         os_result_data[osname] = tmp_data
     os_result_data["oslist"] = oslist
+#    print os_result_data
     for item in itemlist:
         Create_Md = Md_classlist[item]    
         result_md = Create_Md(src_file, os_result_data)
@@ -1479,4 +1647,4 @@ def mk_html_main(src_file, oslist, itemlist):
         print >>sys.stderr, "Execution failed:", e      
 
 # test 生成html报告
-# mk_html_main("current-report/test.md", ["test"], ["glmark", "qtperf", "ubgears", "x11perf"])
+#mk_html_main("current-report/test.md", ["test"], ["stresssta"])
