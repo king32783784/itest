@@ -545,6 +545,51 @@ class Data_Stressappmem(DataCapture):
         data_stressappmem["stressappmem"] = data
         return data_stressappmem
 
+
+class Data_Ltpstress(object):
+
+    def __init__(self, result_file):
+        pass
+
+    def getresultdata(self):
+        data_ltpstress = {}
+        PASSNUM = 0
+        FAILNUM = 0
+        CONFNUM = 0
+        FAILLIST = []
+        CONFLIST = []
+        f = open("/opt/ltp/results/ltp.log")
+        while True:
+            lines = f.readlines(1000000)
+            if not lines:
+                break
+            for line in lines:
+                linelist = re.split('\W+', line)
+                if "PASS" in linelist:
+                    PASSNUM += 1
+                if "FAIL" in linelist:
+                    FAILNUM +=1
+                    if linelist.index("FAIL") == 1:
+                        FAILLIST.append(linelist[0])
+                    else:
+                        index = linelist.index("FAIL")
+                        FAILLIST.append("-".join(linelist[:index]))
+                if "CONF" in linelist:
+                    CONFNUM += 1
+                    if linelist.index("CONF") == 1:
+                        CONFLIST.append(linelist[0])
+                    else:
+                        index = linelist.index("CONF")
+                        CONFLIST.append("-".join(linelist[:index]))
+        data_ltpstress["failnum"] = FAILNUM
+        data_ltpstress["passnum"] = PASSNUM
+        data_ltpstress["confnum"] = CONFNUM
+        data_ltpstress["totalnum"] = FAILNUM + PASSNUM + CONFNUM
+        data_ltpstress["failist"] = FAILLIST
+        data_ltpstress["conflist"] = CONFLIST
+        return data_ltpstress
+                        
+
 # ltpbasic 结果处理
 class Data_Ltpbasic(object):
     def __init__(self, result_file):
@@ -621,7 +666,8 @@ Data_classlist = {'sysbenchcpu': Data_sysbenchcpu,
                   'stresssta': Data_Stresssta,
                   'stressappcpu': Data_Stressappcpu,
                   'stressappmem': Data_Stressappmem,
-                  'ltpbasic': Data_Ltpbasic}
+                  'ltpbasic': Data_Ltpbasic,
+                  'ltpstress': Data_Ltpstress}
 
 result_filepath = "current-result/"
 

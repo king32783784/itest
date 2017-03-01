@@ -1505,28 +1505,12 @@ class Create_md_Stressappmem(Create_md_Stress):
         Create_md_Stress.__init__(self, src_file, result_data, "stressappmem")
 
 
-class Create_md_Ltpbasic(Create_Md):
-    md_title_ltpbasic = """
-## System function - Ltp Test Result
-"""
-    md_title_total = """
-### Ltp Case Status
-"""
-    md_title_fail = """
-### Fail Case List
-"""
-    md_title_conf = """
-### Conf Case List
-"""
-    casenum = ('Total Case', 'Pass Case', 'Fail Case', 'Conf Case')
-    casenumlist = {'Total Case': 'totalnum',
-                   'Pass Case': 'passnum',
-                   'Fail Case': 'failnum',
-                   'Conf Case': 'confnum'}
+class Create_md_Ltp(Create_Md):
  
-    def __init__(self, src_file, result_data):
+    def __init__(self, src_file, result_data, ltptype):
         Create_Md.__init__(self, src_file)
         self.result_data = result_data
+        self.ltptype = ltptype
 
     def mk_md_status(self, oslist):
         itemlist = map(self.joinstar, oslist)
@@ -1546,7 +1530,7 @@ class Create_md_Ltpbasic(Create_Md):
     def mkmd_data(self, typestatus):
         data_ltp_list=[]
         for osname in self.oslist:
-            data_ltp_list.append(str(self.result_data[osname]['ltpbasic'][typestatus]))
+            data_ltp_list.append(str(self.result_data[osname][self.ltptype][typestatus]))
         return data_ltp_list
 
     def mk_md_case(self, comparelist, num):
@@ -1558,17 +1542,17 @@ class Create_md_Ltpbasic(Create_Md):
         caselistmax = 0
         case_list = []
         for osname in self.oslist:
-            caselisttmp = len(self.result_data[osname]['ltpbasic'][casetype])
+            caselisttmp = len(self.result_data[osname][self.ltptype][casetype])
             if caselisttmp > caselistmax:
                 caselistmax = caselisttmp
         for i in xrange(caselistmax):
              for osname in self.oslist:
-                 case_list.append(self.result_data[osname]['ltpbasic'][casetype][i])
+                 case_list.append(self.result_data[osname][self.ltptype][casetype][i])
              self.mk_md_case(case_list, i)
              case_list = []
 
     def mkmd_ltp(self):
-        self.mk_md_title(self.md_title_ltpbasic)
+        self.mk_md_title(self.md_title_ltp)
         self.mk_md_title(self.md_title_total)
         self.mk_md_item(self.oslist)
         for item in self.casenum:
@@ -1581,9 +1565,61 @@ class Create_md_Ltpbasic(Create_Md):
         self.mk_md_item(self.oslist)
         self.mkmd_caselist('conflist')
 
-    def create_md(self):
+    def create(self):
         self.oslist = self.result_data["oslist"]
         self.mkmd_ltp()
+
+
+class Create_md_Ltpbasic(Create_md_Ltp):
+    md_title_ltp = """
+## System function - Ltp Test Result
+"""
+    md_title_total = """
+### Ltp Case Status
+"""
+    md_title_fail = """
+### Fail Case List
+"""
+    md_title_conf = """
+### Conf Case List
+"""
+    casenum = ('Total Case', 'Pass Case', 'Fail Case', 'Conf Case')
+    casenumlist = {'Total Case': 'totalnum',
+                   'Pass Case': 'passnum',
+                   'Fail Case': 'failnum',
+                   'Conf Case': 'confnum'}
+
+    def __init__(self, src_file, result_data):
+        Create_md_Ltp.__init__(self, src_file, result_data, "ltpbasic")
+
+    def create_md(self):
+        self.create()
+
+
+class Create_md_Ltpstress(Create_md_Ltp):
+    md_title_ltp = """
+## System Stress- Ltp Test Result
+"""
+    md_title_total = """
+### Ltp Case Status
+"""
+    md_title_fail = """
+### Fail Case List
+"""
+    md_title_conf = """
+### Conf Case List
+"""
+    casenum = ('Total Case', 'Pass Case', 'Fail Case', 'Conf Case')
+    casenumlist = {'Total Case': 'totalnum',
+                   'Pass Case': 'passnum',
+                   'Fail Case': 'failnum',
+                   'Conf Case': 'confnum'}
+
+    def __init__(self, src_file, result_data):
+        Create_md_Ltp.__init__(self, src_file, result_data, "ltpstress")
+
+    def create_md(self):
+        self.create()
 
 
 
@@ -1614,7 +1650,8 @@ Md_classlist = {'sysbenchcpu': Create_md_Sysbenchcpu,
                 'stresssta': Create_md_Stresssta,
                 'stressappcpu': Create_md_Stressappcpu,
                 'stressappmem': Create_md_Stressappmem,
-                'ltpbasic': Create_md_Ltpbasic }
+                'ltpbasic': Create_md_Ltpbasic,
+                'ltpstress': Create_md_Ltpstress}
 
 
 def mk_html_main(src_file, oslist, itemlist):
