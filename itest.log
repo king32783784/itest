@@ -1,0 +1,9 @@
+2017-03-01 16:59:56,924 - itest - INFO - test start
+2017-03-01 16:59:56,924 - itest - INFO - This time test is sysbenchcpu
+2017-03-01 16:59:56,925 - itest - INFO - {'result': '/home/isoft_lp/Github/Project/itest/current-result/performance/sysbenchcpu/result'}
+2017-03-01 16:59:56,925 - itest - INFO - {'debug': '/home/isoft_lp/Github/Project/itest/current-result/performance/sysbenchcpu/debug', 'result': '/home/isoft_lp/Github/Project/itest/current-result/performance/sysbenchcpu/result'}
+2017-03-01 17:02:31,544 - itest - INFO - result check
+2017-03-09 08:03:03,336 - itest - INFO - test start
+2017-03-09 08:03:03,344 - itest - INFO - This time test is stress
+2017-03-09 08:03:03,356 - itest - INFO - {'result': '/home/isoft_lp/Github/Project/itest/current-result/stress/stress/result'}
+2017-03-09 08:03:03,356 - itest - INFO - {'debug': '/home/isoft_lp/Github/Project/itest/current-result/stress/stress/debug', 'result': '/home/isoft_lp/Github/Project/itest/current-result/stress/stress/result'}

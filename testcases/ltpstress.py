@@ -29,8 +29,9 @@ class DoTest(RunTest):
         os.chdir("/opt/ltp/testscripts/")
         print "test is %s" % self.args
         argt = self.args["argt"]
-        cmd = "-l /opt/ltp/result/ltplog -t %s -n -p" % argt
+        cmd = "-l /opt/ltp/ltp.log -t %s -n -p" % argt
         RunTest._dotest('ltpstress.sh', cmd, 1)
+        f = open("/opt/ltp/ltp.log")
         while 1:
             lines = f.readlines(100000000)
             if not lines:

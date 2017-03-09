@@ -558,7 +558,7 @@ class Data_Ltpstress(object):
         CONFNUM = 0
         FAILLIST = []
         CONFLIST = []
-        f = open("/opt/ltp/results/ltp.log")
+        f = open("/opt/ltp/ltp.log")
         while True:
             lines = f.readlines(1000000)
             if not lines:

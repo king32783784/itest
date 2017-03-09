@@ -1,0 +1,18 @@
+-*.html
+ -*.pyc
+ -current-report
+ -current-result
+ -DataRepository
+ -testtool
+ -tmp
+ -ReportRepository
+ -*.xlsx
+ -*.swap
+ -*.out
+ -*.md
+ -*.swp
+ -*.log
+ -mkreport/result.db
+ -mkreport/common.py
+ -mkreport/logging_config.py
+ -mkreport/.tempseting.ini
